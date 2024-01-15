@@ -4,6 +4,7 @@ const app = express()
 const port = process.env.PORT || 3000
 const route = require("./routers/client/index.route")
 
+app.use(express.static("public"))
 app.set('views', "./views")
 app.set("view engine", "pug")
 
