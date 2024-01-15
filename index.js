@@ -1,6 +1,7 @@
 const express = require('express')
+require('dotenv').config()
 const app = express()
-const port = 4000
+const port = process.env.PORT || 3000
 const route = require("./routers/client/index.route")
 
 app.set('views', "./views")
