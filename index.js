@@ -3,6 +3,7 @@ const mongoose = require("mongoose")
 require('dotenv').config()
 
 const route = require("./routers/client/index.route");
+const routeAdmin = require("./routers/admin/index.route");
 const connectDB = require('./config/db')
 
 // // connect db
@@ -18,6 +19,7 @@ app.use(express.static("public"))
 
 // Routes
 route(app)
+routeAdmin(app)
 
 app.listen(port, () => {
   console.log('listening on port', port)
