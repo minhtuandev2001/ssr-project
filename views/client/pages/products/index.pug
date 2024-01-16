@@ -7,12 +7,13 @@ block main
         .box-head 
           h2.inner-title Danh sach san pham 
     .row 
-      .col-4.mb-3
-        div(class="product--item")
-          div(class="product--item--image")
-            img(src="https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-15-plus_1__1.png" alt="")
-          div(class="product--item--content")
-            h3(class="content__title") iphone 9
-            p(class="content__price--new") price new : 80$
-            p(class="content__price--old") price old : 100$
-            span(class="content__discount") discount : 20%
+      each product in products 
+        .col-3.mb-3
+          div(class="product--item")
+            div(class="product--item--image")
+              img(src=product.thumbnail alt=product.title)
+            div(class="product--item--content")
+              h3(class="content__title") #{product.title}
+              p(class="content__price--new") price new : #{product.priceNew}$
+              p(class="content__price--old") price old : #{product.price}$
+              span(class="content__discount") discount : -#{product.discountPercentage}%

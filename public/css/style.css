@@ -87,8 +87,8 @@ p {
 .content__discount {
   font-weight: 400;
   font-size: 1.4rem;
-  background-color: #1a94ff;
+  background-color: #dd0303;
   padding: 4px;
-  border-radius: 2px;
+  border-radius: 5px;
   color: #fff;
 }
