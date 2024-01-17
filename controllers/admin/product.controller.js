@@ -18,10 +18,11 @@ const index = async (req, res) => {
       class: ""
     },
   ]
-  const { status } = req.query
+  const { status, keyword } = req.query
   const find = {
     deleted: false
   }
+  console.log(status, keyword)
   if (status) {
     filterStatus.forEach(item => {
       if (item.status === status) {

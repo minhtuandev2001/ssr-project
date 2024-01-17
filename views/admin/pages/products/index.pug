@@ -5,10 +5,17 @@ block main
   .card.mb-3
     .card-header Bộ lọc và Tìm kiếm
     .card-body
-      div(class="filter__actions")
-        each item in filterStatus
-          button(class=`btn btn-outline-success btn-lg ${item.class}` button-status=`${item.status}`) #{item.name}
-
+      .row
+        .col-6
+          div(class="filter__actions")
+            each item in filterStatus
+              button(class=`btn btn-outline-success btn-lg ${item.class}` button-status=`${item.status}`) #{item.name}
+        .col-6
+          form(id="form-search")
+            .input-group.mb-3.input-group-lg
+              input(class="form-control" type="text" placeholder="search.." name="keyword")
+              div(class="input-group-append")
+                button(class="btn btn-success" type="submit") Search
   .card
     .card-header Danh sách
       .card-body 
