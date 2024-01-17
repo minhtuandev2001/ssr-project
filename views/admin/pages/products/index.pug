@@ -2,29 +2,38 @@ extends ../../layouts/default.pug
 
 block main 
   h1 Danh sách sản phẩm
+  .card.mb-3
+    .card-header Bộ lọc và Tìm kiếm
+    .card-body
+      div(class="filter__actions")
+        each item in filterStatus
+          button(class=`btn btn-outline-success btn-lg ${item.class}` button-status=`${item.status}`) #{item.name}
 
-  table(class="table table-hover table-sm table--product")
-    thead 
-      tr
-        th STT
-        th Hình Ảnh
-        th Tiêu Đề
-        th Giá
-        th Trạng Thái
-        th Hành Động
-    tbody
-      each item,index in products
-        tr(class="product--item")
-          td #{index+1}
-          td
-            img(src=item.thumbnail alt=item.title style="width: 100px; height: 60px; border-radius: 5px")
-          td #{item.title}
-          td #{item.price} $
-          td
-            if item.status === "active"
-              span(style="padding: 3px; background-color: #62e7a9; border-radius: 5px; color: #fff; font-weight: bold") Hoạt động
-            else 
-              span(style="padding: 3px; background-color: #dd0303; border-radius: 5px; color: #fff; font-weight: bold") Không Hoạt động
-          td
-            button(type="button" class="btn btn-warning btn-lg" style="margin-right: 10px") Sửa
-            button(type="button" class="btn btn-danger btn-lg") Xóa
+  .card
+    .card-header Danh sách
+      .card-body 
+        table(class="table table-hover table-sm table--product")
+          thead 
+            tr
+              th STT
+              th Hình Ảnh
+              th Tiêu Đề
+              th Giá
+              th Trạng Thái
+              th Hành Động
+          tbody
+            each item,index in products
+              tr(class="product--item")
+                td #{index+1}
+                td
+                  img(src=item.thumbnail alt=item.title style="width: 100px; height: 60px; border-radius: 5px")
+                td #{item.title}
+                td #{item.price} $
+                td
+                  if item.status === "active"
+                    span(style="padding: 3px; background-color: #62e7a9; border-radius: 5px; color: #fff; font-weight: bold") Hoạt động
+                  else 
+                    span(style="padding: 3px; background-color: #dd0303; border-radius: 5px; color: #fff; font-weight: bold") Không Hoạt động
+                td
+                  button(type="button" class="btn btn-warning btn-lg" style="margin-right: 10px") Sửa
+                  button(type="button" class="btn btn-danger btn-lg") Xóa

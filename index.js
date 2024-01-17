@@ -20,7 +20,7 @@ app.set("view engine", "pug")
 app.locals.prefixAdmin = systemConfig.prefixAdmin
 
 app.use(express.static("public"))
-
+app.use(express.json())
 // Routes
 route(app)
 routeAdmin(app)
