@@ -3,7 +3,7 @@ const Product = require("../../../models/product.model")
 const index = async (req, res) => {
   try {
     const data = await Product.find({
-      status: "active",
+      // status: "active",
       deleted: false
     })
     const newProduct = data.map(item => {

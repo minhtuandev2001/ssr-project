@@ -18,26 +18,35 @@ const index = async (req, res) => {
       class: ""
     },
   ]
-  const { status, keyword } = req.query
   const find = {
-    deleted: false
+    deleted: false,
   }
-  console.log(status, keyword)
-  if (status) {
+  if (req.query.status) {
     filterStatus.forEach(item => {
-      if (item.status === status) {
+      if (item.status === req.query.status) {
         item.class = "active"
       } else {
         item.class = ""
       }
     })
   }
-  if (status) {
-    find.status = status
+  if (req.query.status) {
+    find.status = req.query.status
+  }
+  let keyword = "";
+  if (req.query.keyword) {
+    keyword = req.query.keyword
+    const regex = new RegExp(keyword, "i")
+    find.title = regex
   }
   try {
     const data = await Product.find(find)
-    res.render("admin/pages/products/index", { titlePage: "admin products", products: data, filterStatus: filterStatus })
+    res.render("admin/pages/products/index", {
+      titlePage: "admin products",
+      products: data,
+      filterStatus: filterStatus,
+      keyword: keyword
+    })
   } catch (error) {
     console.log(error)
     res.status(500).json({ message: error })
