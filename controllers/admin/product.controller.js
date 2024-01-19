@@ -1,6 +1,7 @@
 const Product = require("../../models/product.model")
 const filterStatusHelper = require("../../utils/filterStatus")
 const searchHelper = require("../../utils/search")
+const paginationHelper = require("../../utils/pagination")
 
 const index = async (req, res) => {
   // Bộ lọc 
@@ -18,20 +19,16 @@ const index = async (req, res) => {
     find.title = objectSearch.regex
   }
   // phân trang
-  const objectPagination = {
-    currentPage: 1,
-    limit: 4
-  }
-  if (req.query.page) {
-    objectPagination.currentPage = Number(req.query.page)
-  }
-  objectPagination.skip = (objectPagination.currentPage - 1) * 4
-
+  const countProducts = await Product.countDocuments(find)
+  const objectPagination = paginationHelper(
+    {
+      currentPage: 1,
+      limit: 4
+    },
+    req.query,
+    countProducts,
+  )
   try {
-    const countProducts = await Product.countDocuments(find)
-    const totalPage = Math.ceil(countProducts / 4)
-    objectPagination.totalPage = totalPage
-
     const data = await Product.find(find).limit(objectPagination.limit).skip(objectPagination.skip)
     res.render("admin/pages/products/index", {
       titlePage: "admin products",
