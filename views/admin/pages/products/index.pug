@@ -1,4 +1,5 @@
 extends ../../layouts/default.pug
+include ../../mixin/filterStatus.pug
 
 block main 
   h1 Danh sách sản phẩm
@@ -8,8 +9,7 @@ block main
       .row
         .col-6
           div(class="filter__actions")
-            each item in filterStatus
-              button(class=`btn btn-outline-success btn-lg ${item.class}` button-status=`${item.status}`) #{item.name}
+            +filterStatus(filterStatus)
         .col-6
           form(id="form-search")
             .input-group.mb-3.input-group-lg
