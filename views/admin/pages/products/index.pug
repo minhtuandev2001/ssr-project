@@ -1,5 +1,6 @@
 extends ../../layouts/default.pug
 include ../../mixin/filterStatus.pug
+include ../../mixin/search.pug
 
 block main 
   h1 Danh sách sản phẩm
@@ -11,15 +12,7 @@ block main
           div(class="filter__actions")
             +filterStatus(filterStatus)
         .col-6
-          form(id="form-search")
-            .input-group.mb-3.input-group-lg
-              input(class="form-control" 
-              type="text" 
-              placeholder="search.." 
-              name="keyword" 
-              value=keyword)
-              div(class="input-group-append")
-                button(class="btn btn-success" type="submit") Search
+          +search("keyword",keyword)
   .card
     .card-header Danh sách
       .card-body 

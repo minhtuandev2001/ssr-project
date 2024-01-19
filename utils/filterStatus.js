@@ -1,4 +1,3 @@
-
 module.exports = (query) => {
   let filterStatus = [
     {
@@ -17,12 +16,14 @@ module.exports = (query) => {
       class: ""
     },
   ]
-  filterStatus.forEach(item => {
-    if (item.status === query.status) {
-      item.class = "active"
-    } else {
-      item.class = ""
-    }
-  })
+  if (query.status) {
+    filterStatus.forEach(item => {
+      if (item.status === query.status) {
+        item.class = "active"
+      } else {
+        item.class = ""
+      }
+    })
+  }
   return filterStatus
 }

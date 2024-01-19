@@ -1,5 +1,6 @@
 const Product = require("../../models/product.model")
 const filterStatusHelper = require("../../utils/filterStatus")
+const searchHelper = require("../../utils/search")
 
 const index = async (req, res) => {
   // Bộ lọc 
@@ -11,19 +12,19 @@ const index = async (req, res) => {
   if (req.query.status) {
     find.status = req.query.status
   }
-  let keyword = "";
-  if (req.query.keyword) {
-    keyword = req.query.keyword
-    const regex = new RegExp(keyword, "i")
-    find.title = regex
+  // Tìm kiếm
+  const objectSearch = searchHelper(req.query)
+  if (objectSearch.regex) {
+    find.title = objectSearch.regex
   }
+
   try {
     const data = await Product.find(find)
     res.render("admin/pages/products/index", {
       titlePage: "admin products",
       products: data,
       filterStatus: filterStatus,
-      keyword: keyword
+      keyword: objectSearch.keyword
     })
   } catch (error) {
     console.log(error)
