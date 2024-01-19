@@ -17,14 +17,28 @@ const index = async (req, res) => {
   if (objectSearch.regex) {
     find.title = objectSearch.regex
   }
+  // phân trang
+  const objectPagination = {
+    currentPage: 1,
+    limit: 4
+  }
+  if (req.query.page) {
+    objectPagination.currentPage = Number(req.query.page)
+  }
+  objectPagination.skip = (objectPagination.currentPage - 1) * 4
 
   try {
-    const data = await Product.find(find)
+    const countProducts = await Product.countDocuments(find)
+    const totalPage = Math.ceil(countProducts / 4)
+    objectPagination.totalPage = totalPage
+
+    const data = await Product.find(find).limit(objectPagination.limit).skip(objectPagination.skip)
     res.render("admin/pages/products/index", {
       titlePage: "admin products",
       products: data,
       filterStatus: filterStatus,
-      keyword: objectSearch.keyword
+      keyword: objectSearch.keyword,
+      pagination: objectPagination
     })
   } catch (error) {
     console.log(error)
