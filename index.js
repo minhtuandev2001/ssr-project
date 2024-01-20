@@ -1,5 +1,5 @@
 const express = require('express')
-const mongoose = require("mongoose")
+var methodOverride = require('method-override')
 require('dotenv').config()
 
 const route = require("./routers/client/index.route");
@@ -19,6 +19,7 @@ app.set("view engine", "pug")
 // App locals variables
 app.locals.prefixAdmin = systemConfig.prefixAdmin
 
+app.use(methodOverride('_method')) // ghi đè method
 app.use(express.static("public"))
 app.use(express.json())
 // Routes

@@ -36,10 +36,31 @@ block main
                 td #{item.price} $
                 td
                   if item.status === "active"
-                    span(style="padding: 3px; background-color: #62e7a9; border-radius: 5px; color: #fff; font-weight: bold") Hoạt động
+                    a(
+                      href="javascript:;"
+                      class="badge badge-success badge-lg" 
+                      data-status=item.status
+                      data-id=item.id
+                      button-change-status
+                      id=item.id
+                      ) Hoạt động
                   else 
-                    span(style="padding: 3px; background-color: #dd0303; border-radius: 5px; color: #fff; font-weight: bold") Không Hoạt động
+                    a(
+                    href="javascript:;"
+                    class="badge badge-danger badge-lg" 
+                    data-status=item.status
+                    data-id=item.id
+                    button-change-status
+                    id=item.id
+                    ) Không Hoạt động
                 td
                   button(type="button" class="btn btn-warning btn-lg" style="margin-right: 10px") Sửa
                   button(type="button" class="btn btn-danger btn-lg") Xóa
   +pagination(pagination)
+  form(
+    action=""
+    method="POST"
+    id="form-change-status"
+    data-path=`${prefixAdmin}/products/change-status`
+  )
+  script(src="/admin/js/products.js") 

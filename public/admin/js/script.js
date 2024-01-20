@@ -8,6 +8,7 @@ if (buttonStatus.length > 0) {
       console.log(status)
       if (status) {
         url.searchParams.set("status", status)
+        url.searchParams.delete("page")
       } else {
         url.searchParams.delete("status")
       }
@@ -16,6 +17,8 @@ if (buttonStatus.length > 0) {
     })
   })
 }
+// end button status
+// search products
 const formSearch = document.querySelector("#form-search")
 console.log(formSearch)
 if (formSearch) {
@@ -31,6 +34,8 @@ if (formSearch) {
     window.location.href = url.href
   })
 }
+// end search products
+// pagination
 const buttonPagination = document.querySelectorAll("[button-pagination]")
 if (buttonPagination) {
   let url = new URL(window.location.href);
@@ -42,6 +47,7 @@ if (buttonPagination) {
     })
   })
 }
+// end pagination
 // let v = [
 //   {
 //     "id": 1,

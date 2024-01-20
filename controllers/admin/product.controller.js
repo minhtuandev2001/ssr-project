@@ -2,7 +2,9 @@ const Product = require("../../models/product.model")
 const filterStatusHelper = require("../../utils/filterStatus")
 const searchHelper = require("../../utils/search")
 const paginationHelper = require("../../utils/pagination")
+const { response } = require("express")
 
+// [GET] /admin/products
 const index = async (req, res) => {
   // Bộ lọc 
   let filterStatus = filterStatusHelper(req.query)
@@ -43,6 +45,21 @@ const index = async (req, res) => {
   }
 }
 
+// [GET] /admin/products/change-status/:status/:id
+const changeStatus = async (req, res) => {
+  const { status, id } = req.params;
+  try {
+    const ivalidProduct = await Product.findById(id)
+    if (!ivalidProduct) {
+      res.send("san pham ko ton tai")
+    }
+    await Product.updateOne({ _id: id }, { status: status })
+    res.redirect("back")
+  } catch (error) {
+    res.status(500).json({ message: error })
+  }
+}
 module.exports = {
-  index
+  index,
+  changeStatus
 }
