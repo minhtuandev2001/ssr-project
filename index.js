@@ -22,6 +22,7 @@ app.locals.prefixAdmin = systemConfig.prefixAdmin
 app.use(methodOverride('_method')) // ghi đè method
 app.use(express.static("public"))
 app.use(express.json())
+app.use(express.urlencoded())
 // Routes
 route(app)
 routeAdmin(app)

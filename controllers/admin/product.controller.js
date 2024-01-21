@@ -45,7 +45,7 @@ const index = async (req, res) => {
   }
 }
 
-// [GET] /admin/products/change-status/:status/:id
+// [PATCH] /admin/products/change-status/:status/:id
 const changeStatus = async (req, res) => {
   const { status, id } = req.params;
   try {
@@ -59,7 +59,20 @@ const changeStatus = async (req, res) => {
     res.status(500).json({ message: error })
   }
 }
+// [PATCH] /admin/change-multi
+const changeMultiStatus = async (req, res) => {
+  const type = req.body.type
+  const ids = req.body.ids.split(', ')
+
+  try {
+    await Product.updateMany({ _id: { $in: ids } }, { status: type })
+    res.redirect("back")
+  } catch (error) {
+    res.status(500).json({ message: error })
+  }
+}
 module.exports = {
   index,
-  changeStatus
+  changeStatus,
+  changeMultiStatus
 }
