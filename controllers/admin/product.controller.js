@@ -71,8 +71,20 @@ const changeMultiStatus = async (req, res) => {
     res.status(500).json({ message: error })
   }
 }
+// [DELETE] /admin/delete/:id 
+const deleteProduct = async (req, res) => {
+  const id = req.params.id
+  try {
+    await Product.deleteOne({ _id: id })
+    res.redirect("back")
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ message: error })
+  }
+}
 module.exports = {
   index,
   changeStatus,
-  changeMultiStatus
+  changeMultiStatus,
+  deleteProduct
 }

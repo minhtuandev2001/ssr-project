@@ -68,12 +68,23 @@ block main
                     ) Không Hoạt động
                 td
                   button(type="button" class="btn btn-warning btn-lg" style="margin-right: 10px") Sửa
-                  button(type="button" class="btn btn-danger btn-lg") Xóa
+                  button(
+                    type="button" 
+                    class="btn btn-danger btn-lg"
+                    button-delete
+                    data-id=item.id
+                    ) Xóa
   +pagination(pagination)
   form(
     action=""
     method="POST"
     id="form-change-status"
     data-path=`${prefixAdmin}/products/change-status`
+  )
+  form(
+    action=""
+    method="POST"
+    id="form-delete-product"
+    data-path=`${prefixAdmin}/products/delete`
   )
   script(src="/admin/js/products.js") 
