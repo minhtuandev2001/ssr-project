@@ -31,7 +31,10 @@ const index = async (req, res) => {
     countProducts,
   )
   try {
-    const data = await Product.find(find).limit(objectPagination.limit).skip(objectPagination.skip)
+    const data = await Product.find(find)
+      .sort({ position: "desc" })
+      .limit(objectPagination.limit)
+      .skip(objectPagination.skip)
     res.render("admin/pages/products/index", {
       titlePage: "admin products",
       products: data,
@@ -63,7 +66,6 @@ const changeStatus = async (req, res) => {
 const changeMultiStatus = async (req, res) => {
   const type = req.body.type
   const ids = req.body.ids.split(', ')
-
   try {
     switch (type) {
       case "active":
@@ -78,6 +80,14 @@ const changeMultiStatus = async (req, res) => {
             deleted: true,
             deletedAt: new Date()
           })
+        break;
+      case "change-position":
+        for (let item of ids) {
+          let [id, position] = item.split("-")
+          position = Number(position)
+          await Product.updateOne({ _id: id }, { position: position })
+        }
+        break;
       default:
         break;
     }

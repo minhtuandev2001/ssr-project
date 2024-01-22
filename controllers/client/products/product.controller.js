@@ -5,7 +5,7 @@ const index = async (req, res) => {
     const data = await Product.find({
       // status: "active",
       deleted: false
-    })
+    }).sort({ position: "desc" })
     const newProduct = data.map(item => {
       item.priceNew = ((item.price * (100 - item.discountPercentage)) / 100).toFixed(2)
       return item;
