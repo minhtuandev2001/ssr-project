@@ -75,7 +75,8 @@ const changeMultiStatus = async (req, res) => {
 const deleteProduct = async (req, res) => {
   const id = req.params.id
   try {
-    await Product.deleteOne({ _id: id })
+    // await Product.deleteOne({ _id: id }) // xóa cứng
+    await Product.updateOne({ _id: id }, { deleted: true }) // xóa mềm
     res.redirect("back")
   } catch (error) {
     console.log(error)
