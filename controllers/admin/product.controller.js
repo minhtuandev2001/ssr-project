@@ -65,9 +65,25 @@ const changeMultiStatus = async (req, res) => {
   const ids = req.body.ids.split(', ')
 
   try {
-    await Product.updateMany({ _id: { $in: ids } }, { status: type })
+    switch (type) {
+      case "active":
+        await Product.updateMany({ _id: { $in: ids } }, { status: type })
+        break;
+      case "inactive":
+        await Product.updateMany({ _id: { $in: ids } }, { status: type })
+        break;
+      case "delete-all":
+        await Product.updateMany({ _id: { $in: ids } },
+          {
+            deleted: true,
+            deletedAt: new Date()
+          })
+      default:
+        break;
+    }
     res.redirect("back")
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: error })
   }
 }
@@ -76,7 +92,12 @@ const deleteProduct = async (req, res) => {
   const id = req.params.id
   try {
     // await Product.deleteOne({ _id: id }) // xóa cứng
-    await Product.updateOne({ _id: id }, { deleted: true }) // xóa mềm
+    await Product.updateOne(
+      { _id: id },
+      {
+        deleted: true,
+        deletedAt: new Date()
+      }) // xóa mềm
     res.redirect("back")
   } catch (error) {
     console.log(error)

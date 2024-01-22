@@ -9,7 +9,8 @@ const productSchema = new mongoose.Schema({
   thumbnail: { type: String },
   status: { type: String },
   position: { type: Number },
-  deleted: { type: Boolean, default: false }
+  deleted: { type: Boolean, default: false },
+  deletedAt: { type: Date }
 })
 
 const Product = mongoose.model('Product', productSchema)
