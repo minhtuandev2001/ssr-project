@@ -47,7 +47,6 @@ const index = async (req, res) => {
     res.status(500).json({ message: error })
   }
 }
-
 // [PATCH] /admin/products/change-status/:status/:id
 const changeStatus = async (req, res) => {
   const { status, id } = req.params;
@@ -121,9 +120,38 @@ const deleteProduct = async (req, res) => {
     res.status(500).json({ message: error })
   }
 }
+// [GET] /admin/create
+const create = (req, res) => {
+  try {
+    res.render("admin/pages/products/create", { titlePage: "Thêm mới sản phẩm" })
+  } catch (error) {
+    res.status(500).json({ message: error })
+  }
+}
+// [POST] /admin/create
+const createPost = async (req, res) => {
+  req.body.price = Number(req.body.price)
+  req.body.discountPercentage = Number(req.body.discountPercentage)
+  req.body.stock = Number(req.body.stock)
+  if (req.body.position === "") {
+    const countProducts = await Product.countDocuments()
+    req.body.position = countProducts + 1
+  } else {
+    req.body.position = Number(req.body.position)
+  }
+  try {
+    await Product.create(req.body)
+    req.flash('success', "Tạo mới sản phẩm thành công")
+    res.redirect('/admin/products')
+  } catch (error) {
+    res.status(500).json({ message: error })
+  }
+}
 module.exports = {
   index,
   changeStatus,
   changeMultiStatus,
-  deleteProduct
+  deleteProduct,
+  create,
+  createPost
 }
