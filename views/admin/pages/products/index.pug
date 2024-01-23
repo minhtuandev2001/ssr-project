@@ -3,8 +3,9 @@ include ../../mixin/filterStatus.pug
 include ../../mixin/search.pug
 include ../../mixin/pagination.pug
 include ../../mixin/form-change-multi.pug 
-
+include ../../mixin/alert.pug
 block main 
+  +alertSuccess(5000)
   h1 Danh sách sản phẩm
   .card.mb-3
     .card-header Bộ lọc và Tìm kiếm

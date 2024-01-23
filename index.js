@@ -1,5 +1,8 @@
 const express = require('express')
-var methodOverride = require('method-override')
+const flash = require('express-flash')
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
+const methodOverride = require('method-override')
 require('dotenv').config()
 
 const route = require("./routers/client/index.route");
@@ -23,6 +26,12 @@ app.use(methodOverride('_method')) // ghi đè method
 app.use(express.static("public"))
 app.use(express.json())
 app.use(express.urlencoded())
+// app.use(cookieParser('minh  tuan'))
+app.use(session({
+  secret: 'minhtuan',
+  cookie: { maxAge: 60000 }
+}))
+app.use(flash())
 // Routes
 route(app)
 routeAdmin(app)

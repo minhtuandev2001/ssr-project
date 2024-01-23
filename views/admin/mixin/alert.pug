@@ -1,0 +1,9 @@
+mixin alertSuccess(time)
+  - if (messages.success)
+    .message.success
+      div(class="alert alert-success alert-dismissible"
+      show-alert 
+      data-time=time
+      )
+        button(type="button" class="close" data-dismiss="alert") &times;
+        span= messages.success

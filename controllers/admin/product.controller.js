@@ -57,8 +57,10 @@ const changeStatus = async (req, res) => {
       res.send("san pham ko ton tai")
     }
     await Product.updateOne({ _id: id }, { status: status })
+    req.flash("success", "Cập nhật trạng thái thành công")
     res.redirect("back")
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: error })
   }
 }
@@ -70,9 +72,11 @@ const changeMultiStatus = async (req, res) => {
     switch (type) {
       case "active":
         await Product.updateMany({ _id: { $in: ids } }, { status: type })
+        req.flash("success", `Cập nhật thành công trạng thái của ${ids.length} sản phẩm`)
         break;
       case "inactive":
         await Product.updateMany({ _id: { $in: ids } }, { status: type })
+        req.flash("success", `Cập nhật thành công trạng thái của ${ids.length} sản phẩm`)
         break;
       case "delete-all":
         await Product.updateMany({ _id: { $in: ids } },
@@ -80,6 +84,7 @@ const changeMultiStatus = async (req, res) => {
             deleted: true,
             deletedAt: new Date()
           })
+        req.flash("success", `Xóa thành công ${ids.length} sản phẩm`)
         break;
       case "change-position":
         for (let item of ids) {
@@ -87,6 +92,7 @@ const changeMultiStatus = async (req, res) => {
           position = Number(position)
           await Product.updateOne({ _id: id }, { position: position })
         }
+        req.flash("success", `Cập nhật vị trí cho ${ids.length} sản phẩm thành công`)
         break;
       default:
         break;
@@ -108,6 +114,7 @@ const deleteProduct = async (req, res) => {
         deleted: true,
         deletedAt: new Date()
       }) // xóa mềm
+    req.flash("success", `Xóa thành công sản phẩm`)
     res.redirect("back")
   } catch (error) {
     console.log(error)
