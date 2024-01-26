@@ -48,7 +48,7 @@ if (checkboxMulti) {
 // end checkbox multi
 
 // form checkbox multi 
-const formChangeMulti = document.querySelector("[ form-change-multi-status]")
+const formChangeMulti = document.querySelector("[form-change-multi-status]")
 if (formChangeMulti) {
   formChangeMulti.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -111,3 +111,22 @@ if (alertSuccess) {
   }, time);
 }
 // end show alert
+// upload image
+const uploadImage = document.querySelector("[upload-image]")
+if (uploadImage) {
+  console.log('chao')
+  const uploadInput = uploadImage.querySelector("[upload-image-input]")
+  const uploadImagePreview = uploadImage.querySelector("[upload-image-preview]")
+  const buttonClearPreview = uploadImage.querySelector("[button-clear-preview]")
+  uploadInput.addEventListener('change', (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      uploadImagePreview.setAttribute('src', URL.createObjectURL(file))
+    }
+  })
+  buttonClearPreview.addEventListener('click', () => {
+    uploadInput.value = ""
+    uploadImagePreview.setAttribute('src', "")
+  })
+}
+// end upload image

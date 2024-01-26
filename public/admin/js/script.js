@@ -20,7 +20,6 @@ if (buttonStatus.length > 0) {
 // end button status
 // search products
 const formSearch = document.querySelector("#form-search")
-console.log(formSearch)
 if (formSearch) {
   let url = new URL(window.location.href);
   formSearch.addEventListener("submit", (e) => {

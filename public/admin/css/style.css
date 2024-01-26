@@ -99,3 +99,26 @@ p {
     transform: translate(110%);
   }
 }
+.image-preview {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  margin-top: 15px;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
+}
+.image-preview[src=""] {
+  display: none;
+}
+.button-clear-preview {
+  width: 2rem;
+  height: 2rem;
+  background-color: gray;
+  border-radius: 2px;
+  color: #fff;
+  margin-top: 10px;
+}
+.image-preview[src=""] ~ .button-clear-preview {
+  display: none;
+}
