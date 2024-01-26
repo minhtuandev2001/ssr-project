@@ -139,7 +139,7 @@ const createPost = async (req, res) => {
   } else {
     req.body.position = Number(req.body.position)
   }
-  if (req.file.filename) {
+  if (req.file) {
     req.body.thumbnail = `/uploads/${req.file.filename}`
   }
   try {
@@ -150,11 +150,48 @@ const createPost = async (req, res) => {
     res.status(500).json({ message: error })
   }
 }
+// [GET] /admin/edit/:id
+const edit = async (req, res) => {
+  const id = req.params.id
+  const find = {
+    deleted: false,
+    _id: req.params.id
+  }
+  try {
+    const dataProduct = await Product.findOne(find)
+    res.render("admin/pages/products/edit.pug", {
+      titlePage: "Chỉnh sửa sản phẩm",
+      product: dataProduct
+    })
+  } catch (error) {
+    res.render(`${systemConfig.prefixAdmin}/products`);
+  }
+}
+// [PATCH] /admin/edit/:id
+const editPatch = async (req, res) => {
+  req.body.price = Number(req.body.price)
+  req.body.discountPercentage = Number(req.body.discountPercentage)
+  req.body.stock = Number(req.body.stock)
+  req.body.position = Number(req.body.position)
+  if (req.file) {
+    req.body.thumbnail = `/uploads/${req.file.filename}`
+  }
+  try {
+    await Product.updateOne({ _id: req.params.id }, req.body)
+    req.flash("success", "Cập nhật sản phẩm thành công")
+  } catch (error) {
+    req.flash("error", "Cập nhật sản phẩm thất bại")
+    // res.status(500).json({ message: error })
+  }
+  res.redirect("back")
+}
 module.exports = {
   index,
   changeStatus,
   changeMultiStatus,
   deleteProduct,
   create,
-  createPost
+  createPost,
+  edit,
+  editPatch
 }

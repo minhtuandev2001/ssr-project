@@ -84,7 +84,9 @@ block main
                     id=item.id
                     ) Không Hoạt động
                 td
-                  button(type="button" class="btn btn-warning btn-lg" style="margin-right: 10px") Sửa
+                  a(href=`${prefixAdmin}/products/edit/${item.id}`
+                  class="btn btn-warning btn-lg" 
+                  style="margin-right: 10px") Sửa
                   button(
                     type="button" 
                     class="btn btn-danger btn-lg"
