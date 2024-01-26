@@ -1,7 +1,9 @@
 extends ../../layouts/default.pug 
+include ../../mixin/alert.pug
 
 block main 
   h1(class="mb-4") Thêm mới sản phẩm
+  +alertError(4000)
   form(
     action=`${prefixAdmin}/products/create`
     id="form-create-product"
@@ -15,7 +17,6 @@ block main
         class="form-control"
         id="title"
         name="title"
-        required
       )
     div(class="form-group")
       label(for="desc") Tiêu đề
