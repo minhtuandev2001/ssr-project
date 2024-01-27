@@ -30,9 +30,17 @@ const index = async (req, res) => {
     req.query,
     countProducts,
   )
+
+  // sort 
+  const sort = {};
+  if (req.query.sortKey && req.query.sortValue) {
+    sort[req.query.sortKey] = req.query.sortValue
+  } else {
+    sort.position = 'desc'
+  }
   try {
     const data = await Product.find(find)
-      .sort({ position: "desc" })
+      .sort(sort)
       .limit(objectPagination.limit)
       .skip(objectPagination.skip)
     res.render("admin/pages/products/index", {

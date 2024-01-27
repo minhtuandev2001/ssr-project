@@ -1,0 +1,22 @@
+mixin sortProducts()
+  .card(class="mb-3")
+    .card-header Sắp xếp
+    .card-body 
+      .row  
+        .col-4 
+          div(sort)
+            select(
+              class="form-control mb-3"
+              name="sort"
+              sort-select
+            )
+              option(value="position-desc") Vị trí giảm giần
+              option(value="position-asc") Vị trí tăng dần
+              option(value="price-desc") giá giảm giần
+              option(value="price-asc") giá tăng giần
+              option(value="title-asc") Tiêu đề A - Z
+              option(value="title-desc") Tiêu đề Z - A
+            button(
+              class="btn btn-danger"
+              sort-clear
+              ) Xóa lọc

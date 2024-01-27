@@ -29,6 +29,7 @@ router.get('/edit/:id', productController.edit)
 router.patch(
   '/edit/:id',
   fileUpload.single('thumbnail'),
+  uploadCloudMiddleware.uploadCloud,
   productValidate.createPost, // logic validate của tạo mới và cập nhật sản phẩm thì giống nhau
   productController.editPatch)
 

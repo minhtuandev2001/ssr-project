@@ -4,6 +4,7 @@ include ../../mixin/search.pug
 include ../../mixin/pagination.pug
 include ../../mixin/form-change-multi.pug 
 include ../../mixin/alert.pug
+include ../../mixin/sort.pug
 block main 
   +alertSuccess(5000)
   h1 Danh sách sản phẩm
@@ -16,6 +17,7 @@ block main
             +filterStatus(filterStatus)
         .col-6
           +search("keyword",keyword)
+  +sortProducts()
   .card
     .card-header Danh sách
       .card-body 
