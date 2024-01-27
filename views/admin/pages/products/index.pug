@@ -84,6 +84,9 @@ block main
                     id=item.id
                     ) Không Hoạt động
                 td
+                  a(href=`${prefixAdmin}/products/detail/${item.id}`
+                  class="btn btn-success btn-lg" 
+                  style="margin-right: 10px") Chi tiết
                   a(href=`${prefixAdmin}/products/edit/${item.id}`
                   class="btn btn-warning btn-lg" 
                   style="margin-right: 10px") Sửa

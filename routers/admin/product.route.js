@@ -30,4 +30,6 @@ router.patch(
   productValidate.createPost, // logic validate của tạo mới và cập nhật sản phẩm thì giống nhau
   productController.editPatch)
 
+router.get('/detail/:id', productController.detail)
+
 module.exports = router

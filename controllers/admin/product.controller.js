@@ -2,7 +2,7 @@ const Product = require("../../models/product.model")
 const filterStatusHelper = require("../../utils/filterStatus")
 const searchHelper = require("../../utils/search")
 const paginationHelper = require("../../utils/pagination")
-const { response } = require("express")
+const systemConfig = require("../../config/system")
 
 // [GET] /admin/products
 const index = async (req, res) => {
@@ -185,6 +185,22 @@ const editPatch = async (req, res) => {
   }
   res.redirect("back")
 }
+
+const detail = async (req, res) => {
+  const find = {
+    deleted: false,
+    _id: req.params.id
+  }
+  try {
+    const product = await Product.findOne(find)
+    res.render("admin/pages/products/detail", {
+      titlePage: "Trang chi tiết sản phẩm",
+      product: product
+    })
+  } catch (error) {
+    res.redirect(`${systemConfig.prefixAdmin}/products`)
+  }
+}
 module.exports = {
   index,
   changeStatus,
@@ -193,5 +209,6 @@ module.exports = {
   create,
   createPost,
   edit,
-  editPatch
+  editPatch,
+  detail
 }
