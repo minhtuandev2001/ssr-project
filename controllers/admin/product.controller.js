@@ -139,9 +139,6 @@ const createPost = async (req, res) => {
   } else {
     req.body.position = Number(req.body.position)
   }
-  if (req.file) {
-    req.body.thumbnail = `/uploads/${req.file.filename}`
-  }
   try {
     await Product.create(req.body)
     req.flash('success', "Tạo mới sản phẩm thành công")

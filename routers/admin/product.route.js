@@ -1,8 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const multer = require('multer')
-const storageMulter = require('../../utils/storageMulter')
-const upload = multer({ storage: storageMulter() })
+const uploadCloudMiddleware = require("../../middlewares/admin/uploadCloud.middleware")
+
+const fileUpload = multer()
 
 const productController = require("../../controllers/admin/product.controller")
 const productValidate = require("../../validates/admin/product.validate")
@@ -18,7 +19,8 @@ router.delete('/delete/:id', productController.deleteProduct)
 router.get('/create', productController.create)
 router.post(
   '/create',
-  upload.single('thumbnail'),
+  fileUpload.single('thumbnail'),
+  uploadCloudMiddleware.uploadCloud,
   productValidate.createPost,
   productController.createPost
 )
@@ -26,7 +28,7 @@ router.post(
 router.get('/edit/:id', productController.edit)
 router.patch(
   '/edit/:id',
-  upload.single('thumbnail'),
+  fileUpload.single('thumbnail'),
   productValidate.createPost, // logic validate của tạo mới và cập nhật sản phẩm thì giống nhau
   productController.editPatch)
 
