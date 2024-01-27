@@ -16,14 +16,14 @@ connectDB()
 const app = express()
 const port = process.env.PORT || 3000
 
-app.set('views', "./views")
+app.set('views', `${__dirname}/views`)
 app.set("view engine", "pug")
 
 // App locals variables
 app.locals.prefixAdmin = systemConfig.prefixAdmin
 
 app.use(methodOverride('_method')) // ghi đè method
-app.use(express.static("public"))
+app.use(express.static(`${__dirname}/public`))
 app.use(express.json())
 app.use(express.urlencoded())
 // app.use(cookieParser('minh  tuan'))
