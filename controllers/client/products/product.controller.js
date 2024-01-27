@@ -1,5 +1,6 @@
 const Product = require("../../../models/product.model")
 
+// [GET] /products 
 const index = async (req, res) => {
   try {
     const data = await Product.find({
@@ -15,6 +16,24 @@ const index = async (req, res) => {
     res.status(500).json({ message: error })
   }
 }
+// [GET] /products/:slug
+const detail = async (req, res) => {
+  const find = {
+    deleted: false,
+    status: "active",
+    slug: req.params.slug
+  }
+  try {
+    const product = await Product.findOne(find)
+    res.render("client/pages/products/detail", {
+      titlePage: product.title,
+      product: product
+    })
+  } catch (error) {
+    res.redirect("/products")
+  }
+}
 module.exports = {
-  index
+  index,
+  detail
 }

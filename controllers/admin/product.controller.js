@@ -194,7 +194,7 @@ const detail = async (req, res) => {
   try {
     const product = await Product.findOne(find)
     res.render("admin/pages/products/detail", {
-      titlePage: "Trang chi tiết sản phẩm",
+      titlePage: product.title,
       product: product
     })
   } catch (error) {

@@ -1,0 +1,23 @@
+extends ../../layouts/default.pug 
+
+block main 
+  .container.my-3 
+    .row  
+      .col-12
+        if (product.title)
+          h1(class="mb-5") #{product.title}
+        if (product.price)
+          p(class="mb-5") Giá: <b>#{product.price}$</b>
+        if (product.discountPercentage)
+          p(class="mb-5") Giảm giá: <b>#{product.discountPercentage}%</b>
+        if (product.stock)
+          p(class="mb-5") Số lượng: <b>#{product.stock}</b>
+        if (product.thumbnail)
+          img(
+            class="image-preview mb-5"
+            src=product.thumbnail
+            )
+        if (product.position)
+          p(class="mb-5") Vị trí: <b>#{product.position}</b>
+        if (product.description)
+          p(class="mb-5") #{product.description}
