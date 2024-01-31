@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require('path');
 const flash = require('express-flash')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
@@ -32,6 +33,10 @@ app.use(session({
   cookie: { maxAge: 60000 }
 }))
 app.use(flash())
+// tinyMCE
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
+// end tinyMCE 
+
 // Routes
 route(app)
 routeAdmin(app)

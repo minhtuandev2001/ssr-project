@@ -114,7 +114,6 @@ if (alertSuccess) {
 // upload image
 const uploadImage = document.querySelector("[upload-image]")
 if (uploadImage) {
-  console.log('chao')
   const uploadInput = uploadImage.querySelector("[upload-image-input]")
   const uploadImagePreview = uploadImage.querySelector("[upload-image-preview]")
   const buttonClearPreview = uploadImage.querySelector("[button-clear-preview]")

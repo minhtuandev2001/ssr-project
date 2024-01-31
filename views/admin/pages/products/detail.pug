@@ -26,12 +26,12 @@ block main
   if (product.position)
     p(class="mb-5") Vị trí: <b>#{product.position}</b>
   if (product.description)
-    p(class="mb-5") #{product.description}
+    p(class="mb-5") !{product.description}
 
   if (product)
     a(
       href=`${prefixAdmin}/products/edit/${product.id}`
-      class="btn btn-warning btn-lg" 
+      class="btn btn-warning btn-lg mt-5" 
       style="margin-right: 10px") Chỉnh sửa
 
   script(src="/admin/js/products.js") 
