@@ -1,8 +1,12 @@
 const ProductCategory = require('../../models/product-category.model')
 const systemConfig = require('../../config/system')
+const filterStatusHelper = require('../../utils/filterStatus')
 
 // [GET] /admin/products-category 
 const index = async (req, res) => {
+  // Bộ lọc 
+  let filterStatus = filterStatusHelper(req.query)
+
   const find = {
     deleted: false,
   }
@@ -11,7 +15,8 @@ const index = async (req, res) => {
     console.log(categorys)
     res.render("admin/pages/product-category/index", {
       titlePage: "Danh mục sản phẩm",
-      categorys: categorys
+      categorys: categorys,
+      filterStatus: filterStatus,
     })
   } catch (error) {
     res.status(500).json({ message: error })

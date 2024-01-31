@@ -1,15 +1,30 @@
 extends ../../layouts/default.pug 
 include ../../mixin/alert.pug
+include ../../mixin/sort.pug
+include ../../mixin/filterStatus.pug 
+include ../../mixin/search.pug
+include ../../mixin/form-change-multi.pug
 
 block main 
   h1 Danh mục sản phẩm
   +alertSuccess(4000)
   +alertError(4000)
+  .card.mb-3
+    .card-header Bộ lọc và Tìm kiếm
+    .card-body
+      .row
+        .col-6
+          div(class="filter__actions")
+            +filterStatus(filterStatus)
+        .col-6
+          +search("keyword",keyword)
+  +sortCategory()
   .card.mb-3 
     .card-header Danh sách
       .card-body 
-        .row 
+        .row.mb-3
           .col-8 
+            +form-change-multi(`${prefixAdmin}/products-category/change-multi?_method=PATCH`)
           .col-4  
             a(
               href=`${prefixAdmin}/products-category/create`
@@ -42,7 +57,6 @@ block main
                 td
                   img(src=item.thumbnail alt=item.title style="width: 100px; height: 60px; border-radius: 5px")
                 td #{item.title}
-                td #{item.price} $
                 td 
                   input(
                     type="number"
