@@ -4,7 +4,7 @@ include ../../mixin/sort.pug
 include ../../mixin/filterStatus.pug 
 include ../../mixin/search.pug
 include ../../mixin/form-change-multi.pug
-
+include ../../mixin/pagination.pug
 block main 
   h1 Danh mục sản phẩm
   +alertSuccess(4000)
@@ -97,3 +97,17 @@ block main
                     button-delete
                     data-id=item.id
                     ) Xóa
+  +pagination(pagination)
+  form(
+    action=""
+    method="POST"
+    id="form-change-status"
+    data-path=`${prefixAdmin}/products-category/change-status`
+  )
+  form(
+    action=""
+    method="POST"
+    id="form-delete-product"
+    data-path=`${prefixAdmin}/products-category/delete`
+  )
+  script(src="/admin/js/products.js") 

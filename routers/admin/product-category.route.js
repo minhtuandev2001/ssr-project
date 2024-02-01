@@ -17,5 +17,7 @@ router.post(
   productCategoryValidate.createPost,
   categoryController.createPost
 )
+router.delete('/delete/:id', categoryController.deleteProductCategory)
+router.get('/detail/:id', categoryController.detail)
 
 module.exports = router

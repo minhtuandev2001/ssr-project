@@ -1,0 +1,25 @@
+extends ../../layouts/default.pug
+
+block main 
+  if (category.title)
+    h1.mb-5 #{category.title}
+  if (category.position)
+    p.mb-5 Vị trí : #{category.position}
+  if (category.status)
+    if (category.status === 'active')
+      span(
+        class="badge badge-success badge-lg") Hoạt động
+    else if(category.status === 'inactive')
+      span(
+        class="badge badge-danger badge-lg") Dừng hoạt động
+  if (category.thumbnail)
+    img(
+      class="image-preview mb-5"
+      src=category.thumbnail
+      )
+  if (category.description)
+    p.mb-5 !{category.description}
+  if(category)
+    a(
+      href=`${prefixAdmin}/products-category/edit/${category.id}`
+      class="btn btn-primary mt-5") Chỉnh sửa
