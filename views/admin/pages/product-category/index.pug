@@ -5,6 +5,7 @@ include ../../mixin/filterStatus.pug
 include ../../mixin/search.pug
 include ../../mixin/form-change-multi.pug
 include ../../mixin/pagination.pug
+include ../../mixin/table.pug
 block main 
   h1 Danh mục sản phẩm
   +alertSuccess(4000)
@@ -45,58 +46,7 @@ block main
               th Trạng Thái
               th Hành Động
           tbody
-            each item,index in categorys
-              tr(class="product--item")
-                td 
-                  input(
-                    type="checkbox"
-                    name="id"
-                    value=item.id
-                  )
-                td #{index+1}
-                td
-                  img(src=item.thumbnail alt=item.title style="width: 100px; height: 60px; border-radius: 5px")
-                td #{item.title}
-                td 
-                  input(
-                    type="number"
-                    value=item.position
-                    style="width: 60px"
-                    min="1"
-                    name="position"
-                  )
-                td
-                  if item.status === "active"
-                    a(
-                      href="javascript:;"
-                      class="badge badge-success badge-lg" 
-                      data-status=item.status
-                      data-id=item.id
-                      button-change-status
-                      id=item.id
-                      ) Hoạt động
-                  else 
-                    a(
-                    href="javascript:;"
-                    class="badge badge-danger badge-lg" 
-                    data-status=item.status
-                    data-id=item.id
-                    button-change-status
-                    id=item.id
-                    ) Không Hoạt động
-                td
-                  a(href=`${prefixAdmin}/products-category/detail/${item.id}`
-                  class="btn btn-success btn-lg" 
-                  style="margin-right: 10px") Chi tiết
-                  a(href=`${prefixAdmin}/products-category/edit/${item.id}`
-                  class="btn btn-warning btn-lg" 
-                  style="margin-right: 10px") Sửa
-                  button(
-                    type="button" 
-                    class="btn btn-danger btn-lg"
-                    button-delete
-                    data-id=item.id
-                    ) Xóa
+            +tableTree(categorys)
   +pagination(pagination)
   form(
     action=""

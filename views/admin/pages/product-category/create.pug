@@ -1,5 +1,6 @@
-extends ../../layouts/default.pug 
+extends ../../layouts/default.pug
 include ../../mixin/alert.pug
+include ../../mixin/select.pug
 
 block main 
   h1 Tạo danh mục sản phẩm
@@ -21,12 +22,13 @@ block main
       )
     div(class="form-group")
       label(for="parent_id") Danh mục cha
-      input(
-        type="text"
-        class="form-control"
-        id="parent_id"
+      select(
+        class="form-control mb-3"
         name="parent_id"
-      )
+        categorys-select)
+        option(value="" selected ) --Không--
+        if (categorys)
+          +selectTree(categorys)
     div(class="form-group")
       label(for="desc") Mô tả
       textarea(

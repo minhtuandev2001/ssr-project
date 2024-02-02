@@ -4,6 +4,7 @@ const systemConfig = require('../../config/system')
 const filterStatusHelper = require('../../utils/filterStatus')
 const searchHelper = require("../../utils/search")
 const paginationHelper = require("../../utils/pagination")
+const createTreeHelper = require("../../utils/createTree")
 
 // [GET] /admin/products-category 
 const index = async (req, res) => {
@@ -42,9 +43,10 @@ const index = async (req, res) => {
       .sort(sort)
       .limit(objectPagination.limit)
       .skip(objectPagination.skip)
+    const newCategorys = createTreeHelper.createTree(categorys)
     res.render("admin/pages/product-category/index", {
       titlePage: "Danh mục sản phẩm",
-      categorys: categorys,
+      categorys: newCategorys,
       filterStatus: filterStatus,
       keyword: objectSearch.keyword,
       pagination: objectPagination
@@ -55,10 +57,20 @@ const index = async (req, res) => {
 }
 
 // [GET] /admin/products-category/create
-const create = (req, res) => {
+const create = async (req, res) => {
   try {
-    res.render('admin/pages/product-category/create', { titlePage: 'Tạo danh mục sản phẩm' })
+    const find = {
+      deleted: false
+    }
+    const categorys = await ProductCategory.find(find).sort({ position: 'desc' })
+    const newCategorys = createTreeHelper.createTree(categorys)
+
+    res.render('admin/pages/product-category/create', {
+      titlePage: 'Tạo danh mục sản phẩm',
+      categorys: newCategorys
+    })
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: error })
   }
 }
