@@ -43,7 +43,7 @@ const index = async (req, res) => {
       .sort(sort)
       .limit(objectPagination.limit)
       .skip(objectPagination.skip)
-    const newCategorys = createTreeHelper.createTree(categorys)
+    const newCategorys = createTreeHelper.tree(categorys)
     res.render("admin/pages/product-category/index", {
       titlePage: "Danh mục sản phẩm",
       categorys: newCategorys,
@@ -63,7 +63,7 @@ const create = async (req, res) => {
       deleted: false
     }
     const categorys = await ProductCategory.find(find).sort({ position: 'desc' })
-    const newCategorys = createTreeHelper.createTree(categorys)
+    const newCategorys = createTreeHelper.tree(categorys)
 
     res.render('admin/pages/product-category/create', {
       titlePage: 'Tạo danh mục sản phẩm',
