@@ -22,6 +22,7 @@ const uploadCloud = (req, res, next) => {
             }
           }
         );
+        // read data in buffer then upload cloudinary
         streamifier.createReadStream(req.file.buffer).pipe(stream);
       });
     };

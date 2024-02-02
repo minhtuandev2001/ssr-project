@@ -20,4 +20,14 @@ router.post(
 router.delete('/delete/:id', categoryController.deleteProductCategory)
 router.get('/detail/:id', categoryController.detail)
 
+router.get('/edit/:id', categoryController.edit)
+router.patch(
+  '/edit/:id',
+  fileUpload.single('thumbnail'),
+  uploadCloudMiddleware.uploadCloud,
+  categoryController.editPatch)
+
+router.patch('/change-multi', categoryController.changeMulti)
+router.patch('/change-status/:status/:id', categoryController.changeStatus)
+
 module.exports = router
