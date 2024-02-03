@@ -44,6 +44,7 @@ const index = async (req, res) => {
       .limit(objectPagination.limit)
       .skip(objectPagination.skip)
     const newCategorys = createTreeHelper.tree(categorys)
+    console.log(categorys)
     res.render("admin/pages/product-category/index", {
       titlePage: "Danh mục sản phẩm",
       categorys: newCategorys,
@@ -134,18 +135,27 @@ const detail = async (req, res) => {
 
 // [GET] /admin/products-category/edit/:id
 const edit = async (req, res) => {
-  const id = req.params.id;
-  if (!id) {
-    res.redirect(`${prefixAdmin}/products-category/edit`)
-  }
   try {
-    const category = await ProductCategory.findOne({ _id: id })
+    const id = req.params.id;
+    if (!id) {
+      console.log('check ', id)
+      res.redirect(`${systemConfig.prefixAdmin}/products-category`)
+    }
+    const category = await ProductCategory.findOne(
+      {
+        _id: id,
+        deleted: false
+      })
+    const categorys = await ProductCategory.find({ deleted: false })
+    const newCategorys = createTreeHelper.tree(categorys)
+
     res.render('admin/pages/product-category/edit', {
       titlePage: category.title,
-      category: category
+      category: category,
+      categorys: newCategorys
     })
   } catch (error) {
-    res.redirect(`${prefixAdmin}/products-category/edit`)
+    res.redirect(`${systemConfig.prefixAdmin}/products-category`)
   }
 }
 // [PATCH] /admin/products-category/edit/:id

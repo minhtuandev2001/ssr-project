@@ -3,7 +3,7 @@ module.exports = (objectPagination, query, countDocument) => {
     objectPagination.currentPage = Number(query.page)
   }
   objectPagination.skip = (objectPagination.currentPage - 1) * 4
-  const totalPage = Math.ceil(countDocument / 4)
+  const totalPage = Math.ceil(countDocument / objectPagination.limit)
   objectPagination.totalPage = totalPage
 
   return objectPagination

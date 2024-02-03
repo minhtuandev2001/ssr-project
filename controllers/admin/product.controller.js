@@ -1,7 +1,9 @@
 const Product = require("../../models/product.model")
+const ProductCategory = require("../../models/product-category.model")
 const filterStatusHelper = require("../../utils/filterStatus")
 const searchHelper = require("../../utils/search")
 const paginationHelper = require("../../utils/pagination")
+const createTreeHelper = require("../../utils/createTree")
 const systemConfig = require("../../config/system")
 
 // [GET] /admin/products
@@ -129,9 +131,14 @@ const deleteProduct = async (req, res) => {
   }
 }
 // [GET] /admin/create
-const create = (req, res) => {
+const create = async (req, res) => {
   try {
-    res.render("admin/pages/products/create", { titlePage: "Thêm mới sản phẩm" })
+    const categorys = await ProductCategory.find({ deleted: false })
+    const newCategorys = createTreeHelper.tree(categorys)
+    res.render("admin/pages/products/create", {
+      titlePage: "Thêm mới sản phẩm",
+      categorys: newCategorys
+    })
   } catch (error) {
     res.status(500).json({ message: error })
   }

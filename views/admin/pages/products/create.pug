@@ -1,5 +1,6 @@
 extends ../../layouts/default.pug 
 include ../../mixin/alert.pug
+include ../../mixin/select.pug
 
 block main 
   h1(class="mb-4") Thêm mới sản phẩm
@@ -18,6 +19,15 @@ block main
         id="title"
         name="title"
       )
+    div(class="form-group")
+      label(for="product_category_id") Danh mục
+      select(
+        class="form-control mb-3"
+        name="product_category_id"
+        categorys-select)
+        option(value="") -- Không chọn -- 
+        if (categorys)
+          +selectTree(categorys)
     div(class="form-group")
       label(for="desc") Mô tả
       textarea(
