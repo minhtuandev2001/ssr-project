@@ -44,7 +44,6 @@ const index = async (req, res) => {
       .limit(objectPagination.limit)
       .skip(objectPagination.skip)
     const newCategorys = createTreeHelper.tree(categorys)
-    console.log(categorys)
     res.render("admin/pages/product-category/index", {
       titlePage: "Danh mục sản phẩm",
       categorys: newCategorys,
@@ -71,7 +70,6 @@ const create = async (req, res) => {
       categorys: newCategorys
     })
   } catch (error) {
-    console.log(error)
     res.status(500).json({ message: error })
   }
 }
@@ -138,7 +136,6 @@ const edit = async (req, res) => {
   try {
     const id = req.params.id;
     if (!id) {
-      console.log('check ', id)
       res.redirect(`${systemConfig.prefixAdmin}/products-category`)
     }
     const category = await ProductCategory.findOne(

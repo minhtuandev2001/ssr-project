@@ -164,21 +164,24 @@ const createPost = async (req, res) => {
 }
 // [GET] /admin/edit/:id
 const edit = async (req, res) => {
-  const id = req.params.id
-  const find = {
-    deleted: false,
-    _id: req.params.id
-  }
   try {
+    const find = {
+      deleted: false,
+      _id: req.params.id
+    }
     const dataProduct = await Product.findOne(find)
+    const categorys = await ProductCategory.find({ deleted: false })
+    const newCategorys = createTreeHelper.tree(categorys)
     res.render("admin/pages/products/edit.pug", {
       titlePage: "Chỉnh sửa sản phẩm",
-      product: dataProduct
+      product: dataProduct,
+      categorys: newCategorys
     })
   } catch (error) {
     res.render(`${systemConfig.prefixAdmin}/products`);
   }
 }
+
 // [PATCH] /admin/edit/:id
 const editPatch = async (req, res) => {
   req.body.price = Number(req.body.price)
@@ -193,7 +196,7 @@ const editPatch = async (req, res) => {
     req.flash("success", "Cập nhật sản phẩm thành công")
   } catch (error) {
     req.flash("error", "Cập nhật sản phẩm thất bại")
-    // res.status(500).json({ message: error })
+    res.status(500).json({ message: error })
   }
   res.redirect("back")
 }
