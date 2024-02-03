@@ -1,5 +1,6 @@
 extends ../../layouts/default.pug 
 include ../../mixin/alert.pug
+
 block main 
   h1(class="mb-4") Nhóm quyền
   +alertSuccess(4000)
@@ -51,4 +52,10 @@ block main
                   button-delete
                   data-id=item.id
                   ) Xóa
+  form(
+    action=""
+    method="POST"
+    id="form-delete-product"
+    data-path=`${prefixAdmin}/roles/delete`
+  )
   script(src="/admin/js/products.js") 
