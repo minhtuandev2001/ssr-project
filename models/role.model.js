@@ -7,7 +7,7 @@ const roleSchema = mongoose.Schema({
   deleted: { type: Boolean, default: false },
   deletedAt: { type: Date }
 }, {
-  timestamp: true
+  timestamps: true
 })
 const Role = mongoose.model('Role', roleSchema)
 module.exports = Role

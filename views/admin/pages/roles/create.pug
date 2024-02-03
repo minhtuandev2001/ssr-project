@@ -1,0 +1,34 @@
+extends ../../layouts/default.pug
+include ../../mixin/alert.pug
+include ../../mixin/select.pug
+
+block main 
+  h1 Thêm mới nhóm quyền
+  +alertSuccess(4000)
+  +alertError(4000)
+  form(
+    action=`${prefixAdmin}/roles/create`
+    method="POST"
+  )
+    div(class="form-group")
+      label(for="title") Tiêu đề
+      input(
+        type="text"
+        class="form-control"
+        id="title"
+        name="title"
+      )
+    div(class="form-group")
+      label(for="desc") Mô tả
+      textarea(
+        class="form-control textarea-tinyMCE"
+        id="desc"
+        name="description" 
+        rows="5"
+        ) 
+    div(class="form-group")
+      button(
+        type="submit"
+        class="btn btn-primary"
+      ) Tạo mới
+  script(src="/admin/js/products.js") 
