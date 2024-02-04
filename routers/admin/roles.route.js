@@ -8,6 +8,7 @@ router.post('/create', rolesController.createPost)
 router.get('/edit/:id', rolesController.edit)
 router.patch('/edit/:id', rolesController.editPatch)
 router.delete('/delete/:id', rolesController.deletePremissions)
+router.get("/detail/:id", rolesController.detail)
 
 // Phân quyền
 router.get('/permissions', rolesController.permissions)

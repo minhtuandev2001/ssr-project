@@ -1,0 +1,20 @@
+extends ../../layouts/default.pug 
+
+block main 
+  if (role.title)
+    h1(class="mb-5") #{role.title}
+  if (role.description)
+    p(class="mb-5") !{role.description}
+  if (role.permissions)
+    p(class="mb-3 mt-3") Có thể thực hiện các hành động sau 
+    div(class="mb-2")
+      each item in role.permissions
+        p(class="mb-2") 
+          b + #{item}
+  if (role)
+    a(
+      href=`${prefixAdmin}/roles/edit/${role.id}`
+      class="btn btn-warning btn-lg mt-5" 
+      style="margin-right: 10px") Chỉnh sửa
+
+  script(src="/admin/js/products.js") 

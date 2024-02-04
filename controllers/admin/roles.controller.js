@@ -77,6 +77,26 @@ const deletePremissions = async (req, res) => {
   res.redirect("back")
 }
 
+// [GET] /admin/roles/detail/:id
+const detail = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const find = {
+      _id: id,
+      deleted: false
+    }
+    const role = await Role.findOne(find);
+    console.log(role)
+    res.render("admin/pages/roles/detail", {
+      titlePage: role.title,
+      role: role
+    })
+  } catch (error) {
+    req.flash("error", "Nhóm quyền này không tồn tại")
+    res.redirect("back")
+  }
+}
+
 // [GET] /admin/roles/permissions 
 const permissions = async (req, res) => {
   try {
@@ -108,12 +128,15 @@ const permissionsPatch = async (req, res) => {
   }
   res.redirect("back")
 }
+
+
 module.exports = {
   index,
   create,
   createPost,
   edit,
   editPatch,
+  detail,
   deletePremissions,
   permissions,
   permissionsPatch
