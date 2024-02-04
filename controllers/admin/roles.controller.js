@@ -77,11 +77,44 @@ const deletePremissions = async (req, res) => {
   res.redirect("back")
 }
 
+// [GET] /admin/roles/permissions 
+const permissions = async (req, res) => {
+  try {
+    let find = {
+      deleted: false
+    }
+    const roles = await Role.find(find)
+    res.render("admin/pages/roles/permissions",
+      {
+        titlePage: "Phân quyền",
+        roles: roles
+      })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// [PATCH] /admin/roles/permissions
+const permissionsPatch = async (req, res) => {
+  try {
+    let data = JSON.parse(req.body.permissions)
+    for (const item of data) {
+      await Role.updateOne({ _id: item.id }, { permissions: item.permissions })
+    }
+    req.flash('success', 'Cập nhật quyền thành công')
+  } catch (error) {
+    console.log(error)
+    req.flash('error', 'Cập nhật quyền thất bại')
+  }
+  res.redirect("back")
+}
 module.exports = {
   index,
   create,
   createPost,
   edit,
   editPatch,
-  deletePremissions
+  deletePremissions,
+  permissions,
+  permissionsPatch
 }
