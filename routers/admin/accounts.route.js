@@ -15,4 +15,12 @@ router.post(
   accountsValidate.createPost,
   accountsController.createPost)
 
+router.get("/edit/:id", accountsController.edit)
+router.patch(
+  "/edit/:id",
+  fileUpload.single('avatar'),
+  uploadCloudMiddleware.uploadCloud,
+  accountsValidate.editPath,
+  accountsController.editPatch)
+
 module.exports = router

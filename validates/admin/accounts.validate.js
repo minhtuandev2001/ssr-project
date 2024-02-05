@@ -16,6 +16,20 @@ const createPost = (req, res, next) => {
   }
   next()
 }
+const editPath = (req, res, next) => {
+  if (!req.body.fullName) {
+    req.flash("error", "Vui lòng nhập họ tên")
+    res.redirect("back")
+    return
+  }
+  if (!req.body.email) {
+    req.flash("error", "Vui lòng nhập họ tên")
+    res.redirect("back")
+    return
+  }
+  next()
+}
 module.exports = {
-  createPost
+  createPost,
+  editPath
 }

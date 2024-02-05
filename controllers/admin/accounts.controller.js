@@ -61,9 +61,55 @@ const createPost = async (req, res) => {
   }
 }
 
+// [GET] /admin/accounts/edit/:id
+const edit = async (req, res) => {
+  try {
+    const find = {
+      _id: req.params.id,
+      deleted: false
+    }
+    const account = await Account.findOne(find)
+    const roles = await Role.find({ deleted: false })
+    res.render("admin/pages/accounts/edit", {
+      titlePage: "Chỉnh sửa tài khoản",
+      account: account,
+      roles: roles
+    })
+  } catch (error) {
+    req.flash("error", "Tài khoản này không tồn tại")
+    res.redirect(`${systemConfig.prefixAdmin}/accounts`)
+  }
+}
+
+// [PATCH] /admin/accounts/edit/:id
+const editPatch = async (req, res) => {
+  try {
+    const checkEmail = await Account.findOne({
+      _id: { $ne: req.params.id },
+      email: req.body.email,
+      deleted: false
+    })
+    if (checkEmail) {
+      req.flash("error", "Email này đã được sử dụng")
+    } else {
+      if (req.body.password) {
+        req.body.password = md5(req.body.password)
+      } else {
+        delete req.body.password
+      }
+      await Account.updateOne({ _id: req.params.id }, req.body)
+      req.flash("success", "Cập nhật thông tin tài khoản thành công")
+    }
+  } catch (error) {
+    req.flash("error", "Cập nhật thông tin tài khoản thất bại")
+  }
+  res.redirect("back")
+}
 
 module.exports = {
   index,
   create,
-  createPost
+  createPost,
+  edit,
+  editPatch
 }
