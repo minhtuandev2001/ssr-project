@@ -27,7 +27,7 @@ app.use(methodOverride('_method')) // ghi đè method
 app.use(express.static(`${__dirname}/public`))
 app.use(express.json())
 app.use(express.urlencoded())
-// app.use(cookieParser('minh  tuan'))
+app.use(cookieParser())
 app.use(session({
   secret: 'minhtuan',
   cookie: { maxAge: 60000 }

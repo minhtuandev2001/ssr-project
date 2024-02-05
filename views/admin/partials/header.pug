@@ -5,3 +5,8 @@ header.header
         div(class="header__logo")
           a(href="/admin/dashboard") ADMIN 
       .col-9 
+        div(class="text-right")
+          a(
+            href=`${prefixAdmin}/auth/logout`
+            class="btn btn-danger btn-sn"
+            ) Đăng xuất 
