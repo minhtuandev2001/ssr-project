@@ -28,6 +28,7 @@ block main
           each item in roles
             td(class="text-center")
               input(type="text" value=item.id)
+        //- Danh mục sản phẩm 
         tr
           th(colspan="4")
             b Danh mục sản phẩm
@@ -51,6 +52,7 @@ block main
           each item in roles
             td(class="text-center")
               input(type="checkbox")
+        //- Sản phẩm
         tr
           th(colspan="4")
             b Sản phẩm
@@ -74,6 +76,7 @@ block main
           each item in roles
             td(class="text-center")
               input(type="checkbox")
+        //- Nhóm quyền
         tr
           th(colspan="4")
             b Nhóm quyền
@@ -97,8 +100,33 @@ block main
           each item in roles
             td(class="text-center")
               input(type="checkbox")
+        //- Phân quyền 
         tr(data-name="roles_permission")
           td Phân quyền
+          each item in roles
+            td(class="text-center")
+              input(type="checkbox")
+        //- Nhóm quyền
+        tr
+          th(colspan="4")
+            b Tài khoản
+        tr(data-name="account_view")
+          td Xem
+          each item,index in roles
+            td(class="text-center")
+              input(type="checkbox")
+        tr(data-name="account_create")
+          td Thêm mới
+          each item in roles
+            td(class="text-center")
+              input(type="checkbox")
+        tr(data-name="account_edit")
+          td Chỉnh sửa
+          each item in roles
+            td(class="text-center")
+              input(type="checkbox")
+        tr(data-name="account_delete")
+          td Xóa
           each item in roles
             td(class="text-center")
               input(type="checkbox")

@@ -43,14 +43,16 @@ mixin tableTree(categorys, level = 1)
         a(href=`${prefixAdmin}/products-category/detail/${item.id}`
         class="btn btn-success btn-lg" 
         style="margin-right: 10px") Chi tiết
-        a(href=`${prefixAdmin}/products-category/edit/${item.id}`
-        class="btn btn-warning btn-lg" 
-        style="margin-right: 10px") Sửa
-        button(
-          type="button" 
-          class="btn btn-danger btn-lg"
-          button-delete
-          data-id=item.id
-          ) Xóa
+        if (role.permissions.includes('products-category_edit'))
+          a(href=`${prefixAdmin}/products-category/edit/${item.id}`
+          class="btn btn-warning btn-lg" 
+          style="margin-right: 10px") Sửa
+        if (role.permissions.includes('products-category_delete'))
+          button(
+            type="button" 
+            class="btn btn-danger btn-lg"
+            button-delete
+            data-id=item.id
+            ) Xóa
       if (item.children && item.children.length > 0)
         +tableTree(item.children, level+1)
