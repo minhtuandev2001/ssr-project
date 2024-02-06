@@ -47,11 +47,20 @@ const index = async (req, res) => {
       .limit(objectPagination.limit)
       .skip(objectPagination.skip)
 
-    // lấy tên người tạo sản phẩm
     for (const product of products) {
+      // lấy ra thông tin người tạo
       const user = await Account.findOne({ _id: product.createdBy.account_id }).select("fullName")
       if (user) {
         product.accountFullName = user.fullName
+      }
+
+      // lấy ngược bằng slice và lấy phần tử đầu tiên
+      const updatedBy = product.updatedBy.slice(-1)[0]
+      // lấy ra người chỉnh sửa gần đây nhất nếu có
+      if (updatedBy) {
+        // lấy ra thông tin người cập nhật gần nhất
+        const userUpdated = await Account.findOne({ _id: updatedBy.account_id }).select("fullName")
+        updatedBy.accountFullName = userUpdated.fullName
       }
     }
 
@@ -76,7 +85,14 @@ const changeStatus = async (req, res) => {
     if (!ivalidProduct) {
       res.send("san pham ko ton tai")
     }
-    await Product.updateOne({ _id: id }, { status: status })
+    const updatedBy = {
+      account_id: res.locals.user.id,
+      updatedAt: new Date()
+    }
+    await Product.updateOne({ _id: id }, {
+      status: status,
+      $push: { updatedBy: updatedBy }
+    })
     req.flash("success", "Cập nhật trạng thái thành công")
     res.redirect("back")
   } catch (error) {
@@ -91,13 +107,23 @@ const changeMultiStatus = async (req, res) => {
   const type = req.body.type
   const ids = req.body.ids.split(', ')
   try {
+    const updatedBy = {
+      account_id: res.locals.user.id,
+      updatedAt: new Date()
+    }
     switch (type) {
       case "active":
-        await Product.updateMany({ _id: { $in: ids } }, { status: type })
+        await Product.updateMany({ _id: { $in: ids } }, {
+          status: type,
+          $push: { updatedBy: updatedBy }
+        })
         req.flash("success", `Cập nhật thành công trạng thái của ${ids.length} sản phẩm`)
         break;
       case "inactive":
-        await Product.updateMany({ _id: { $in: ids } }, { status: type })
+        await Product.updateMany({ _id: { $in: ids } }, {
+          status: type,
+          $push: { updatedBy: updatedBy }
+        })
         req.flash("success", `Cập nhật thành công trạng thái của ${ids.length} sản phẩm`)
         break;
       case "delete-all":
@@ -115,7 +141,10 @@ const changeMultiStatus = async (req, res) => {
         for (let item of ids) {
           let [id, position] = item.split("-")
           position = Number(position)
-          await Product.updateOne({ _id: id }, { position: position })
+          await Product.updateOne({ _id: id }, {
+            position: position,
+            $push: { updatedBy: updatedBy }
+          })
         }
         req.flash("success", `Cập nhật vị trí cho ${ids.length} sản phẩm thành công`)
         break;
@@ -218,7 +247,14 @@ const editPatch = async (req, res) => {
     req.body.thumbnail = `/uploads/${req.file.filename}`
   }
   try {
-    await Product.updateOne({ _id: req.params.id }, req.body)
+    const updatedBy = {
+      account_id: res.locals.user.id,
+      updatedAt: new Date()
+    }
+    await Product.updateOne({ _id: req.params.id }, {
+      ...req.body,
+      $push: { updatedBy: updatedBy }
+    })
     req.flash("success", "Cập nhật sản phẩm thành công")
   } catch (error) {
     req.flash("error", "Cập nhật sản phẩm thất bại")

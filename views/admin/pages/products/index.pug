@@ -51,6 +51,7 @@ block main
                 th Vị trí
                 th Trạng Thái
                 th Người tạo
+                th Người Cập nhật
                 th Hành Động
             tbody
               each item,index in products
@@ -98,6 +99,11 @@ block main
                     if (item.accountFullName)
                       p #{item.accountFullName}
                       +momentFormatDateTime(item.createdBy.createdAt)
+                  td
+                    - const updatedBy = item.updatedBy.slice(-1)[0]
+                    if (updatedBy)
+                      p #{updatedBy.accountFullName}
+                      +momentFormatDateTime(updatedBy.updatedAt)
                   td
                     a(href=`${prefixAdmin}/products/detail/${item.id}`
                     class="btn btn-success btn-lg" 
