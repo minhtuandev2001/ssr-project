@@ -1,5 +1,6 @@
 const Product = require("../../models/product.model")
 const ProductCategory = require("../../models/product-category.model")
+const Account = require("../../models/account.model")
 const filterStatusHelper = require("../../utils/filterStatus")
 const searchHelper = require("../../utils/search")
 const paginationHelper = require("../../utils/pagination")
@@ -41,13 +42,22 @@ const index = async (req, res) => {
     sort.position = 'desc'
   }
   try {
-    const data = await Product.find(find)
+    const products = await Product.find(find)
       .sort(sort)
       .limit(objectPagination.limit)
       .skip(objectPagination.skip)
+
+    // lấy tên người tạo sản phẩm
+    for (const product of products) {
+      const user = await Account.findOne({ _id: product.createdBy.account_id }).select("fullName")
+      if (user) {
+        product.accountFullName = user.fullName
+      }
+    }
+
     res.render("admin/pages/products/index", {
       titlePage: "admin products",
-      products: data,
+      products: products,
       filterStatus: filterStatus,
       keyword: objectSearch.keyword,
       pagination: objectPagination
@@ -57,6 +67,7 @@ const index = async (req, res) => {
     res.status(500).json({ message: error })
   }
 }
+
 // [PATCH] /admin/products/change-status/:status/:id
 const changeStatus = async (req, res) => {
   const { status, id } = req.params;
@@ -69,10 +80,12 @@ const changeStatus = async (req, res) => {
     req.flash("success", "Cập nhật trạng thái thành công")
     res.redirect("back")
   } catch (error) {
+    req.flash("error", "Cập nhật trạng thái thất bại")
     console.log(error)
     res.status(500).json({ message: error })
   }
 }
+
 // [PATCH] /admin/change-multi
 const changeMultiStatus = async (req, res) => {
   const type = req.body.type
@@ -106,12 +119,12 @@ const changeMultiStatus = async (req, res) => {
       default:
         break;
     }
-    res.redirect("back")
   } catch (error) {
-    console.log(error)
-    res.status(500).json({ message: error })
+    req.flash("error", `Cập nhật thất bại`)
   }
+  res.redirect("back")
 }
+
 // [DELETE] /admin/delete/:id 
 const deleteProduct = async (req, res) => {
   const id = req.params.id
@@ -124,12 +137,12 @@ const deleteProduct = async (req, res) => {
         deletedAt: new Date()
       }) // xóa mềm
     req.flash("success", `Xóa thành công sản phẩm`)
-    res.redirect("back")
   } catch (error) {
-    console.log(error)
-    res.status(500).json({ message: error })
+    req.flash("error", `Xóa thất bại sản phẩm`)
   }
+  res.redirect("back")
 }
+
 // [GET] /admin/create
 const create = async (req, res) => {
   try {
@@ -143,6 +156,7 @@ const create = async (req, res) => {
     res.status(500).json({ message: error })
   }
 }
+
 // [POST] /admin/create
 const createPost = async (req, res) => {
   req.body.price = Number(req.body.price)
@@ -154,14 +168,20 @@ const createPost = async (req, res) => {
   } else {
     req.body.position = Number(req.body.position)
   }
+  // thêm người tạo
+  req.body.createdBy = {
+    account_id: res.locals.user.id
+  }
   try {
     await Product.create(req.body)
     req.flash('success', "Tạo mới sản phẩm thành công")
-    res.redirect('/admin/products')
+    res.redirect(`${systemConfig.prefixAdmin}/products`)
   } catch (error) {
-    res.status(500).json({ message: error })
+    req.flash('error', "Tạo mới sản phẩm thất bại")
+    res.redirect("back")
   }
 }
+
 // [GET] /admin/edit/:id
 const edit = async (req, res) => {
   try {
@@ -216,6 +236,7 @@ const detail = async (req, res) => {
     res.redirect(`${systemConfig.prefixAdmin}/products`)
   }
 }
+
 module.exports = {
   index,
   changeStatus,

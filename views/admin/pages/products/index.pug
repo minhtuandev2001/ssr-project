@@ -6,6 +6,7 @@ include ../../mixin/form-change-multi.pug
 include ../../mixin/alert.pug
 include ../../mixin/sort.pug
 include ../../mixin/notAccess.pug
+include ../../mixin/moment.pug 
 
 block main 
   if (role.permissions.includes('products_view'))
@@ -49,6 +50,7 @@ block main
                 th Giá
                 th Vị trí
                 th Trạng Thái
+                th Người tạo
                 th Hành Động
             tbody
               each item,index in products
@@ -92,6 +94,10 @@ block main
                         button-change-status
                         id=item.id
                         ) Không Hoạt động
+                  td
+                    if (item.accountFullName)
+                      p #{item.accountFullName}
+                      +momentFormatDateTime(item.createdBy.createdAt)
                   td
                     a(href=`${prefixAdmin}/products/detail/${item.id}`
                     class="btn btn-success btn-lg" 

@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const methodOverride = require('method-override')
 require('dotenv').config()
+const moment = require("moment")
 
 const route = require("./routers/client/index.route");
 const routeAdmin = require("./routers/admin/index.route");
@@ -22,6 +23,7 @@ app.set("view engine", "pug")
 
 // App locals variables
 app.locals.prefixAdmin = systemConfig.prefixAdmin
+app.locals.moment = moment
 
 app.use(methodOverride('_method')) // ghi đè method
 app.use(express.static(`${__dirname}/public`))
