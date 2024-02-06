@@ -104,7 +104,10 @@ const changeMultiStatus = async (req, res) => {
         await Product.updateMany({ _id: { $in: ids } },
           {
             deleted: true,
-            deletedAt: new Date()
+            deletedBy: {
+              account_id: res.locals.user.id,
+              deletedAt: new Date()
+            }
           })
         req.flash("success", `Xóa thành công ${ids.length} sản phẩm`)
         break;
@@ -134,7 +137,10 @@ const deleteProduct = async (req, res) => {
       { _id: id },
       {
         deleted: true,
-        deletedAt: new Date()
+        deletedBy: {
+          account_id: res.locals.user.id,
+          deletedAt: new Date()
+        }
       }) // xóa mềm
     req.flash("success", `Xóa thành công sản phẩm`)
   } catch (error) {

@@ -15,7 +15,10 @@ const productCategorySchema = new mongoose.Schema({
     unique: true,
   },
   deleted: { type: Boolean, default: false },
-  deletedAt: { type: Date },
+  deletedBy: {
+    account_id: { type: String },
+    deletedAt: { type: Date }
+  },
 }, {
   timestamp: true
 })

@@ -103,7 +103,10 @@ const deleteProductCategory = async (req, res) => {
     await ProductCategory.updateOne({ _id: id },
       {
         deleted: true,
-        deletedAt: new Date()
+        deletedBy: {
+          account_id: res.locals.user.id,
+          deletedAt: new Date()
+        }
       }
     )
     req.flash('success', 'Xóa sản phẩm thành công')
@@ -187,7 +190,10 @@ const changeMulti = async (req, res) => {
       case 'delete-all':
         await ProductCategory.updateMany({ _id: { $in: ids } }, {
           deleted: true,
-          deletedAt: new Date()
+          deletedBy: {
+            account_id: res.locals.user.id,
+            deletedAt: new Date()
+          }
         })
         req.flash('success', `Xóa thành công ${ids.length} danh mục`)
         break;
