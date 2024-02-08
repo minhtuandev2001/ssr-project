@@ -76,19 +76,26 @@ const create = async (req, res) => {
 
 // [POST] /admin/products-category/create
 const createPost = async (req, res) => {
-  try {
-    if (req.body.position === '') {
-      const count = await ProductCategory.countDocuments()
-      req.body.position = count + 1
-    } else {
-      req.body.position = Number(req.body.position)
+  const permissions = res.locals.role.permissions;
+  if (permissions.includes("products-category_create")) {
+
+    try {
+      if (req.body.position === '') {
+        const count = await ProductCategory.countDocuments()
+        req.body.position = count + 1
+      } else {
+        req.body.position = Number(req.body.position)
+      }
+      await ProductCategory.create(req.body)
+      req.flash("success", "Tạo danh mục thành công")
+      res.redirect(`${systemConfig.prefixAdmin}/products-category`)
+    } catch (error) {
+      req.flash("error", "Tạo danh mục thất bại")
+      res.redirect(`${systemConfig.prefixAdmin}/products-category`)
     }
-    await ProductCategory.create(req.body)
-    req.flash("success", "Tạo danh mục thành công")
-    res.redirect(`${systemConfig.prefixAdmin}/products-category`)
-  } catch (error) {
-    req.flash("error", "Tạo danh mục thất bại")
-    res.redirect(`${systemConfig.prefixAdmin}/products-category`)
+  } else {
+    res.status(403).send('403')
+    return
   }
 }
 
@@ -158,6 +165,7 @@ const edit = async (req, res) => {
     res.redirect(`${systemConfig.prefixAdmin}/products-category`)
   }
 }
+
 // [PATCH] /admin/products-category/edit/:id
 const editPatch = async (req, res) => {
   const id = req.params.id;
