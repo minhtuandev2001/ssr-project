@@ -1,0 +1,4 @@
+include ./product-item.pug
+mixin grid-product(datas)
+  each item in datas 
+    +product-item(item)

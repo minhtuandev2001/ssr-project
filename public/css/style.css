@@ -52,12 +52,23 @@ p {
 .product--item {
   max-width: 250px;
   width: 100%;
+  height: 100%;
   background-color: #f7f4f2;
   border-radius: 7px;
+}
+.inner-featuread {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background: #dd0303;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
 }
 .product--item--image {
   width: 100%;
   height: 200px;
+  position: relative;
 }
 .product--item--image img {
   width: 100%;

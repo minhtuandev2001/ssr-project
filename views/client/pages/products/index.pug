@@ -1,4 +1,5 @@
 extends ../../layouts/default.pug 
+include ../../mixin/product-layout.pug 
 
 block main
   .container.my-3 
@@ -7,13 +8,4 @@ block main
         .box-head 
           h2.inner-title Danh sach san pham 
     .row 
-      each product in products 
-        .col-3.mb-3
-          div(class="product--item")
-            div(class="product--item--image")
-              img(src=product.thumbnail alt=product.title)
-            div(class="product--item--content")
-              h3(class="content__title") #{product.title}
-              p(class="content__price--new") price new : #{product.priceNew}$
-              p(class="content__price--old") price old : #{product.price}$
-              span(class="content__discount") discount : -#{product.discountPercentage}%
+      +grid-product(products)
