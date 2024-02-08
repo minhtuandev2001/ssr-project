@@ -11,6 +11,7 @@ const productSchema = new mongoose.Schema({
   stock: { type: Number },
   thumbnail: { type: String },
   status: { type: String },
+  featuread: { type: String },
   position: { type: Number },
   slug: {
     type: String,

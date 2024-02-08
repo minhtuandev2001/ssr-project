@@ -95,6 +95,7 @@ block main
           placeholder="Tự động tăng"
           min="1"
         )
+      p.mb-3 Trạng thái
       div(class="form-group form-check form-check-inline")
         input(
           type="radio"
@@ -115,6 +116,26 @@ block main
           checked
         )
         label(for="statusInActive" class="form-check-label") Dừng Hoạt động
+      p.mb-3 Sản phẩm nổi bật
+      div(class="form-group form-check form-check-inline")
+        input(
+          type="radio"
+          class="form-check-input"
+          id="featuread1"
+          name="featuread"
+          value="1"
+        )
+        label(for="featuread1" class="form-check-label") Có
+      div(class="form-group form-check form-check-inline")
+        input(
+          type="radio"
+          class="form-check-input"
+          id="featuread0"
+          name="featuread"
+          value="0"
+          checked
+        )
+        label(for="featuread0" class="form-check-label") Không
       div(class="form-group")
         button(
           type="submit"
