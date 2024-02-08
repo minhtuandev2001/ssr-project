@@ -1,11 +1,9 @@
 extends ../../layouts/default.pug 
 include ../../mixin/product-layout.pug 
+include ../../mixin/box-head.pug 
 
 block main
+  +box-head(titlePage)
   .container.my-3 
-    .row 
-      .col-12
-        .box-head 
-          h2.inner-title Danh sach san pham 
     .row 
       +grid-product(products)

@@ -1,5 +1,7 @@
 const Product = require("../../../models/product.model")
 const priceNewDiscountHelper = require("../../../utils/priceNewDiscount")
+
+// [GET] /products
 const index = async (req, res) => {
   try {
     // lấy ra sản phẩm nổi bật
