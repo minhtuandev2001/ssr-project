@@ -8,13 +8,25 @@ const index = async (req, res) => {
       featuread: "1",
       status: "active"
     })
-    // kết thúc lấy ra sản phẩm nổi bật
     // tính toán giá tiền sau khi khuyến mãi 
     const newProductFeaturead = priceNewDiscountHelper.priceNewDiscount(productFeaturead)
-    // kết thúc tính toán giá tiền sau khi khuyến mãi 
+    // kết thúc lấy ra sản phẩm nổi bật
+
+    // lấy ra sản phẩm mới nhất
+    const productsNew = await Product.find({
+      deleted: false,
+      status: "active"
+    }).sort({
+      position: "desc"
+    }).limit(6)
+    // tính toán giá tiền sau khi khuyến mãi 
+    const newProductsNew = priceNewDiscountHelper.priceNewDiscount(productsNew)
+    // lấy ra sản phẩm mới nhất
+
     res.render("client/pages/home/index", {
       titlePage: "Trang chủ",
-      productFeaturead: newProductFeaturead
+      productFeaturead: newProductFeaturead,
+      productsNew: newProductsNew
     })
   } catch (error) {
     res.status(500).json({ message: error })
