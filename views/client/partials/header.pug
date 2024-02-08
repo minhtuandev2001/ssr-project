@@ -1,3 +1,5 @@
+include ../mixin/menu.pug
+
 header 
   .container 
     div(class="row align-items-center")
@@ -6,8 +8,13 @@ header
           a(href="/") 
             img(src="/media/a.jpg" alt="logo" style="width: 100px")
       .col-9
-        ul(class=" nav d-flex justify-content-around bg-red")
-          li(class="nav-item" style="margin")
-            a(href="/" class="text-capitalize text-dark font-weight-bold") home
-          li(class="nav-item" style="margin")
-            a(href="/products" class="text-capitalize text-dark font-weight-bold") products
+        .inner-menu
+          ul
+            li
+              a(href="/") Trang chủ
+            li(class="sub-menu")
+              - const pathProduct = "/products";
+              a(href=pathProduct) Sản phẩm
+              //- layoutProductsCategory được trả ra từ middleware 
+              if (layoutProductsCategory)
+                +menu(layoutProductsCategory, pathProduct)

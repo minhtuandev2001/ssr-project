@@ -92,3 +92,43 @@ p {
   border-radius: 5px;
   color: #fff;
 }
+.inner-menu {
+  display: flex;
+  justify-content: flex-end;
+}
+.inner-menu > ul {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 999;
+}
+.inner-menu > ul > li {
+  margin-left: 20px;
+}
+.sub-menu {
+  position: relative;
+}
+.sub-menu ul {
+  display: none;
+  list-style: none;
+  position: absolute;
+  top: 100%;
+  right: 0px;
+}
+.sub-menu:hover > ul {
+  display: block;
+}
+.sub-menu > ul li {
+  width: 140px;
+  background: rgb(207, 204, 204);
+  position: relative;
+  padding: 10px 10px;
+}
+.sub-menu > ul li ul {
+  position: absolute;
+  top: 5px;
+  right: 100%;
+}
