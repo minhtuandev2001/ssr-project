@@ -1,23 +1,50 @@
 extends ../../layouts/default.pug 
+include ../../mixin/box-head.pug
 
 block main 
   .container.my-3 
     .row  
-      .col-12
-        if (product.title)
-          h1(class="mb-5") #{product.title}
-        if (product.price)
-          p(class="mb-5") Giá: <b>#{product.price}$</b>
-        if (product.discountPercentage)
-          p(class="mb-5") Giảm giá: <b>#{product.discountPercentage}%</b>
-        if (product.stock)
-          p(class="mb-5") Số lượng: <b>#{product.stock}</b>
+      .col-6
         if (product.thumbnail)
           img(
-            class="image-preview mb-5"
+            class="image-preview mb-3"
             src=product.thumbnail
             )
-        if (product.position)
-          p(class="mb-5") Vị trí: <b>#{product.position}</b>
-        if (product.description)
-          p(class="mb-5") !{product.description}
+      .col-6
+        if (product.title)
+          h1(
+            style="font-size: 35px"
+            class="mb-3" 
+          ) #{product.title}
+        if (product.category)
+          p(class="mb-3" ) Danh mục: 
+            span(class="text-primary") #{product.category.title}
+        if (product.price)
+          p(class="mb-3") Giá: <b>#{product.price}$</b>
+        if (product.priceNew)
+          p(class="mb-3") Giá mới: <b>#{product.priceNew}$</b>
+        if (product.discountPercentage)
+          p(class="mb-3") Giảm giá: <b>#{product.discountPercentage}%</b>
+        if (product.stock)
+          p(class="mb-3") Còn lại: <b>#{product.stock}</b> sản phẩm
+
+        form(
+          action=`/cart/add/${product.id}`
+          method="POST"
+        )
+          input(
+            type="number"
+            class="form-control mb-2"
+            name="quantity"
+            value="1"
+            min="1"
+            max=product.stock
+          )
+          button(
+            type="submit"
+            class="btn btn-success btn-block"
+          ) Thêm vào giỏ hàng
+  +box-head("Mô tả sản phẩm")
+  .container
+    if (product.description)
+      p(class="mb-3") !{product.description}

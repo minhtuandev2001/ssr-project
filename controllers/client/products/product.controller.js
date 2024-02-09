@@ -11,7 +11,7 @@ const index = async (req, res) => {
       // status: "active",
       deleted: false
     }).sort({ position: "desc" })
-    const newProduct = priceNewDiscountHelper.priceNewDiscount(data)
+    const newProduct = priceNewDiscountHelper.priceNewDiscountProducts(data)
 
     res.render('client/pages/products/index', {
       titlePage: "Danh sách sản phẩm",
@@ -40,9 +40,11 @@ const category = async (req, res) => {
       product_category_id: { $in: [category.id, ...listSubCategoryId] }
     }).sort({ position: "desc" })
 
+    const newProducts = priceNewDiscountHelper.priceNewDiscountProducts(products)
+
     res.render('client/pages/products/index', {
       titlePage: category.title,
-      products: products
+      products: newProducts
     })
   } catch (error) {
     console.log(error)
@@ -50,15 +52,26 @@ const category = async (req, res) => {
   }
 }
 
-// [GET] /products/:slug
+// [GET] /products/:slugProduct
 const detail = async (req, res) => {
   const find = {
     deleted: false,
     status: "active",
-    slug: req.params.slug
+    slug: req.params.slugProduct
   }
   try {
     const product = await Product.findOne(find)
+    if (product.product_category_id) {
+      const category = await ProductsCategory.findOne({
+        deleted: false,
+        status: "active",
+        _id: product.product_category_id
+      })
+      product.category = category
+    }
+    // thêm thuộc tính giá tiền sau khi chiết khấu
+    product.priceNew = priceNewDiscountHelper.priceNewDiscountProduct(product)
+
     res.render("client/pages/products/detail", {
       titlePage: product.title,
       product: product

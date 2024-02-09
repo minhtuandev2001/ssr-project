@@ -6,7 +6,10 @@ mixin product-item(item)
         if (item.featuread === "1")
           div(class="inner-featuread") nổi bật
       div(class="product--item--content")
-        h3(class="content__title") #{item.title}
+        h3
+          a( 
+            href=`/products/detail/${item.slug}`
+            class="content__title") #{item.title}
         p(class="content__price--new") price new : #{item.priceNew}$
         p(class="content__price--old") price old : #{item.price}$
         span(class="content__discount") discount : -#{item.discountPercentage}%
