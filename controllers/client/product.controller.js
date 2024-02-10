@@ -1,8 +1,8 @@
-const Product = require("../../../models/product.model")
-const ProductsCategory = require("../../../models/product-category.model")
+const Product = require("../../models/product.model")
+const ProductsCategory = require("../../models/product-category.model")
 
-const priceNewDiscountHelper = require("../../../utils/priceNewDiscount")
-const productCategoryHelper = require("../../../utils/products-category")
+const priceNewDiscountHelper = require("../../utils/priceNewDiscount")
+const productCategoryHelper = require("../../utils/products-category")
 
 // [GET] /products 
 const index = async (req, res) => {

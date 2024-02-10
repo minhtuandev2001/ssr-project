@@ -2,12 +2,29 @@ include ../mixin/menu.pug
 
 header 
   .container 
-    div(class="row align-items-center")
+    div(class="row align-items-center justify-content-center")
       .col-3
         .inner-logo
           a(href="/") 
             img(src="/media/a.jpg" alt="logo" style="width: 100px")
-      .col-9
+      .col-6
+        form(
+          action=`/search`
+          method="GET"
+        )
+          div(class="form-group d-flex mb-0")
+            input(
+              type="text"
+              placeholder="Nhập từ khóa..."
+              class="form-control"
+              name="keyword"
+              value=keyword
+            )
+            button(
+              type="submit"
+              class="btn btn-primary"
+            ) Tìm
+      .col-3
         .inner-menu
           ul
             li

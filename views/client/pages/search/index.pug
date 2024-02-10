@@ -1,0 +1,9 @@
+extends ../../layouts/default.pug 
+include ../../mixin/box-head.pug
+include ../../mixin/product-layout.pug
+
+block main
+  +box-head("Kết quả tìm kiếm được")
+  .container.mb-3 
+    .row 
+      +grid-product(products)
