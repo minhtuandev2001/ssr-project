@@ -143,3 +143,20 @@ p {
   top: 5px;
   right: 100%;
 }
+/* // alert */
+[show-alert] {
+  position: fixed;
+  top: 70px;
+  right: 15px;
+  z-index: 999;
+}
+[show-alert].hidden-alert {
+  /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+  animation: hidden-alert 0.3s ease-out forwards;
+}
+@keyframes hidden-alert {
+  100% {
+    transform: translate(110%);
+  }
+}
+/* // end alert */

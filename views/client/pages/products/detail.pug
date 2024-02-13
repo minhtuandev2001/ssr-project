@@ -1,7 +1,10 @@
 extends ../../layouts/default.pug 
 include ../../mixin/box-head.pug
+include ../../mixin/alert.pug 
 
 block main 
+  +alertSuccess(4000)
+  +alertError(4000)
   .container.my-3 
     .row  
       .col-6
@@ -27,7 +30,6 @@ block main
           p(class="mb-3") Giảm giá: <b>#{product.discountPercentage}%</b>
         if (product.stock)
           p(class="mb-3") Còn lại: <b>#{product.stock}</b> sản phẩm
-
         form(
           action=`/cart/add/${product.id}`
           method="POST"
