@@ -1,0 +1,61 @@
+extends ../../layouts/default.pug 
+include ../../mixin/alert.pug 
+include ../../mixin/box-head.pug 
+
+block main 
+  +alertSuccess(4000)
+  +alertError(4000)
+  +box-head("Giỏ hàng")
+  .container 
+    .row  
+      .col-12 
+        table(
+          class="table table-hover table-sm table--product"
+          checkbox-multi
+          )
+          thead 
+            tr
+              th STT
+              th Ảnh
+              th Tên
+              th Giá
+              th Số Lượng
+              th Tổng tiền
+              th Hành động
+          tbody
+            if (cartDetail.products.length >0)
+              each item,index in cartDetail.products
+                tr(class="product--item")
+                  td #{index + 1}
+                  td
+                    img(src=item.productInfo.thumbnail alt="" style="width: 100px; height: 60px; border-radius: 5px")
+                  td 
+                    a(href=`/products/detail/${item.productInfo.slug}`) #{item.productInfo.title}
+                  td #{item.productInfo.priceNew}
+                  td 
+                    input(
+                      type="number"
+                      name="quantity"
+                      value=item.quantity
+                      min="1"
+                      item-id=""
+                      style="width: 60px"
+                    )
+                  td #{item.totalPrice}
+                  td
+                    a(
+                      href=`/products/delete/${item.product_id}`
+                      class="btn btn-danger btn-lg"
+                      ) Xóa
+            else 
+              p Không có sản phẩm nào
+        h3(class="text-right") Tổng đơn hàng: #{cartDetail.totalPrice} $
+        div(class="text-right mt-3 mb-3")
+          a(href="/checkout"
+          class="btn btn-success") Thanh toán
+    form(
+      action=""
+      method="POST"
+      id="form-delete-product"
+      data-path=`${prefixAdmin}/cart/delete`
+    )

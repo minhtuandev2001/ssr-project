@@ -160,3 +160,10 @@ p {
   }
 }
 /* // end alert */
+/* product item in cart*/
+.product--item td {
+  /* text-align: center; */
+  vertical-align: middle;
+  padding: 10px 0px;
+}
+/* end product item in cart*/

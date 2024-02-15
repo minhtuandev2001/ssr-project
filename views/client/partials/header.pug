@@ -35,3 +35,5 @@ header
               //- layoutProductsCategory được trả ra từ middleware 
               if (layoutProductsCategory)
                 +menu(layoutProductsCategory, pathProduct)
+            li
+              a(href="/cart") Giỏ hàng (#{miniCart ? miniCart.totalQuantity : 0})

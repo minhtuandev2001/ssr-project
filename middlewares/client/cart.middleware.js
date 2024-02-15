@@ -7,7 +7,13 @@ const cartId = async (req, res, next) => {
     const expiresTime = 1000 * 60 * 60 * 24 * 365;
     res.cookie("cartId", cart.id, { expires: new Date(Date.now() + expiresTime) })
   } else {
-
+    const cartId = req.cookies.cartId;
+    // đã có giỏ hàng, hiển thị số sản phẩm đã có trong giỏ hàng
+    const cart = await Cart.findOne({ _id: cartId })
+    cart.totalQuantity = cart.products.reduce((sum, item) => {
+      return sum += item.quantity
+    }, 0)
+    res.locals.miniCart = cart
   }
   next()
 }
