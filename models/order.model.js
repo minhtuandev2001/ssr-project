@@ -1,4 +1,4 @@
-const mongoose = reuqire("mongoose")
+const mongoose = require("mongoose")
 
 const orderSchema = mongoose.Schema({
   // user_id:

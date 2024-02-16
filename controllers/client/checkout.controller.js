@@ -1,8 +1,10 @@
 const Cart = require("../../models/cart.model")
 const Product = require("../../models/product.model")
+const Order = require("../../models/order.model")
 
 const priceNewDiscountHelper = require("../../utils/priceNewDiscount")
 
+// [GET] /checkout
 const index = async (req, res) => {
   try {
     const id = req.cookies.cartId
@@ -27,6 +29,44 @@ const index = async (req, res) => {
   }
 }
 
+// [POST] /checkout/order
+const order = async (req, res) => {
+  try {
+    const cartId = req.cookies.cartId
+    const userInfo = req.body
+    const cart = await Cart.findOne({ _id: cartId })
+    let products = []
+    for (const item of cart.products) {
+      const product = await Product.findOne({ _id: item.product_id })
+
+      const objectProduct = {
+        product_id: item.product_id,
+        price: product.price,
+        discountPercentage: product.discountPercentage,
+        quantity: item.quantity,
+      }
+      products.push(objectProduct)
+    }
+    // lưu vào database 
+    const objectOrder = {
+      cart_id: cartId,
+      userInfo: userInfo,
+      products: products
+    }
+    const order = new Order(objectOrder)
+    await order.save()
+    // cập nhật lại giỏ hàng
+    await Cart.updateOne({ _id: cartId }, { products: [] })
+
+    req.flash("success", "Đặt hàng thành công")
+    // làm thêm logic cập nhật số hàng còn lại/ làm trang đặt hàng thành công
+  } catch (error) {
+    req.flash("error", "Đặt hàng thất bại")
+  }
+  res.redirect("back")
+}
+
 module.exports = {
-  index
+  index,
+  order
 }
