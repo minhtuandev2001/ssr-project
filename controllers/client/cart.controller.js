@@ -80,8 +80,27 @@ const deleteCart = async (req, res) => {
   }
   res.redirect("back")
 }
+
+// [PATCH] /cart/update/:productId/:quantity
+const update = async (req, res) => {
+  try {
+    const cartId = req.cookies.cartId;
+    const productId = req.params.productId;
+    const quantity = req.params.quantity;
+    await Cart.updateOne({
+      _id: cartId,
+      "products.product_id": productId,
+    }, {
+      "products.$.quantity": quantity
+    })
+  } catch (error) {
+    req.flash("error", "Cập nhật số lượng không thành công");
+  }
+  res.redirect("back");
+}
 module.exports = {
   addPost,
   index,
-  deleteCart
+  deleteCart,
+  update
 }

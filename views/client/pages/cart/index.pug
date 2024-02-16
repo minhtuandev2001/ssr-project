@@ -38,7 +38,7 @@ block main
                       name="quantity"
                       value=item.quantity
                       min="1"
-                      item-id=""
+                      product-id=item.product_id
                       style="width: 60px"
                     )
                   td #{item.totalPrice}
@@ -56,6 +56,7 @@ block main
     form(
       action=""
       method="POST"
-      id="form-delete-product"
-      data-path=`${prefixAdmin}/cart/delete`
+      id="form-update-product-cart"
+      data-path=`${prefixAdmin}/cart`
     )
+  script(src="/js/cart.js") 
