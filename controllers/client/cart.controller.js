@@ -63,7 +63,25 @@ const index = async (req, res) => {
     res.redirect("back")
   }
 }
+
+// [GET] /cart/delete/:productId
+const deleteCart = async (req, res) => {
+  try {
+    const cartId = req.cookies.cartId;
+    const productId = req.params.productId;
+    await Cart.updateOne({ _id: cartId }, {
+      $pull: { products: { "product_id": productId } }
+    },
+      { safe: true, multi: false }
+    )
+    req.flash("success", "Xóa sản phẩm khỏi giỏ hàng thành công")
+  } catch (error) {
+    req.flash("error", "Xóa sản phẩm khỏi giỏ hàng thất bại")
+  }
+  res.redirect("back")
+}
 module.exports = {
   addPost,
-  index
+  index,
+  deleteCart
 }
