@@ -59,14 +59,38 @@ const order = async (req, res) => {
     await Cart.updateOne({ _id: cartId }, { products: [] })
 
     req.flash("success", "Đặt hàng thành công")
-    // làm thêm logic cập nhật số hàng còn lại/ làm trang đặt hàng thành công
+    // làm thêm logic cập nhật số hàng còn lại
+    res.redirect(`/checkout/success/${order.id}`)
   } catch (error) {
     req.flash("error", "Đặt hàng thất bại")
+    res.redirect("back")
   }
-  res.redirect("back")
+}
+
+// [GET] /checkout/success/:orderId
+const success = async (req, res) => {
+  try {
+    const orderId = req.params.orderId;
+    const order = await Order.findOne({ _id: orderId })
+    // lấy thêm thông tin cho sản phẩm
+    for (const item of order.products) {
+      const product = await Product.findOne({ _id: item.product_id }).select("title thumbnail")
+      item.productInfo = product
+      item.priceNew = priceNewDiscountHelper.priceNewDiscountProduct(item)
+      item.totalPrice = item.quantity * item.priceNew
+    }
+    order.totalPrice = order.products.reduce((sum, item) => sum + item.totalPrice, 0)
+    res.render("client/pages/checkout/success", {
+      titlePage: "Đặt hàng thành công",
+      order: order
+    })
+  } catch (error) {
+    res.redirect("back")
+  }
 }
 
 module.exports = {
   index,
-  order
+  order,
+  success
 }
