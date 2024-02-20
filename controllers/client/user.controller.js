@@ -1,5 +1,8 @@
 const md5 = require("md5")
 const User = require("../../models/user.model")
+const ForgotPassword = require("../../models/forgot-password.model")
+
+const generate = require("../../utils/generate")
 
 // [GET] /user/register 
 const register = (req, res) => {
@@ -75,10 +78,84 @@ const logout = (req, res) => {
   res.clearCookie("tokenUser")
   res.redirect("/")
 }
+
+// [GET] /user/password/forgot
+const forgotPassword = (req, res) => {
+  res.render("client/pages/user/forgot-password", {
+    titlePage: "Quên mật khẩu"
+  })
+}
+
+// [POST] /user/password/forgot 
+const forgotPasswordPost = async (req, res) => {
+  try {
+    const email = req.body.email
+    // check email có tồn tại không
+    const existEmail = await User.findOne({
+      email: email,
+      deleted: false
+    })
+    if (!existEmail) {
+      req.flash("error", "Email không tồn tại")
+      res.redirect("back")
+      return
+    }
+    // vc1:  tạo mã otp và lưu mã otp, email vào collection
+    const objectForgotPassword = {
+      email: email,
+      otp: "",
+      expireAt: Date.now()
+    }
+    objectForgotPassword.otp = generate.generateRandomNumber(8)
+    const otp = new ForgotPassword(objectForgotPassword)
+    await otp.save()
+
+    // vc2: gửi mã otp qua email user
+    res.redirect(`/user/password/otp?email=${email}`)
+  } catch (error) {
+    res.redirect("/user/password/forgot")
+  }
+}
+
+// [GET] /user/password/otp
+const otpPassword = async (req, res) => {
+  const email = req.query.email
+  res.render("client/pages/user/otp-password", {
+    titlePage: "Nhập mã otp",
+    email: email
+  })
+}
+
+// [POST] /user/password/otp
+const otpPasswordPost = async (req, res) => {
+  const email = req.body.email
+  const otp = req.body.otp
+  const result = await ForgotPassword.findOne({
+    email: email,
+    otp: otp
+  })
+  if (!result) {
+    req.flash("error", "Mã otp không hợp lệ")
+    res.redirect("back")
+    return
+  }
+  // lấy ra thông tin người dùng sau khi đã check otp
+  const user = User.findOne({
+    email: email
+  })
+  res.cookie("tokenUser", user.tokenUser)
+  res.redirect("/user/password/reset", {
+    titlePage: "Cập nhật mật khẩu"
+  })
+}
 module.exports = {
   register,
   registerPost,
   login,
   loginPost,
-  logout
+  logout,
+  forgotPassword,
+  forgotPasswordPost,
+  otpPassword,
+  otpPasswordPost
 }

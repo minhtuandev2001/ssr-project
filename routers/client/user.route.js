@@ -19,4 +19,19 @@ router.post(
   userController.loginPost)
 
 router.get('/logout', userController.logout)
+
+router.get('/password/forgot', userController.forgotPassword)
+
+router.post(
+  '/password/forgot',
+  userValidate.forgotPasswordPost,
+  userController.forgotPasswordPost)
+
+router.get('/password/otp', userController.otpPassword)
+
+router.post(
+  '/password/otp',
+  userValidate.otpPasswordPost,
+  userController.otpPasswordPost)
+
 module.exports = router

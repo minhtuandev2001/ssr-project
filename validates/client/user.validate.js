@@ -31,7 +31,32 @@ const loginPost = (req, res, next) => {
   next();
 }
 
+const forgotPasswordPost = (req, res, next) => {
+  if (!req.body.email) {
+    req.flash("error", "Hãy nhập email của bạn")
+    res.redirect('back')
+    return
+  }
+  next();
+}
+
+const otpPasswordPost = (req, res, next) => {
+  if (!req.body.email) {
+    req.flash("error", "Hãy nhập email của bạn")
+    res.redirect('back')
+    return
+  }
+  if (!req.body.otp) {
+    req.flash("error", "Hãy nhập mã otp")
+    res.redirect('back')
+    return
+  }
+  next();
+}
+
 module.exports = {
   registerPost,
-  loginPost
+  loginPost,
+  forgotPasswordPost,
+  otpPasswordPost
 }
