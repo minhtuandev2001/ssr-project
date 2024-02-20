@@ -70,9 +70,15 @@ const loginPost = async (req, res) => {
   }
 }
 
+// [GET] /user/logout 
+const logout = (req, res) => {
+  res.clearCookie("tokenUser")
+  res.redirect("/")
+}
 module.exports = {
   register,
   registerPost,
   login,
-  loginPost
+  loginPost,
+  logout
 }

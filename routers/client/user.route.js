@@ -18,4 +18,5 @@ router.post(
   userValidate.loginPost,
   userController.loginPost)
 
+router.get('/logout', userController.logout)
 module.exports = router
