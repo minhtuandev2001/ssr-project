@@ -1,7 +1,9 @@
 extends ../../layouts/default.pug
 include ../../mixin/product-layout.pug 
+include ../../mixin/alert.pug 
 
-block main
+block main 
+  +alertSuccess(4000)
   .container.my-3 
     .row 
       .col-12

@@ -11,4 +11,11 @@ router.post(
   userValidate.registerPost,
   userController.registerPost)
 
+router.get('/login', userController.login)
+
+router.post(
+  '/login',
+  userValidate.loginPost,
+  userController.loginPost)
+
 module.exports = router
