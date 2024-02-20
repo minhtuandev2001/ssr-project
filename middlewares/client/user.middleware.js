@@ -7,7 +7,6 @@ const infoUser = async (req, res, next) => {
         tokenUser: req.cookies.tokenUser,
         deleted: false
       }).select("-password")
-      console.log(user)
 
       if (user) {
         res.locals.user = user

@@ -3,6 +3,7 @@ const User = require("../../models/user.model")
 const ForgotPassword = require("../../models/forgot-password.model")
 
 const generate = require("../../utils/generate")
+const sendMailHelper = require("../../utils/sendMail")
 
 // [GET] /user/register 
 const register = (req, res) => {
@@ -14,7 +15,6 @@ const register = (req, res) => {
 // [POST] /user/register 
 const registerPost = async (req, res) => {
   try {
-    console.log(req.body)
     // kiểm tra email tồn tại 
     const emailExist = await User.findOne({ email: req.body.email })
     if (emailExist) {
@@ -110,7 +110,12 @@ const forgotPasswordPost = async (req, res) => {
     const otp = new ForgotPassword(objectForgotPassword)
     await otp.save()
 
-    // vc2: gửi mã otp qua email user
+    // vc2: gửi mã otp qua email user 
+    const subject = "Mã OTP xác minh lấy lại mật khẩu"
+    const html = `
+    Mã OTP xác minh lấy lại mật khẩu là <b>${objectForgotPassword.otp}</b> Lưu ý không được để lọ, thời hạn sử dụng là 3 phút`
+    sendMailHelper.sendMail(email, subject, html)
+
     res.redirect(`/user/password/otp?email=${email}`)
   } catch (error) {
     res.redirect("/user/password/forgot")
@@ -140,14 +145,37 @@ const otpPasswordPost = async (req, res) => {
     return
   }
   // lấy ra thông tin người dùng sau khi đã check otp
-  const user = User.findOne({
+  const user = await User.findOne({
     email: email
   })
   res.cookie("tokenUser", user.tokenUser)
-  res.redirect("/user/password/reset", {
-    titlePage: "Cập nhật mật khẩu"
+  res.redirect("/user/password/reset")
+}
+
+// [GET] /user/password/reset
+const resetPassword = async (req, res) => {
+  res.render("client/pages/user/reset-password", {
+    titlePage: "Cập nhật mật khẩu",
   })
 }
+
+// [POST] /user/password/reset
+const resetPasswordPost = async (req, res) => {
+  try {
+    const password = md5(req.body.password)
+    const tokenUser = req.cookies.tokenUser
+
+    await User.updateOne({
+      tokenUser: tokenUser
+    }, { password: password })
+    req.flash("success", "Cập nhật mật khẩu thành công")
+    res.redirect("/")
+  } catch (error) {
+    req.flash("error", "Cập nhật mật khẩu thất bại")
+    res.redirect("user/password/reset")
+  }
+}
+
 module.exports = {
   register,
   registerPost,
@@ -157,5 +185,7 @@ module.exports = {
   forgotPassword,
   forgotPasswordPost,
   otpPassword,
-  otpPasswordPost
+  otpPasswordPost,
+  resetPassword,
+  resetPasswordPost
 }

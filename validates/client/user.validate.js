@@ -54,9 +54,28 @@ const otpPasswordPost = (req, res, next) => {
   next();
 }
 
+const resetPasswordPost = (req, res, next) => {
+  if (!req.body.password) {
+    req.flash("error", "Nhập mật khẩu mới của bạn")
+    res.redirect("back")
+    return
+  }
+  if (!req.body.confirmPassword) {
+    req.flash("error", "Hãy xác nhận lại mật khẩu của bạn")
+    res.redirect("back")
+    return
+  }
+  if (req.body.password !== req.body.confirmPassword) {
+    req.flash("error", "Mật khẩu xác nhận không khớp")
+    res.redirect("back")
+    return
+  }
+  next()
+}
 module.exports = {
   registerPost,
   loginPost,
   forgotPasswordPost,
-  otpPasswordPost
+  otpPasswordPost,
+  resetPasswordPost
 }
