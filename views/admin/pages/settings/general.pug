@@ -1,0 +1,95 @@
+extends ../../layouts/default.pug 
+include ../../mixin/alert.pug
+include ../../mixin/alert.pug 
+
+block main
+  +alertSuccess(4000)
+  +alertError(4000)
+  .container
+    .row 
+      .col-12 
+        h1 Cài đặt chung
+    form(
+      action=`${prefixAdmin}/settings/general?_method=PATCH`
+      method="POST"
+      enctype="multipart/form-data"
+    )
+      div(class="form-group")
+        label(for="websiteName") Tên Website
+        input(
+          type="text",
+          class="form-control"
+          id="websiteName"
+          name="websiteName"
+          value=(settingGeneral.websiteName ? settingGeneral.websiteName : "")
+        )
+      div(
+        upload-image
+        class="form-group")
+        label(for="logo") Logo
+        input(
+          type="file",
+          class="form-control"
+          id="logo"
+          name="logo"
+          accept="image/*"
+          upload-image-input
+        )
+        img(
+          class="image-preview"
+          upload-image-preview 
+          src=(settingGeneral.logo ? settingGeneral.logo : "")
+          )
+        button(type="button" button-clear-preview class="button-clear-preview") x
+      div(class="form-group")
+        label(for="phone") Số điện thoại
+        input(
+          type="text",
+          class="form-control"
+          id="phone"
+          name="phone"
+          value=(settingGeneral.phone ? settingGeneral.phone : "")
+        )
+      div(class="form-group")
+        label(for="email") Email
+        input(
+          type="text",
+          class="form-control"
+          id="email"
+          name="email"
+          value=(settingGeneral.email ? settingGeneral.email : "")
+        )
+      div(class="form-group")
+        label(for="address") Địa chỉ
+        input(
+          type="text",
+          class="form-control"
+          id="address"
+          name="address"
+          value=(settingGeneral.address ? settingGeneral.address : "")
+        )
+      div(class="form-group")
+        label(for="coppyright") Coppyright
+        input(
+          type="text",
+          class="form-control"
+          id="coppyright"
+          name="coppyright"
+          value=(settingGeneral.coppyright ? settingGeneral.coppyright : "")
+        )
+      div(class="form-group")
+        label(for="map") Map
+        input(
+          type="text",
+          class="form-control"
+          id="map"
+          name="map"
+          value=(settingGeneral.map ? settingGeneral.map : "")
+        )
+      if (settingGeneral.map)
+        div !{settingGeneral.map}
+      button(
+        class="btn btn-primary mt-3"
+        type="submit"
+      ) Cập nhật
+  script(src="/admin/js/products.js")

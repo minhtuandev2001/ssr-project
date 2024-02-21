@@ -6,7 +6,7 @@ header
       .col-3
         .inner-logo
           a(href="/") 
-            img(src="/media/a.jpg" alt="logo" style="width: 100px")
+            img(src=(settingGeneral.logo ? settingGeneral.logo : "/media/a.jpg") alt="logo" style="width: 100px")
       .col-6
         form(
           action=`/search`
