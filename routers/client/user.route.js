@@ -4,6 +4,8 @@ const router = express.Router()
 const userController = require("../../controllers/client/user.controller")
 const userValidate = require("../../validates/client/user.validate")
 
+const userAuthMiddleware = require("../../middlewares/client/auth.middleware")
+
 router.get('/register', userController.register)
 
 router.post(
@@ -41,4 +43,8 @@ router.post(
   userValidate.resetPasswordPost,
   userController.resetPasswordPost)
 
+router.get(
+  '/info',
+  userAuthMiddleware.requireAuth,
+  userController.infoUser)
 module.exports = router

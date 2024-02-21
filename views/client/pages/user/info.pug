@@ -1,0 +1,9 @@
+extends ../../layouts/default.pug 
+include ../../mixin/alert.pug 
+include ../../mixin/box-head.pug
+
+block main 
+  +alertSuccess(4000)
+  +alertError(4000)
+  +box-head("Thông tin tài khoản")
+  div #{user}

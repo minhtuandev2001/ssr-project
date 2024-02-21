@@ -176,6 +176,19 @@ const resetPasswordPost = async (req, res) => {
   }
 }
 
+// [GET] /user/info
+const infoUser = async (req, res) => {
+  try {
+    const user = await User.findOne({ tokenUser: req.cookies.tokenUser })
+    res.render("client/pages/user/info", {
+      titlePage: "Thông tin người dùng"
+    })
+  } catch (error) {
+    res.flash("error", "có lỗi xảy ra")
+    res.redirect("back")
+  }
+}
+
 module.exports = {
   register,
   registerPost,
@@ -187,5 +200,6 @@ module.exports = {
   otpPassword,
   otpPasswordPost,
   resetPassword,
-  resetPasswordPost
+  resetPasswordPost,
+  infoUser
 }
