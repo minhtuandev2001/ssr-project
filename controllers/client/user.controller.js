@@ -4,6 +4,7 @@ const ForgotPassword = require("../../models/forgot-password.model")
 
 const generate = require("../../utils/generate")
 const sendMailHelper = require("../../utils/sendMail")
+const Cart = require("../../models/cart.model")
 
 // [GET] /user/register 
 const register = (req, res) => {
@@ -65,6 +66,12 @@ const loginPost = async (req, res) => {
 
     req.flash("success", `Chào mừng ${user.fullName}`)
     res.cookie("tokenUser", user.tokenUser)
+
+    await Cart.updateOne({
+      _id: req.cookies.cartId
+    }, {
+      user_id: user.id
+    })
     res.redirect("/")
   } catch (error) {
     console.log(error)
