@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 
 const orderSchema = mongoose.Schema({
-  // user_id:
+  user_id: { type: String },
   cart_id: { type: String },
   userInfo: {
     fullName: { type: String },

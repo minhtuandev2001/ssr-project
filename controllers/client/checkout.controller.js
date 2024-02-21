@@ -47,8 +47,11 @@ const order = async (req, res) => {
       }
       products.push(objectProduct)
     }
+
     // lưu vào database 
+    const infoUser = res.locals.user
     const objectOrder = {
+      user_id: infoUser.id,
       cart_id: cartId,
       userInfo: userInfo,
       products: products
