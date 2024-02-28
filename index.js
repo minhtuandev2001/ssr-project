@@ -29,24 +29,24 @@ app.use(methodOverride('_method')) // ghi đè method
 app.use(express.static(`${__dirname}/public`))
 app.use(express.json())
 app.use(express.urlencoded())
-app.use(cookieParser())
-app.use(session({
+app.use(cookieParser()) // 1
+app.use(session({ // 2 
   secret: 'minhtuan',
   cookie: { maxAge: 60000 }
 }))
-app.use(flash())
+app.use(flash()) // để sử dụng được thì phải có 1,2
 // tinyMCE
 app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
 // end tinyMCE 
 
 // Routes
 route(app)
+routeAdmin(app)
 app.get("*", (req, res) => {
   res.render('client/pages/errors/404', {
     titlePage: '404 NOT FOUND'
   })
 })
-routeAdmin(app)
 
 app.listen(port, () => {
   console.log('listening on port', port)

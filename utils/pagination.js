@@ -6,5 +6,5 @@ module.exports = (objectPagination, query, countDocument) => {
   const totalPage = Math.ceil(countDocument / objectPagination.limit)
   objectPagination.totalPage = totalPage
 
-  return objectPagination
+  return objectPagination;
 }
