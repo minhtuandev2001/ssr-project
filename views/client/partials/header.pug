@@ -6,20 +6,28 @@ header
       div.header__info__contact
         div 
           <i class="bi bi-telephone-plus"></i>
-          span 0123456789
+          span #{settingGeneral.phone ? settingGeneral.phone : ""}
         div 
           <i class="bi bi-envelope"></i>
-          span minhtuan@gmail.com
+          span #{settingGeneral.email ? settingGeneral.email : ""}
         div 
-          <i class="bi bi-facebook"></i>
-          <i class="bi bi-instagram"></i>
+          a(href="https://web.facebook.com/?_rdc=1&_rdr") 
+            <i class="bi bi-facebook"></i>
+          a(href="https://web.facebook.com/?_rdc=1&_rdr") 
+            <i class="bi bi-instagram"></i>
       div.header__info__contact
         div 
           span Lịch sử đặt hàng
-        div 
-          a(href="/") Đăng ký
-          span /
-          a(href="/") Đăng nhập
+        if (user)
+          div
+            a(href="/user/info") #{user.fullName}
+            span /
+            a(href="/user/logout") Đăng xuất
+        else
+          div 
+            a(href="/user/register") Đăng ký
+            span /
+            a(href="/user/login") Đăng nhập
   .container--navbar
     .container--custom.header__navbar
       div
@@ -44,48 +52,48 @@ header
               <i class="bi bi-search"></i>
             button(type="button") 
               <i class="bi bi-bag"></i>
-        //- div(class="row align-items-center justify-content-center")
-        //-   .col-3
-        //-     .inner-logo
-        //-       a(href="/") 
-        //-         img(src=(settingGeneral.logo ? settingGeneral.logo : "/media/a.jpg") alt="logo" style="width: 100px")
-        //-   .col-6
-        //-     form(
-        //-       action=`/search`
-        //-       method="GET"
-        //-     )
-        //-       div(class="form-group d-flex mb-0")
-        //-         input(
-        //-           type="text"
-        //-           placeholder="Nhập từ khóa..."
-        //-           class="form-control"
-        //-           name="keyword"
-        //-           value=keyword
-        //-         )
-        //-         button(
-        //-           type="submit"
-        //-           class="btn btn-primary"
-        //-         ) Tìm
-        //-   .col-3
-        //-     .inner-menu
-        //-       ul
-        //-         li
-        //-           a(href="/") Trang chủ
-        //-         li(class="sub-menu")
-        //-           - const pathProduct = "/products";
-        //-           a(href=pathProduct) Sản phẩm
-        //-           //- layoutProductsCategory được trả ra từ middleware 
-        //-           if (layoutProductsCategory)
-        //-             +menu(layoutProductsCategory, pathProduct)
-        //-         li
-        //-           a(href="/cart") Giỏ hàng (#{miniCart ? miniCart.totalQuantity : 0})
-        //-         if (user)
-        //-           li
-        //-             a(href="/user/info") #{user.fullName}
-        //-           li
-        //-             a(href="/user/logout") Đăng xuất
-        //-         else
-        //-           li
-        //-             a(href="/user/register") Đăng ký
-        //-           li
-        //-             a(href="/user/login") Đăng Nhập
+        div(class="row align-items-center justify-content-center")
+          .col-3
+            .inner-logo
+              a(href="/") 
+                img(src=(settingGeneral.logo ? settingGeneral.logo : "/media/a.jpg") alt="logo" style="width: 100px")
+          .col-6
+            form(
+              action=`/search`
+              method="GET"
+            )
+              div(class="form-group d-flex mb-0")
+                input(
+                  type="text"
+                  placeholder="Nhập từ khóa..."
+                  class="form-control"
+                  name="keyword"
+                  value=keyword
+                )
+                button(
+                  type="submit"
+                  class="btn btn-primary"
+                ) Tìm
+          .col-3
+            .inner-menu
+              ul
+                li
+                  a(href="/") Trang chủ
+                li(class="sub-menu")
+                  - const pathProduct = "/products";
+                  a(href=pathProduct) Sản phẩm
+                  //- layoutProductsCategory được trả ra từ middleware 
+                  if (layoutProductsCategory)
+                    +menu(layoutProductsCategory, pathProduct)
+                li
+                  a(href="/cart") Giỏ hàng (#{miniCart ? miniCart.totalQuantity : 0})
+                if (user)
+                  li
+                    a(href="/user/info") #{user.fullName}
+                  li
+                    a(href="/user/logout") Đăng xuất
+                else
+                  li
+                    a(href="/user/register") Đăng ký
+                  li
+                    a(href="/user/login") Đăng Nhập
