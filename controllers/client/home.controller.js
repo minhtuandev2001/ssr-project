@@ -9,7 +9,7 @@ const index = async (req, res) => {
       deleted: false,
       featuread: "1",
       status: "active"
-    })
+    }).limit(10)
     // tính toán giá tiền sau khi khuyến mãi 
     const newProductFeaturead = priceNewDiscountHelper.priceNewDiscountProducts(productFeaturead)
     // kết thúc lấy ra sản phẩm nổi bật
@@ -20,7 +20,7 @@ const index = async (req, res) => {
       status: "active"
     }).sort({
       position: "desc"
-    }).limit(6)
+    }).limit(10)
     // tính toán giá tiền sau khi khuyến mãi 
     const newProductsNew = priceNewDiscountHelper.priceNewDiscountProducts(productsNew)
     // lấy ra sản phẩm mới nhất

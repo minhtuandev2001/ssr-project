@@ -1,19 +1,119 @@
 extends ../../layouts/default.pug
 include ../../mixin/product-layout.pug 
 include ../../mixin/alert.pug 
+include ../../mixin/section-head.pug 
 
 block main 
   +alertSuccess(4000)
-  .container.my-3 
-    .row 
-      .col-12
-        .box-head 
-          h2.inner-title Sản phẩm nổi bật
-    .row 
-      +grid-product(productFeaturead)
-    .row 
-      .col-12
-        .box-head 
-          h2.inner-title Sản phẩm mới nhất
-    .row 
-      +grid-product(productsNew)
+  .banner 
+    .banner__content 
+    #demo.carousel.slide(data-ride='carousel')
+      .banner--box 
+        h1.banner--title Tô điểm thế giới trong ngôi nhà của bạn
+        p.banner-desc Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur dignissimos soluta alias distinctio laudantium error corporis cupiditate a, impedit laborum nam magni animi quis id.
+        button.banner-button Xem Thêm
+      ul.carousel-indicators
+        li.active(data-target='#demo' data-slide-to='0')
+        li(data-target='#demo' data-slide-to='1')
+        li(data-target='#demo' data-slide-to='2')
+      .carousel-inner
+        .carousel-item.active
+          img(src='https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' alt='Los Angeles' width='1100' height='500')
+        .carousel-item
+          img(src='https://images.unsplash.com/photo-1537726235470-8504e3beef77?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' alt='Chicago' width='1100' height='500')
+        .carousel-item
+          img(src='https://plus.unsplash.com/premium_photo-1673014201877-64e88f4b5542?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' alt='New York' width='1100' height='500')
+      a.carousel-control-prev.arrow(href='#demo' data-slide='prev')
+        <i class="bi bi-arrow-left"></i>
+      a.carousel-control-next.arrow(href='#demo' data-slide='next')
+        <i class="bi bi-arrow-right"></i>
+  .container--custom
+    .row.session__about
+      .col-3.about--item 
+        img(src="/media/armchair.png" alt="")
+        div.ablout--item--infor
+          p Đa dạng sản phẩm
+          p Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur, exercitationem.
+      .col-3.about--item 
+        img(src="/media/xe.png" alt="")
+        div.ablout--item--infor
+          p Freeship
+          p Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur, exercitationem.
+      .col-3.about--item 
+        img(src="/media/chungnhan.png" alt="")
+        div.ablout--item--infor
+          p Sản phẩm chất lượng
+          p Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur, exercitationem.
+      .col-3.about--item 
+        img(src="/media/insurance.png" alt="")
+        div.ablout--item--infor
+          p Chính sách bảo mật
+          p Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur, exercitationem.
+  .section#list
+    +section-head("Tìm Theo Loại Phòng")
+    .section--room
+      .swiper
+        .swiper-wrapper
+          .swiper-slide
+            img( class="slider--image" src="https://plus.unsplash.com/premium_photo-1673014201877-64e88f4b5542?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="")
+            div.slider-footer
+              p.slider--text Phòng khách
+              <i class="bi bi-arrow-right"></i>
+          .swiper-slide
+            img( class="slider--image" src="https://plus.unsplash.com/premium_photo-1673014201877-64e88f4b5542?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="")
+            div.slider-footer
+              p.slider--text Phòng khách
+              <i class="bi bi-arrow-right"></i>
+          .swiper-slide
+            img( class="slider--image" src="https://plus.unsplash.com/premium_photo-1673014201877-64e88f4b5542?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="")
+            div.slider-footer
+              p.slider--text Phòng khách
+              <i class="bi bi-arrow-right"></i>
+          .swiper-slide
+            img( class="slider--image" src="https://plus.unsplash.com/premium_photo-1673014201877-64e88f4b5542?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="")
+            div.slider-footer
+              p.slider--text Phòng khách
+              <i class="bi bi-arrow-right"></i>
+          .swiper-slide
+            img( class="slider--image" src="https://plus.unsplash.com/premium_photo-1673014201877-64e88f4b5542?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="")
+            div.slider-footer
+              p.slider--text Phòng khách
+              <i class="bi bi-arrow-right"></i>
+          .swiper-slide
+            img( class="slider--image" src="https://plus.unsplash.com/premium_photo-1673014201877-64e88f4b5542?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="")
+            div.slider-footer
+              p.slider--text Phòng khách
+              <i class="bi bi-arrow-right"></i>
+          .swiper-slide
+            img( class="slider--image" src="https://plus.unsplash.com/premium_photo-1673014201877-64e88f4b5542?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="")
+            div.slider-footer
+              p.slider--text Phòng khách
+              <i class="bi bi-arrow-right"></i>
+          .swiper-slide
+            img( class="slider--image" src="https://plus.unsplash.com/premium_photo-1673014201877-64e88f4b5542?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="")
+            div.slider-footer
+              p.slider--text Phòng khách
+              <i class="bi bi-arrow-right"></i>
+          .swiper-slide
+            img( class="slider--image" src="https://plus.unsplash.com/premium_photo-1673014201877-64e88f4b5542?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="")
+            div.slider-footer
+              p.slider--text Phòng khách
+              <i class="bi bi-arrow-right"></i>
+          .swiper-slide
+            img( class="slider--image" src="https://plus.unsplash.com/premium_photo-1673014201877-64e88f4b5542?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="")
+            div.slider-footer
+              p.slider--text Phòng khách
+              <i class="bi bi-arrow-right"></i>
+        .swiper-button-next
+          <i class="bi bi-arrow-right"></i>
+        .swiper-button-prev
+          <i class="bi bi-arrow-left"></i>
+  .section#product
+    +section-head("Sản Phẩm Nổi Bật")
+    .container--custom
+      .list-product
+        +grid-product(productFeaturead)
+    +section-head("Sản Phẩm Mới Nhất")
+    .container--custom
+      .list-product
+        +grid-product(productsNew)

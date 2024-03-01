@@ -1,15 +1,12 @@
 mixin product-item(item)
-  .col-4.mb-3
+  a(class="product-link" href=`/products/detail/${item.slug}`)
     div(class="product--item")
       div(class="product--item--image")
         img(src=item.thumbnail alt=item.title)
-        if (item.featuread === "1")
-          div(class="inner-featuread") nổi bật
+        span(class="inner__discount") -#{item.discountPercentage}%
       div(class="product--item--content")
-        h3
-          a( 
-            href=`/products/detail/${item.slug}`
-            class="content__title") #{item.title}
-        p(class="content__price--new") price new : #{item.priceNew}$
-        p(class="content__price--old") price old : #{item.price}$
-        span(class="content__discount") discount : -#{item.discountPercentage}%
+        if (item.featuread === "1")
+          div(class="inner-featuread") <i class="bi bi-check2-circle"></i> nổi bật
+        h3(class="content__title") #{item.title}
+        p(class="content__price--new") #{item.priceNew}$
+        p(class="content__price--old") #{item.price}$
