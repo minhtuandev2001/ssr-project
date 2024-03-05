@@ -93,16 +93,16 @@ header
       ul  
         li
           a(href="/cart") <i class="bi bi-bag"></i>(#{miniCart ? miniCart.totalQuantity : 0})
-        if (user)
-          li.sub_foruser
-            <i class="bi bi-person-circle"></i>
-            ul 
+        li.sub_foruser
+          <i class="bi bi-person-circle"></i>
+          ul 
+            if (user)
               li
                 a(href="/user/info") #{user.fullName}
               li
                 a(href="/user/logout") Đăng xuất
-        else
-          li
-            a(href="/user/register") Đăng ký
-          li
-            a(href="/user/login") Đăng Nhập
+            else
+              li
+                a(href="/user/register") Đăng ký
+              li
+                a(href="/user/login") Đăng Nhập
