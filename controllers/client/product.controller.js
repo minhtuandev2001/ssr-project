@@ -3,25 +3,40 @@ const ProductsCategory = require("../../models/product-category.model")
 
 const priceNewDiscountHelper = require("../../utils/priceNewDiscount")
 const productCategoryHelper = require("../../utils/products-category")
-
+const paginationHelper = require("../../utils/pagination")
 // [GET] /products 
 const index = async (req, res) => {
   try {
+    // sort
     const sort = {}
     if (req.query.sortKey && req.query.sortValue) {
       sort[req.query.sortKey] = req.query.sortValue;
     } else {
       sort.position = "desc"
     }
-    const data = await Product.find({
-      // status: "active",
+    // end sort
+    // pagination
+    const countDocuments = await Product.countDocuments({
+      status: "active",
       deleted: false
-    }).sort(sort)
+    })
+    const objectPagination = paginationHelper({
+      limit: 9,
+      currentPage: 1
+    }, req.query, countDocuments, 8)
+
+    // end pagination
+    const data = await Product.find({
+      status: "active",
+      deleted: false
+    }).sort(sort).limit(objectPagination.limit).skip(objectPagination.skip)
+
     const newProduct = priceNewDiscountHelper.priceNewDiscountProducts(data)
 
     res.render('client/pages/products/index', {
       titlePage: "List of products",
-      products: newProduct
+      products: newProduct,
+      pagination: objectPagination
     })
   } catch (error) {
     res.status(500).json({ message: error })

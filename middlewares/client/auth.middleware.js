@@ -16,7 +16,7 @@ module.exports.requireAuth = async (req, res, next) => {
     next()
   } catch (error) {
     console.log(error)
-    req.flash("error", "Lỗi xin thử lại")
+    req.flash("error", "Error please try again")
     res.redirect("back")
   }
 }

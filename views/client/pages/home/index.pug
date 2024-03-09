@@ -81,18 +81,8 @@ block main
             // features_items
             h2.title.text-center FEATURED PRODUCTS
             each item in productFeaturead
-              +product-item-overlay(item)
-                //- .choose
-                //-   ul.nav.nav-pills.nav-justified
-                //-     li
-                //-       a(href='#')
-                //-         i.fa.fa-plus-square
-                //-         | Add to wishlist
-                //-     li
-                //-       a(href='#')
-                //-         i.fa.fa-plus-square
-                //-         | Add to compare
-
+              .col-sm-4.col-md-3
+                +product-item-overlay(item)
           // features_items
           .features_items
             // features_items

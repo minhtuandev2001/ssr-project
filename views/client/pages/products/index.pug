@@ -1,27 +1,44 @@
 extends ../../layouts/default.pug 
 include ../../mixin/product-layout.pug 
 include ../../mixin/section-head.pug 
+include ../../mixin/product-item.pug 
+include ../../mixin/alert.pug 
 
 block main
-  +section-head(titlePage)
-  .filter 
-    .filter__sider
-      .filter__sort
-        p Sắp xếp
-        .sort__group
-          label(for="position-desc") Sắp xếp mới nhất
-          input(type="radio" name="sort" sort-product-radio value="position-desc" id="position-desc")
-        .sort__group
-          label(for="position-asc") Sắp xếp cũ nhất
-          input(type="radio" name="sort" sort-product-radio value="position-asc" id="position-asc")
-        .sort__group
-          label(for="price-asc") Sắp xếp giá tăng
-          input(type="radio" name="sort" sort-product-radio value="price-asc" id="price-asc")
-        .sort__group
-          label(for="price-desc") Sắp xếp giá giảm
-          input(type="radio" name="sort" sort-product-radio value="price-desc" id="price-desc")
-
-      .filter__checkbox
-    .list-product
-      +grid-product(products)
-  script(src="/js/products.js") 
+  +alertSuccess(4000)
+  .container
+    +section-head(titlePage)
+    .row 
+      .col-sm-2
+        .filter 
+          .filter__sider
+            .filter__sort
+              p Sắp xếp
+              .sort__group
+                label(for="position-desc") Sắp xếp mới nhất
+                input(type="radio" name="sort" sort-product-radio value="position-desc" id="position-desc")
+              .sort__group
+                label(for="position-asc") Sắp xếp cũ nhất
+                input(type="radio" name="sort" sort-product-radio value="position-asc" id="position-asc")
+              .sort__group
+                label(for="price-asc") Sắp xếp giá tăng
+                input(type="radio" name="sort" sort-product-radio value="price-asc" id="price-asc")
+              .sort__group
+                label(for="price-desc") Sắp xếp giá giảm
+                input(type="radio" name="sort" sort-product-radio value="price-desc" id="price-desc")
+      .col-sm-10  
+        .list-product
+          each item in products
+            .col-12.col-sm-6.col-md-4
+              +product-item-overlay(item)
+        ul.pagination
+          li(class=`${pagination.currentPage-1 == 0 ? "disabled" : ""}`)
+            a(href=`/products?page=${pagination.currentPage-1}`) prev
+          - for (let i = 1; i <= pagination.totalPage ; i++)
+            li(class=`${pagination.currentPage == i ? "active": ""}`)
+              a(href=`/products?page=${i}`) #{i}
+          li(class=`${pagination.currentPage == pagination.totalPage ? "disabled" : ""}`)
+            a(href=`/products?page=${pagination.curentPage+1}`) next
+        //- div
+        //-   a(href=`/products?page=${pagination.currentPage+1}` class="loadmore") Load more
+  script(src="/js/products.js")
