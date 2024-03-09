@@ -1,56 +1,110 @@
 include ../mixin/menu.pug
 
-header 
-  div.header
-    .header__logo
-      a(href="/") 
-        //- img(src=(settingGeneral.logo ? settingGeneral.logo : "/media/logo1.png") alt="logo" style="width: 100px")
-        img(src="/media/logo 1.png" alt="logo")
-    .header__menu
-      ul
-        li
-          a(href="/") Trang chủ
-        li(class="sub-menu")
-          - const pathProduct = "/products";
-          a(href=pathProduct) Sản phẩm
-          //- layoutProductsCategory được trả ra từ middleware 
-          if (layoutProductsCategory)
-            +menu(layoutProductsCategory, pathProduct)
-        li
-          a(href="/") Bài viết
-        li
-          a(href="/") Liên hệ
-    .header__form
-      form(
-        action=`/search`
-        method="GET"
-      )
-        div(class="form-group d-flex mb-0")
-          input(
-            type="text"
-            placeholder="Nhập từ khóa..."
-            class="form-control"
-            name="keyword"
-            value=keyword
-          )
-          button(
-            type="submit"
-            class="btn btn-primary"
-          ) <i class="bi bi-search"></i>
-    .header__foruser 
-      ul  
-        li
-          a(href="/cart") <i class="bi bi-bag"></i>(#{miniCart ? miniCart.totalQuantity : 0})
-        li.sub_foruser
-          <i class="bi bi-person-circle"></i>
-          ul 
-            if (user)
+header#header
+  // header
+  .header_top
+    // header_top
+    .container
+      .row
+        .col-sm-6
+          .contactinfo
+            ul.nav.nav-pills
               li
-                a(href="/user/info") #{user.fullName}
+                a(href='#')
+                  i.bi.bi-telephone-fill
+                  |  +2 95 01 88 821
               li
-                a(href="/user/logout") Đăng xuất
-            else
+                a(href='#')
+                  i.bi.bi-envelope-fill
+                  |  info@domain.com
+        .col-sm-6
+          .social-icons.pull-right
+            ul.nav.navbar-nav
               li
-                a(href="/user/register") Đăng ký
+                a(href='#')
+                  i.bi.bi-facebook
               li
-                a(href="/user/login") Đăng Nhập
+                a(href='#')
+                  i.bi.bi-facebook
+  .header-middle
+    // header-middle
+    .container
+      .row
+        .col-sm-4
+          .logo.pull-left
+            a(href='/')
+              img(src=(!settingGeneral.logo ? settingGeneral.logo : '/media/logo.png') alt='' style="width: 150px")
+          .btn-group.pull-right
+        .col-sm-8
+          .shop-menu.pull-right
+            ul.nav.navbar-nav.navbar-mobile
+              if (user)
+                li
+                  a(href='/user/info')
+                    i.bi.bi-person-fill
+                    | #{user.fullName}
+              li
+                a(href='#')
+                  i.bi.bi-heart-fill
+                  |  Wishlist
+              li
+                a(href='/cart')
+                  i.bi.bi-cart-dash-fill
+                  |  Cart (#{miniCart ? miniCart.totalQuantity : 0})
+              if (user)
+                li
+                  a(href='/user/logout')
+                    i.bi.bi-lock-fill
+                    |  Logout
+              else
+                li
+                  a(href='/user/login')
+                    i.bi.bi-lock-fill
+                    |  Login
+                li
+                  a(href='/user/register')
+                    i.bi.bi-clipboard-check
+                    |  Register
+  // /header-middle
+  .header-bottom
+    // header-bottom
+    .container
+      .row
+        .col-sm-9
+          .navbar-header
+            button.navbar-toggle(type='button' data-toggle='collapse' data-target='.navbar-collapse')
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+          .mainmenu.pull-left
+            ul.navbar-nav.collapse.navbar-collapse
+              li
+                a.active(href='/') Home
+              li.response-web.sub-menu-custom
+                -const pathProduct = "/products";
+                a(href='/products') Products
+                if (layoutProductsCategory)
+                  +menu(layoutProductsCategory, pathProduct)
+              li.response-mobile
+                a(href="#") Products 
+                ul 
+                  each item in layoutProductsCategory
+                    li 
+                      a(href=`${pathProduct}/${item.slug}`) #{item.title}
+              li
+                a(href='404.html') 404
+              li
+                a(href='contact-us.html') Contact
+        .col-sm-3
+          form(
+            action=`/search` method="GET")
+            .search_box.pull-right
+              input(
+                type='text' 
+                placeholder='Search'
+                class="form-control"
+                name="keyword"
+                value=keyword)
+              button Search
+  // /header-bottom

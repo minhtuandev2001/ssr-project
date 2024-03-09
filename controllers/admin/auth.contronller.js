@@ -9,7 +9,7 @@ const login = (req, res) => {
     res.redirect(`${systemConfig.prefixAdmin}/dashboard`)
   } else {
     res.render("admin/pages/auth/login", {
-      titlePage: 'Đăng nhập'
+      titlePage: 'Login'
     })
   }
 }
@@ -25,26 +25,26 @@ const loginPost = async (req, res) => {
       deleted: false
     })
     if (!account) {
-      req.flash("error", "Tài khoản không tồn tại")
+      req.flash("error", "Account does not exist")
       res.redirect("back")
       return
     }
     if (password !== account.password) {
-      req.flash("error", "Mật khẩu sai")
+      req.flash("error", "wrong password")
       res.redirect("back")
       return
     }
     if (account.status === "inactive") {
-      req.flash("error", "Tài khoản đã bị khóa")
+      req.flash("error", "Account has been locked")
       res.redirect("back")
       return
     }
-    req.flash("success", "Chào mừng ")
+    req.flash("success", "Welcome")
     res.cookie("token", account.token);
     res.redirect(`${systemConfig.prefixAdmin}/dashboard`)
   } catch (error) {
     console.log(error)
-    req.flash("error", "Đăng nhập thất bại")
+    req.flash("error", "Login failed")
     res.redirect("back")
   }
 }

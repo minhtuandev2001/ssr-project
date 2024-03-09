@@ -1,12 +1,13 @@
 var swiper = new Swiper('.swiper', {
-  slidesPerView: 4,
+  slidesPerView: 3,
   direction: getDirection(),
   navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
+    nextEl: '.swiper-button-next-custom',
+    prevEl: '.swiper-button-prev-custom',
   },
   on: {
     resize: function () {
+      console.log(getDirection())
       swiper.changeDirection(getDirection());
     },
   },

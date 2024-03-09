@@ -5,9 +5,9 @@ block main
   +alertSuccess(4000)
   +alertError(4000)
   .container 
-    .row.justify-content-center.mb-5.mt-5
-      .col-8
-        h1(class="text-center") Đăng Nhập
+    .justify-content-center.mb-5.mt-5
+      .container-form
+        h1(class="text-center") Login
         form(
           action="/user/login"
           method="POST"
@@ -21,7 +21,7 @@ block main
               name="email"
             )
           div(class="form-group")
-            label(for="password" class="mb-2") Mật khẩu
+            label(for="password" class="mb-2") Password
             input(
               type="text"
               class="form-control"
@@ -32,5 +32,5 @@ block main
             button(
               type="submit"
               class="btn btn-primary btn-block"
-            ) Đăng nhập
-        a(href="/user/password/forgot") Quên mật khẩu ?
+            ) Login
+        a(href="/user/password/forgot") forgot password ?

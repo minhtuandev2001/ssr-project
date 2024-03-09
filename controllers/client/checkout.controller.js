@@ -20,7 +20,7 @@ const index = async (req, res) => {
     cart.totalPrice = cart.products.reduce((sum, item) => sum + item.totalPrice, 0)
 
     res.render("client/pages/checkout/index", {
-      titlePage: "Đặt hàng",
+      titlePage: "Order",
       cartDetail: cart
     })
   } catch (error) {
@@ -50,6 +50,11 @@ const order = async (req, res) => {
 
     // lưu vào database 
     const infoUser = res.locals.user
+    if (!infoUser) {
+      req.flash("error", "You are not logged in")
+      res.redirect("/user/login")
+      return
+    }
     const objectOrder = {
       user_id: infoUser.id,
       cart_id: cartId,
@@ -61,11 +66,11 @@ const order = async (req, res) => {
     // cập nhật lại giỏ hàng
     await Cart.updateOne({ _id: cartId }, { products: [] })
 
-    req.flash("success", "Đặt hàng thành công")
+    req.flash("success", "Order Success")
     // làm thêm logic cập nhật số hàng còn lại
     res.redirect(`/checkout/success/${order.id}`)
   } catch (error) {
-    req.flash("error", "Đặt hàng thất bại")
+    req.flash("error", "Order failed")
     res.redirect("back")
   }
 }
@@ -84,7 +89,7 @@ const success = async (req, res) => {
     }
     order.totalPrice = order.products.reduce((sum, item) => sum + item.totalPrice, 0)
     res.render("client/pages/checkout/success", {
-      titlePage: "Đặt hàng thành công",
+      titlePage: "Order Success",
       order: order
     })
   } catch (error) {

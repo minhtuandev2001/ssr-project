@@ -5,52 +5,58 @@ include ../../mixin/box-head.pug
 block main 
   +alertSuccess(4000)
   +alertError(4000)
-  +box-head("Giỏ hàng")
   .container 
     .row  
       .col-12 
-        table(
-          class="table table-hover table-sm table--product"
-          checkbox-multi
-          )
-          thead 
-            tr
-              th STT
-              th Ảnh
-              th Tên
-              th Giá
-              th Số Lượng
-              th Tổng tiền
-              th Hành động
-          tbody
-            if (cartDetail.products.length >0)
-              each item,index in cartDetail.products
-                tr(class="product--item")
-                  td #{index + 1}
-                  td
-                    img(src=item.productInfo.thumbnail alt="" style="width: 100px; height: 60px; border-radius: 5px")
-                  td 
-                    a(href=`/products/detail/${item.productInfo.slug}`) #{item.productInfo.title}
-                  td #{item.productInfo.priceNew}
-                  td 
-                    input(
-                      type="number"
-                      name="quantity"
-                      value=item.quantity
-                      min="1"
-                      product-id=item.product_id
-                      style="width: 60px"
-                    )
-                  td #{item.totalPrice}
-                  td
-                    a(
-                      href=`/cart/delete/${item.product_id}`
-                      class="btn btn-danger btn-lg"
-                      ) Xóa
-            else 
-              p Không có sản phẩm nào
-        h3(class="text-right") Tổng đơn hàng: #{cartDetail.totalPrice} $
+        section#cart_items
+          .container
+            .breadcrumbs
+              ol.breadcrumb
+                li
+                  a(href='/') Home
+                li.active Shopping Cart
+            .cart_info
+              table(
+                class="table table-hover table-sm table--product"
+                checkbox-multi
+                )
+                thead
+                  tr.cart_menu
+                    td.image Item
+                    td.description
+                    td.price Price
+                    td.quantity Quantity
+                    td.total Total
+                    td.total
+                tbody
+                  if (cartDetail.products.length >0)
+                    each item,index in cartDetail.products
+                      tr(class="product--item")
+                        //- td #{index + 1}
+                        td.cart_product
+                          img(src=item.productInfo.thumbnail alt="" style="width: 100px; height: 60px; border-radius: 5px")
+                        td.cart_description
+                          a(href=`/products/detail/${item.productInfo.slug}`) #{item.productInfo.title}
+                        td.cart_price #{item.productInfo.priceNew}
+                        td 
+                          input(
+                            type="number"
+                            name="quantity"
+                            value=item.quantity
+                            min="1"
+                            product-id=item.product_id
+                            style="width: 60px"
+                          )
+                        td.cart_total #{item.totalPrice}
+                        td.cart_delete
+                          a(
+                            href=`/cart/delete/${item.product_id}`
+                            class="btn btn-lg btn-outline-light text-warning"
+                            ) Delete
+                  else 
+                    p No products
+        h3(class="text-right") Total order: #{cartDetail.totalPrice} $
         div(class="text-right mt-3 mb-3")
           a(href="/checkout"
-          class="btn btn-success") Thanh toán
+          class="btn btn-success") check out 
   script(src="/js/cart.js") 

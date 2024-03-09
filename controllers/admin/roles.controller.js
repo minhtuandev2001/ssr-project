@@ -7,7 +7,7 @@ const index = async (req, res) => {
   }
   const roles = await Role.find(find)
   res.render('admin/pages/roles/index', {
-    titlePage: 'Nhóm quyền',
+    titlePage: 'Rights group',
     roles: roles
   })
 }
@@ -15,7 +15,7 @@ const index = async (req, res) => {
 // [GET] /admin/roles/create
 const create = (req, res) => {
   res.render('admin/pages/roles/create', {
-    titlePage: 'Thêm mới nhóm quyền'
+    titlePage: 'Add new permission group'
   })
 }
 
@@ -23,10 +23,10 @@ const create = (req, res) => {
 const createPost = async (req, res) => {
   try {
     await Role.create(req.body)
-    req.flash('success', "Thêm mới nhóm quyền không thành công")
+    req.flash('success', "Adding new permission group failed")
     res.redirect(`${systemConfig.prefixAdmin}/roles`)
   } catch (error) {
-    req.flash('error', "Thêm mới nhóm quyền không thành công")
+    req.flash('error', "Adding new permission group failed")
     res.redirect('back')
   }
 }
@@ -40,11 +40,11 @@ const edit = async (req, res) => {
     }
     const role = await Role.findOne(find)
     res.render("admin/pages/roles/edit", {
-      titlePage: 'Sửa nhóm quyền',
+      titlePage: 'Edit permission groups',
       role: role
     })
   } catch (error) {
-    req.flash('error', "Nhóm quyền không tồn tại")
+    req.flash('error', "The permission group does not exist")
     res.redirect(`${systemConfig.prefixAdmin}/roles`)
   }
 }
@@ -54,10 +54,10 @@ const editPatch = async (req, res) => {
   try {
     const id = req.params.id
     await Role.updateOne({ _id: id, deleted: false }, req.body)
-    req.flash('success', "Cập nhật nhóm quyền thành công")
+    req.flash('success', "Permission group update successful")
     res.redirect('back')
   } catch (error) {
-    req.flash('error', "Cập nhật nhóm quyền thất bại")
+    req.flash('error', "Updating permission groups failed")
     res.redirect('back')
   }
 }
@@ -70,9 +70,9 @@ const deletePremissions = async (req, res) => {
         deleted: true,
         deleteAt: new Date()
       })
-    req.flash('success', "Xóa thành công nhóm quyền")
+    req.flash('success', "Successfully deleted permission group")
   } catch (error) {
-    req.flash('error', "Nhóm quyền không tồn tại")
+    req.flash('error', "The permission group does not exist")
   }
   res.redirect("back")
 }
@@ -92,7 +92,7 @@ const detail = async (req, res) => {
       role: role
     })
   } catch (error) {
-    req.flash("error", "Nhóm quyền này không tồn tại")
+    req.flash("error", "This permission group does not exist")
     res.redirect("back")
   }
 }
@@ -106,7 +106,7 @@ const permissions = async (req, res) => {
     const roles = await Role.find(find)
     res.render("admin/pages/roles/permissions",
       {
-        titlePage: "Phân quyền",
+        titlePage: "Decentralization",
         roles: roles
       })
   } catch (error) {
@@ -121,10 +121,10 @@ const permissionsPatch = async (req, res) => {
     for (const item of data) {
       await Role.updateOne({ _id: item.id }, { permissions: item.permissions })
     }
-    req.flash('success', 'Cập nhật quyền thành công')
+    req.flash('success', 'Updated permissions successfully')
   } catch (error) {
     console.log(error)
-    req.flash('error', 'Cập nhật quyền thất bại')
+    req.flash('error', 'Updating permissions failed')
   }
   res.redirect("back")
 }

@@ -5,7 +5,7 @@ const systemConfig = require("../../config/system")
 // [GET] /admin/my-account/index 
 const index = (req, res) => {
   res.render("admin/pages/my-account/index", {
-    titlePage: "Thông tin tài khoản"
+    titlePage: "account information"
   })
 }
 
@@ -13,7 +13,7 @@ const index = (req, res) => {
 const edit = async (req, res) => {
   try {
     res.render(`admin/pages/my-account/edit`, {
-      titlePage: "Thông tin tài khoản",
+      titlePage: "account information",
     })
   } catch (error) {
     res.status(500)

@@ -17,7 +17,7 @@ const index = async (req, res) => {
       newProducts = priceNewDiscountHelper.priceNewDiscountProducts(products)
     }
     res.render("client/pages/search/index", {
-      titlePage: "Kết quả tìm kiếm",
+      titlePage: "Search Results",
       keyword: keyword,
       products: newProducts
     })

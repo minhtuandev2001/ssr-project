@@ -45,7 +45,7 @@ const index = async (req, res) => {
       .skip(objectPagination.skip)
     const newCategorys = createTreeHelper.tree(categorys)
     res.render("admin/pages/product-category/index", {
-      titlePage: "Danh mục sản phẩm",
+      titlePage: "Product portfolio",
       categorys: newCategorys,
       filterStatus: filterStatus,
       keyword: objectSearch.keyword,
@@ -66,7 +66,7 @@ const create = async (req, res) => {
     const newCategorys = createTreeHelper.tree(categorys)
 
     res.render('admin/pages/product-category/create', {
-      titlePage: 'Tạo danh mục sản phẩm',
+      titlePage: 'Create product catalog',
       categorys: newCategorys
     })
   } catch (error) {
@@ -87,10 +87,10 @@ const createPost = async (req, res) => {
         req.body.position = Number(req.body.position)
       }
       await ProductCategory.create(req.body)
-      req.flash("success", "Tạo danh mục thành công")
+      req.flash("success", "Created a successful portfolio")
       res.redirect(`${systemConfig.prefixAdmin}/products-category`)
     } catch (error) {
-      req.flash("error", "Tạo danh mục thất bại")
+      req.flash("error", "Create a failure category")
       res.redirect(`${systemConfig.prefixAdmin}/products-category`)
     }
   } else {
@@ -103,7 +103,7 @@ const createPost = async (req, res) => {
 const deleteProductCategory = async (req, res) => {
   const id = req.params.id;
   if (!id) {
-    req.flash('error', 'Xóa sản phẩm thất bại')
+    req.flash('error', 'Delete failed product')
     res.redirect(`${systemConfig.prefixAdmin}/products-category`)
   }
   try {
@@ -116,10 +116,10 @@ const deleteProductCategory = async (req, res) => {
         }
       }
     )
-    req.flash('success', 'Xóa sản phẩm thành công')
+    req.flash('success', 'Product deletion successful')
     res.redirect(`${systemConfig.prefixAdmin}/products-category`)
   } catch (error) {
-    req.flash('error', 'Xóa sản phẩm thất bại')
+    req.flash('error', 'Delete failed product')
     res.redirect(`${systemConfig.prefixAdmin}/products-category`)
   }
 }
@@ -174,10 +174,10 @@ const editPatch = async (req, res) => {
   }
   try {
     await ProductCategory.updateOne({ _id: id }, req.body)
-    req.flash('success', 'Cập nhật danh mục thành công')
+    req.flash('success', 'Updated directory successfully')
     res.redirect("back")
   } catch (error) {
-    req.flash('success', 'Cập nhật danh mục thất bại')
+    req.flash('success', 'Update catalog failed')
   }
 }
 
@@ -189,11 +189,11 @@ const changeMulti = async (req, res) => {
     switch (type) {
       case 'active':
         await ProductCategory.updateMany({ _id: ids }, { status: 'active' })
-        req.flash('success', `Cập nhật thành công ${ids.length} danh mục`)
+        req.flash('success', `Update successful ${ids.length} category`)
         break;
       case 'inactive':
         await ProductCategory.updateMany({ _id: ids }, { status: 'inactive' })
-        req.flash('success', `Cập nhật thành công ${ids.length} danh mục`)
+        req.flash('success', `Update successful ${ids.length} category`)
         break;
       case 'delete-all':
         await ProductCategory.updateMany({ _id: { $in: ids } }, {
@@ -203,7 +203,7 @@ const changeMulti = async (req, res) => {
             deletedAt: new Date()
           }
         })
-        req.flash('success', `Xóa thành công ${ids.length} danh mục`)
+        req.flash('success', `Deleted successfully ${ids.length} category`)
         break;
       case 'change-position':
         ids.forEach(async (item) => {
@@ -211,7 +211,7 @@ const changeMulti = async (req, res) => {
           let position = Number(item.split('-')[1])
           await ProductCategory.updateOne({ _id: id }, { position: position })
         });
-        req.flash('success', `Cập nhật thành công ${ids.length} danh mục`)
+        req.flash('success', `Update successful ${ids.length} category`)
         break;
       default:
         break;
@@ -229,10 +229,10 @@ const changeStatus = async (req, res) => {
   const status = req.params.status
   try {
     await ProductCategory.updateOne({ _id: id }, { status: status })
-    req.flash('success', 'Cập nhật thành công')
+    req.flash('success', 'Update successful')
     res.redirect("back")
   } catch (error) {
-    req.flash('error', 'Cập nhật thất bại')
+    req.flash('error', 'Update failed')
   }
 }
 module.exports = {

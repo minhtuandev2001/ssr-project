@@ -9,7 +9,7 @@ const Cart = require("../../models/cart.model")
 // [GET] /user/register 
 const register = (req, res) => {
   res.render("client/pages/user/register", {
-    titlePage: "Đăng ký"
+    titlePage: "Register"
   })
 }
 
@@ -19,19 +19,19 @@ const registerPost = async (req, res) => {
     // kiểm tra email tồn tại 
     const emailExist = await User.findOne({ email: req.body.email })
     if (emailExist) {
-      req.flash("error", "Email này đã tồn tại")
+      req.flash("error", "This email already exists")
       res.redirect("back")
       return
     }
     req.body.password = md5(req.body.password)
     const user = new User(req.body)
     await user.save()
-    req.flash("success", "Đăng ký thành công")
+    req.flash("success", "Sign Up Success")
     res.cookie("tokenUser", user.tokenUser)
     res.redirect("/")
   } catch (error) {
     console.log(error)
-    req.flash("error", "Đăng ký thất bại")
+    req.flash("error", "registration failed")
     res.redirect("back")
   }
 }
@@ -39,7 +39,7 @@ const registerPost = async (req, res) => {
 // [GET] /user/login
 const login = (req, res) => {
   res.render("client/pages/user/login", {
-    titlePage: "Đăng nhập"
+    titlePage: "Login"
   })
 }
 
@@ -49,22 +49,22 @@ const loginPost = async (req, res) => {
     // kiểm tra email tồn tại 
     const user = await User.findOne({ email: req.body.email })
     if (!user) {
-      req.flash("error", "Email này không tồn tại")
+      req.flash("error", "This email does not exist")
       res.redirect("back")
       return
     }
     if (md5(req.body.password) !== user.password) {
-      req.flash("error", "Mật khẩu không đúng, nhập lại")
+      req.flash("error", "Password is incorrect, re-enter")
       res.redirect("back")
       return
     }
     if (user.status === "inactive") {
-      req.flash("error", "Tài khoản của bạn hiện đang bị khóa")
+      req.flash("error", "Your account is currently locked")
       res.redirect("back")
       return
     }
 
-    req.flash("success", `Chào mừng ${user.fullName}`)
+    req.flash("success", `Welcome ${user.fullName}`)
     res.cookie("tokenUser", user.tokenUser)
 
     await Cart.updateOne({
@@ -75,7 +75,7 @@ const loginPost = async (req, res) => {
     res.redirect("/")
   } catch (error) {
     console.log(error)
-    req.flash("error", "Đăng ký thất bại")
+    req.flash("error", "registration failed")
     res.redirect("back")
   }
 }
@@ -89,7 +89,7 @@ const logout = (req, res) => {
 // [GET] /user/password/forgot
 const forgotPassword = (req, res) => {
   res.render("client/pages/user/forgot-password", {
-    titlePage: "Quên mật khẩu"
+    titlePage: "Forgot password"
   })
 }
 
@@ -103,7 +103,7 @@ const forgotPasswordPost = async (req, res) => {
       deleted: false
     })
     if (!existEmail) {
-      req.flash("error", "Email không tồn tại")
+      req.flash("error", "Email does not exist")
       res.redirect("back")
       return
     }
@@ -133,7 +133,7 @@ const forgotPasswordPost = async (req, res) => {
 const otpPassword = async (req, res) => {
   const email = req.query.email
   res.render("client/pages/user/otp-password", {
-    titlePage: "Nhập mã otp",
+    titlePage: "Enter the otp code",
     email: email
   })
 }
@@ -147,7 +147,7 @@ const otpPasswordPost = async (req, res) => {
     otp: otp
   })
   if (!result) {
-    req.flash("error", "Mã otp không hợp lệ")
+    req.flash("error", "Invalid otp code")
     res.redirect("back")
     return
   }
@@ -162,7 +162,7 @@ const otpPasswordPost = async (req, res) => {
 // [GET] /user/password/reset
 const resetPassword = async (req, res) => {
   res.render("client/pages/user/reset-password", {
-    titlePage: "Cập nhật mật khẩu",
+    titlePage: "Update password",
   })
 }
 
@@ -175,10 +175,10 @@ const resetPasswordPost = async (req, res) => {
     await User.updateOne({
       tokenUser: tokenUser
     }, { password: password })
-    req.flash("success", "Cập nhật mật khẩu thành công")
+    req.flash("success", "Updated password successfully")
     res.redirect("/")
   } catch (error) {
-    req.flash("error", "Cập nhật mật khẩu thất bại")
+    req.flash("error", "Password update failed")
     res.redirect("user/password/reset")
   }
 }
@@ -188,10 +188,10 @@ const infoUser = async (req, res) => {
   try {
     const user = await User.findOne({ tokenUser: req.cookies.tokenUser })
     res.render("client/pages/user/info", {
-      titlePage: "Thông tin người dùng"
+      titlePage: "User information"
     })
   } catch (error) {
-    res.flash("error", "có lỗi xảy ra")
+    res.flash("error", "An error occurred")
     res.redirect("back")
   }
 }

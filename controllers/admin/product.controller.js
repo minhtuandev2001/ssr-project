@@ -83,7 +83,7 @@ const changeStatus = async (req, res) => {
   try {
     const ivalidProduct = await Product.findById(id)
     if (!ivalidProduct) {
-      res.send("san pham ko ton tai")
+      res.send("product does not exist")
     }
     const updatedBy = {
       account_id: res.locals.user.id,
@@ -93,10 +93,10 @@ const changeStatus = async (req, res) => {
       status: status,
       $push: { updatedBy: updatedBy }
     })
-    req.flash("success", "Cập nhật trạng thái thành công")
+    req.flash("success", "Status update successful")
     res.redirect("back")
   } catch (error) {
-    req.flash("error", "Cập nhật trạng thái thất bại")
+    req.flash("error", "Status update failed")
     console.log(error)
     res.status(500).json({ message: error })
   }
@@ -117,14 +117,14 @@ const changeMultiStatus = async (req, res) => {
           status: type,
           $push: { updatedBy: updatedBy }
         })
-        req.flash("success", `Cập nhật thành công trạng thái của ${ids.length} sản phẩm`)
+        req.flash("success", `Successfully updated the status of ${ids.length} product`)
         break;
       case "inactive":
         await Product.updateMany({ _id: { $in: ids } }, {
           status: type,
           $push: { updatedBy: updatedBy }
         })
-        req.flash("success", `Cập nhật thành công trạng thái của ${ids.length} sản phẩm`)
+        req.flash("success", `Successfully updated the status of ${ids.length} product`)
         break;
       case "delete-all":
         await Product.updateMany({ _id: { $in: ids } },
@@ -135,7 +135,7 @@ const changeMultiStatus = async (req, res) => {
               deletedAt: new Date()
             }
           })
-        req.flash("success", `Xóa thành công ${ids.length} sản phẩm`)
+        req.flash("success", `Deleted successfully ${ids.length} product`)
         break;
       case "change-position":
         for (let item of ids) {
@@ -146,13 +146,13 @@ const changeMultiStatus = async (req, res) => {
             $push: { updatedBy: updatedBy }
           })
         }
-        req.flash("success", `Cập nhật vị trí cho ${ids.length} sản phẩm thành công`)
+        req.flash("success", `Update location for ${ids.length} successful product`)
         break;
       default:
         break;
     }
   } catch (error) {
-    req.flash("error", `Cập nhật thất bại`)
+    req.flash("error", `Update failed`)
   }
   res.redirect("back")
 }
@@ -171,9 +171,9 @@ const deleteProduct = async (req, res) => {
           deletedAt: new Date()
         }
       }) // xóa mềm
-    req.flash("success", `Xóa thành công sản phẩm`)
+    req.flash("success", `Successfully deleted the product`)
   } catch (error) {
-    req.flash("error", `Xóa thất bại sản phẩm`)
+    req.flash("error", `Delete product failure`)
   }
   res.redirect("back")
 }
@@ -184,7 +184,7 @@ const create = async (req, res) => {
     const categorys = await ProductCategory.find({ deleted: false })
     const newCategorys = createTreeHelper.tree(categorys)
     res.render("admin/pages/products/create", {
-      titlePage: "Thêm mới sản phẩm",
+      titlePage: "Add new product",
       categorys: newCategorys
     })
   } catch (error) {
@@ -209,10 +209,10 @@ const createPost = async (req, res) => {
   }
   try {
     await Product.create(req.body)
-    req.flash('success', "Tạo mới sản phẩm thành công")
+    req.flash('success', "Create new products successfully")
     res.redirect(`${systemConfig.prefixAdmin}/products`)
   } catch (error) {
-    req.flash('error', "Tạo mới sản phẩm thất bại")
+    req.flash('error', "Creating a new product failed")
     res.redirect("back")
   }
 }
@@ -228,7 +228,7 @@ const edit = async (req, res) => {
     const categorys = await ProductCategory.find({ deleted: false })
     const newCategorys = createTreeHelper.tree(categorys)
     res.render("admin/pages/products/edit.pug", {
-      titlePage: "Chỉnh sửa sản phẩm",
+      titlePage: "Edit products",
       product: dataProduct,
       categorys: newCategorys
     })
@@ -255,9 +255,9 @@ const editPatch = async (req, res) => {
       ...req.body,
       $push: { updatedBy: updatedBy }
     })
-    req.flash("success", "Cập nhật sản phẩm thành công")
+    req.flash("success", "Product update successful")
   } catch (error) {
-    req.flash("error", "Cập nhật sản phẩm thất bại")
+    req.flash("error", "Product update failed")
     res.status(500).json({ message: error })
   }
   res.redirect("back")

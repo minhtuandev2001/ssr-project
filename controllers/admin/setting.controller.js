@@ -4,7 +4,7 @@ const SettingGenneral = require("../../models/settings-general.model")
 const general = async (req, res) => {
   const settingGeneral = await SettingGenneral.findOne({})
   res.render(`admin/pages/settings/general`, {
-    titlePage: "Cài đặt chung",
+    titlePage: "General settings",
     settingGeneral: settingGeneral
   })
 }
@@ -20,10 +20,10 @@ const generalPatch = async (req, res) => {
       const settingGeneral = new SettingGenneral(req.body)
       await settingGeneral.save()
     }
-    req.flash("success", "Cập nhật thành công!")
+    req.flash("success", "Update successful!")
   } catch (error) {
     console.log(error)
-    req.flash("success", "Cập nhật thất bại!")
+    req.flash("success", "Update failed!")
   }
   res.redirect("back")
 }

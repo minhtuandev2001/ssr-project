@@ -7,14 +7,20 @@ const productCategoryHelper = require("../../utils/products-category")
 // [GET] /products 
 const index = async (req, res) => {
   try {
+    const sort = {}
+    if (req.query.sortKey && req.query.sortValue) {
+      sort[req.query.sortKey] = req.query.sortValue;
+    } else {
+      sort.position = "desc"
+    }
     const data = await Product.find({
       // status: "active",
       deleted: false
-    }).sort({ position: "desc" })
+    }).sort(sort)
     const newProduct = priceNewDiscountHelper.priceNewDiscountProducts(data)
 
     res.render('client/pages/products/index', {
-      titlePage: "Danh sách sản phẩm",
+      titlePage: "List of products",
       products: newProduct
     })
   } catch (error) {
@@ -25,6 +31,12 @@ const index = async (req, res) => {
 // [GET] /products/:slugCategory
 const category = async (req, res) => {
   try {
+    const sort = {}
+    if (req.query.sortKey && req.query.sortValue) {
+      sort[req.query.sortKey] = req.query.sortValue;
+    } else {
+      sort.position = "desc"
+    }
     const find = {
       deleted: false,
       slug: req.params.slugCategory
@@ -38,7 +50,7 @@ const category = async (req, res) => {
       deleted: false,
       status: "active",
       product_category_id: { $in: [category.id, ...listSubCategoryId] }
-    }).sort({ position: "desc" })
+    }).sort(sort)
 
     const newProducts = priceNewDiscountHelper.priceNewDiscountProducts(products)
 

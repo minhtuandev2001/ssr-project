@@ -1,43 +1,174 @@
-footer
-  .container--custom2
-    .container--custom
-      .footer
-        div
-          .logo--shop 
-            a(href="/") 
-              //- img(src=(settingGeneral.logo ? settingGeneral.logo : "/media/logo1.png") alt="logo" style="width: 100px")
-              img(src="/media/logo 2.png" alt="logo")
-          div.title--group
-            <i class="bi bi-geo-alt"></i>
-            |Số 12, Đường D3, Phường phú hữu, Tp Thủ Đức, Tp. Hồ Chí Minh
-          div.title--group
-            <i class="bi bi-telephone-plus"></i>
-            | +0123456789
-          div.title--group
-            <i class="bi bi-envelope"></i>
-            | minhtuan@gmail.com
-        div
-          p.title Thông tin và BMT Shop
-          p Về chúng tôi
-          p Liên hệ/Góp ý
-          p Điều khoản sử dụng website
-          p Tuyển dụng
-        div
-          p.title Hướng dẫn chung
-          p Giao hàng - Đổi trả
-          p Hướng dẫn mua hàng
-          p Chính sách bảo hành
-        div
-          p.title Hỗ trợ khách hàng
-          p Gọi mua hàng: 0123456678
-          p Khiếu nại, bảo hành: 0123456678
-          p Thời gian phục vụ: 8h -21h
-    .container--custom
-      .coppyright 
-        p Điều khoản sử dụng | Chính sách bảo mật
-        p #{settingGeneral.coppyright ? settingGeneral.coppyright : ""}
-        p
-          a(href="https://web.facebook.com/?_rdc=1&_rdr") 
-            <i class="bi bi-facebook"></i>
-          a(href="https://web.facebook.com/?_rdc=1&_rdr") 
-            <i class="bi bi-instagram"></i>
+//- footer
+//-   .container--custom2
+//-     .container--custom
+//-       .footer
+//-         div
+//-           .logo--shop 
+//-             a(href="/") 
+//-               //- img(src=(settingGeneral.logo ? settingGeneral.logo : "/media/logo1.png") alt="logo" style="width: 100px")
+//-               img(src="/media/logo 2.png" alt="logo")
+//-           div.title--group
+//-             <i class="bi bi-geo-alt"></i>
+//-             |Số 12, Đường D3, Phường phú hữu, Tp Thủ Đức, Tp. Hồ Chí Minh
+//-           div.title--group
+//-             <i class="bi bi-telephone-plus"></i>
+//-             | +0123456789
+//-           div.title--group
+//-             <i class="bi bi-envelope"></i>
+//-             | minhtuan@gmail.com
+//-         div
+//-           p.title Thông tin và BMT Shop
+//-           p Về chúng tôi
+//-           p Liên hệ/Góp ý
+//-           p Điều khoản sử dụng website
+//-           p Tuyển dụng
+//-         div
+//-           p.title Hướng dẫn chung
+//-           p Giao hàng - Đổi trả
+//-           p Hướng dẫn mua hàng
+//-           p Chính sách bảo hành
+//-         div
+//-           p.title Hỗ trợ khách hàng
+//-           p Gọi mua hàng: 0123456678
+//-           p Khiếu nại, bảo hành: 0123456678
+//-           p Thời gian phục vụ: 8h -21h
+//-     .container--custom
+//-       .coppyright 
+//-         p Điều khoản sử dụng | Chính sách bảo mật
+//-         p #{settingGeneral.coppyright ? settingGeneral.coppyright : ""}
+//-         p
+//-           a(href="https://web.facebook.com/?_rdc=1&_rdr") 
+//-             <i class="bi bi-facebook"></i>
+//-           a(href="https://web.facebook.com/?_rdc=1&_rdr") 
+//-             <i class="bi bi-instagram"></i>
+footer#footer.mt-4
+  // Footer
+  .footer-top
+    .container
+      .row
+        .col-sm-2
+          .companyinfo
+            h2
+              span B
+              | -shopper
+            p Lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor
+        .col-sm-7
+          .col-sm-3
+            .video-gallery.text-center
+              a(href='#')
+                .iframe-img
+                  img(src='images/home/iframe1.png' alt='')
+                .overlay-icon
+                  i.fa.fa-play-circle-o
+              p Circle of Hands
+              h2 24 DEC 2014
+          .col-sm-3
+            .video-gallery.text-center
+              a(href='#')
+                .iframe-img
+                  img(src='images/home/iframe2.png' alt='')
+                .overlay-icon
+                  i.fa.fa-play-circle-o
+              p Circle of Hands
+              h2 24 DEC 2014
+          .col-sm-3
+            .video-gallery.text-center
+              a(href='#')
+                .iframe-img
+                  img(src='images/home/iframe3.png' alt='')
+                .overlay-icon
+                  i.fa.fa-play-circle-o
+              p Circle of Hands
+              h2 24 DEC 2014
+          .col-sm-3
+            .video-gallery.text-center
+              a(href='#')
+                .iframe-img
+                  img(src='images/home/iframe4.png' alt='')
+                .overlay-icon
+                  i.fa.fa-play-circle-o
+              p Circle of Hands
+              h2 24 DEC 2014
+        .col-sm-3
+          .address
+            img(src='/media/map.png' alt='')
+            p 470 tran dai nghia, VA(Việt Nam)
+  .footer-widget
+    .container
+      .row
+        .col-sm-2
+          .single-widget
+            h2 Service
+            ul.nav.nav-pills.nav-stacked
+              li
+                a(href='#') Online Help
+              li
+                a(href='#') Contact Us
+              li
+                a(href='#') Order Status
+              li
+                a(href='#') Change Location
+              li
+                a(href='#') FAQ&rsquo;s
+        .col-sm-2
+          .single-widget
+            h2 Quock Shop
+            ul.nav.nav-pills.nav-stacked
+              li
+                a(href='#') T-Shirt
+              li
+                a(href='#') Mens
+              li
+                a(href='#') Womens
+              li
+                a(href='#') Gift Cards
+              li
+                a(href='#') Shoes
+        .col-sm-2
+          .single-widget
+            h2 Policies
+            ul.nav.nav-pills.nav-stacked
+              li
+                a(href='#') Terms of Use
+              li
+                a(href='#') Privecy Policy
+              li
+                a(href='#') Refund Policy
+              li
+                a(href='#') Billing System
+              li
+                a(href='#') Ticket System
+        .col-sm-2
+          .single-widget
+            h2 About Shopper
+            ul.nav.nav-pills.nav-stacked
+              li
+                a(href='#') Company Information
+              li
+                a(href='#') Careers
+              li
+                a(href='#') Store Location
+              li
+                a(href='#') Affillate Program
+              li
+                a(href='#') Copyright
+        .col-sm-3.col-sm-offset-1
+          .single-widget
+            h2 About Shopper
+            form.searchform(action='#')
+              input(type='text' placeholder='Your email address')
+              button.btn.btn-default(type='submit')
+                i.bi.bi-send-check
+              p
+                | Get the most recent updates from 
+                br
+                | our site and be updated your self...
+  .footer-bottom
+    .container
+      .row
+        p.pull-left #{settingGeneral.coppyright ? settingGeneral.coppyright : ""}
+        p.pull-right
+          | Deverloper by 
+          span
+            a(target='_blank' href='https://www.facebook.com/') facebook
+// /Footer

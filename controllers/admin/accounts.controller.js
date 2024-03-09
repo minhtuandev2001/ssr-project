@@ -18,7 +18,7 @@ const index = async (req, res) => {
       account.role_name = role.title
     }
     res.render("admin/pages/accounts/index", {
-      titlePage: "Danh sách tài khoản",
+      titlePage: "List of accounts",
       accounts: accounts
     })
   } catch (error) {
@@ -31,7 +31,7 @@ const create = async (req, res) => {
   try {
     const roles = await Role.find({ deleted: false })
     res.render("admin/pages/accounts/create", {
-      titlePage: "Thêm mới người dùng",
+      titlePage: "Add new user",
       roles: roles
     })
   } catch (error) {
@@ -46,17 +46,17 @@ const createPost = async (req, res) => {
       deleted: false
     })
     if (checkEmail) {
-      req.flash("error", "Email này đã tồn tại trong hệ thống")
+      req.flash("error", "This email already exists in the system")
       res.redirect("back")
       return
     }
     req.body.password = md5(req.body.password)
     await Account.create(req.body)
-    req.flash("success", "Thêm mới tài khoản thành công")
+    req.flash("success", "New account added successfully")
     res.redirect(`${systemConfig.prefixAdmin}/accounts`)
   } catch (error) {
     console.log(error)
-    req.flash("error", "Thêm mới tài khoản thất bại")
+    req.flash("error", "Adding new account failed")
     res.redirect('back')
   }
 }
@@ -71,12 +71,12 @@ const edit = async (req, res) => {
     const account = await Account.findOne(find)
     const roles = await Role.find({ deleted: false })
     res.render("admin/pages/accounts/edit", {
-      titlePage: "Chỉnh sửa tài khoản",
+      titlePage: "Edit account",
       account: account,
       roles: roles
     })
   } catch (error) {
-    req.flash("error", "Tài khoản này không tồn tại")
+    req.flash("error", "This account does not exist")
     res.redirect(`${systemConfig.prefixAdmin}/accounts`)
   }
 }
@@ -90,7 +90,7 @@ const editPatch = async (req, res) => {
       deleted: false
     })
     if (checkEmail) {
-      req.flash("error", "Email này đã được sử dụng")
+      req.flash("error", "E-mail is being used")
     } else {
       if (req.body.password) {
         req.body.password = md5(req.body.password)
@@ -98,10 +98,10 @@ const editPatch = async (req, res) => {
         delete req.body.password
       }
       await Account.updateOne({ _id: req.params.id }, req.body)
-      req.flash("success", "Cập nhật thông tin tài khoản thành công")
+      req.flash("success", "Updated account information successfully")
     }
   } catch (error) {
-    req.flash("error", "Cập nhật thông tin tài khoản thất bại")
+    req.flash("error", "Update account information failed")
   }
   res.redirect("back")
 }

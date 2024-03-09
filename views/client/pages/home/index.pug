@@ -5,17 +5,109 @@ include ../../mixin/section-head.pug
 
 block main 
   +alertSuccess(4000)
-  .banner 
-    .banner__content 
-      h1.banner__content__title Lorem ipsum dolor sit amet consectetur.
-      p.banner__content__desc Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit iusto dolorum quo saepe, eveniet autem quae commodi magni enim labore?
-      button.banner__content__button see more
-    .banner__images 
-      img(src="/media/banner1.png" alt="")
-  +section-head("Sản Phẩm Nổi Bật")
-  .list-product
-    +grid-product(productFeaturead)
-  +section-head("Sản Phẩm Mới Nhất")
-  .list-product
-    +grid-product(productsNew)
+  //- .banner 
+  //-   .banner__content 
+  //-     h1.banner__content__title Lorem ipsum dolor sit amet consectetur.
+  //-     p.banner__content__desc Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit iusto dolorum quo saepe, eveniet autem quae commodi magni enim labore?
+  //-     button.banner__content__button see more
+  //-   .banner__images 
+  //-     img(src="/media/banner1.png" alt="")
+  //- +section-head("Sản Phẩm Nổi Bật")
+  //- .list-product
+  //-   +grid-product(productFeaturead)
+  //- +section-head("Sản Phẩm Mới Nhất")
+  //- .list-product
+  //-   +grid-product(productsNew)
+  section#slider
+    // slider
+    .container
+      .row
+        .col-sm-12
+          #slider-carousel.carousel.slide(data-ride='carousel')
+            ol.carousel-indicators
+              li.active(data-target='#slider-carousel' data-slide-to='0')
+              li(data-target='#slider-carousel' data-slide-to='1')
+              li(data-target='#slider-carousel' data-slide-to='2')
+            .carousel-inner
+              .item.active
+                .col-sm-6
+                  h1
+                    span B
+                    | -SHOPPER
+                  h2 Free E-Commerce Template
+                  p
+                    | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                    | labore et dolore magna aliqua.
+                  button.btn.btn-default.get(type='button') Get it now
+                .col-sm-6
+                  img.girl.img-responsive(src='/media/banner1.png' alt='')
+                  img.pricing(src='images/home/pricing.png' alt='')
+              .item
+                .col-sm-6
+                  h1
+                    span B
+                    | -SHOPPER
+                  h2 100% Responsive Design
+                  p
+                    | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                    | labore et dolore magna aliqua.
+                  button.btn.btn-default.get(type='button') Get it now
+                .col-sm-6
+                  img.girl.img-responsive(src='/media/banner1.png' alt='')
+                  img.pricing(src='images/home/pricing.png' alt='')
+              .item
+                .col-sm-6
+                  h1
+                    span B
+                    | -SHOPPER
+                  h2 Free Ecommerce Template
+                  p
+                    | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                    | labore et dolore magna aliqua.
+                  button.btn.btn-default.get(type='button') Get it now
+                .col-sm-6
+                  img.girl.img-responsive(src='/media/banner1.png' alt='')
+                  img.pricing(src='images/home/pricing.png' alt='')
+            a.left.control-carousel.hidden-xs(href='#slider-carousel' data-slide='prev')
+              i.bi.bi-chevron-compact-left
+            a.right.control-carousel.hidden-xs(href='#slider-carousel' data-slide='next')
+              i.bi.bi-chevron-compact-right
+  // /slider
+  section
+    .container
+      .row
+        .col-sm-12.padding-right
+          .features_items
+            // features_items
+            h2.title.text-center FEATURED PRODUCTS
+            each item in productFeaturead
+              +product-item-overlay(item)
+                //- .choose
+                //-   ul.nav.nav-pills.nav-justified
+                //-     li
+                //-       a(href='#')
+                //-         i.fa.fa-plus-square
+                //-         | Add to wishlist
+                //-     li
+                //-       a(href='#')
+                //-         i.fa.fa-plus-square
+                //-         | Add to compare
+
+          // features_items
+          .features_items
+            // features_items
+            h2.title.text-center LATEST PRODUCT
+            .productNew
+              .swiper
+                .swiper-wrapper
+                  each item in productsNew
+                    .swiper-slide
+                      .product-image-wrapper2
+                        .single-products
+                          +product-item(item)
+                .swiper-button-next-custom
+                  <i class="bi bi-chevron-right"></i>
+                .swiper-button-prev-custom
+                  <i class="bi bi-chevron-left"></i>
+
 

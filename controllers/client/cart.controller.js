@@ -27,9 +27,9 @@ const addPost = async (req, res) => {
         $push: { products: objectCart }
       })
     }
-    req.flash("success", "Thêm sản phẩm vào giỏ hàng thành công")
+    req.flash("success", "Added product to cart successfully")
   } catch (error) {
-    req.flash("error", "Thêm sản phẩm vào giỏ hàng thất bại")
+    req.flash("error", "Adding product to cart failed")
   }
   res.redirect("back")
 }
@@ -52,10 +52,10 @@ const index = async (req, res) => {
       }
     }
     // tính tiền tổng đơn hàng
-    cart.totalPrice = cart.products.reduce((sum, item) => sum + item.totalPrice, 0)
+    cart.totalPrice = cart.products.reduce((sum, item) => sum + item.totalPrice, 0).toFixed(2)
 
     res.render("client/pages/cart/index", {
-      titlePage: "Trang giỏ hàng",
+      titlePage: "Cart page",
       cartDetail: cart
     })
   } catch (error) {
@@ -74,9 +74,9 @@ const deleteCart = async (req, res) => {
     },
       { safe: true, multi: false }
     )
-    req.flash("success", "Xóa sản phẩm khỏi giỏ hàng thành công")
+    req.flash("success", "Successfully removed product from cart")
   } catch (error) {
-    req.flash("error", "Xóa sản phẩm khỏi giỏ hàng thất bại")
+    req.flash("error", "Removing product from cart failed")
   }
   res.redirect("back")
 }
@@ -94,7 +94,7 @@ const update = async (req, res) => {
       "products.$.quantity": quantity
     })
   } catch (error) {
-    req.flash("error", "Cập nhật số lượng không thành công");
+    req.flash("error", "Updating quantity failed");
   }
   res.redirect("back");
 }
