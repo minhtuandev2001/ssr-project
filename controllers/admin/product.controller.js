@@ -65,7 +65,8 @@ const index = async (req, res) => {
     }
 
     res.render("admin/pages/products/index", {
-      titlePage: "admin products",
+      siderTitle: "Products",
+      titlePage: "List of products",
       products: products,
       filterStatus: filterStatus,
       keyword: objectSearch.keyword,
@@ -184,6 +185,7 @@ const create = async (req, res) => {
     const categorys = await ProductCategory.find({ deleted: false })
     const newCategorys = createTreeHelper.tree(categorys)
     res.render("admin/pages/products/create", {
+      siderTitle: "Products",
       titlePage: "Add new product",
       categorys: newCategorys
     })
@@ -228,6 +230,7 @@ const edit = async (req, res) => {
     const categorys = await ProductCategory.find({ deleted: false })
     const newCategorys = createTreeHelper.tree(categorys)
     res.render("admin/pages/products/edit.pug", {
+      siderTitle: "Products",
       titlePage: "Edit products",
       product: dataProduct,
       categorys: newCategorys

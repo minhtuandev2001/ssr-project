@@ -18,6 +18,7 @@ const index = async (req, res) => {
       account.role_name = role.title
     }
     res.render("admin/pages/accounts/index", {
+      siderTitle: "list account",
       titlePage: "List of accounts",
       accounts: accounts
     })
@@ -31,6 +32,7 @@ const create = async (req, res) => {
   try {
     const roles = await Role.find({ deleted: false })
     res.render("admin/pages/accounts/create", {
+      siderTitle: "list account",
       titlePage: "Add new user",
       roles: roles
     })
@@ -71,6 +73,7 @@ const edit = async (req, res) => {
     const account = await Account.findOne(find)
     const roles = await Role.find({ deleted: false })
     res.render("admin/pages/accounts/edit", {
+      siderTitle: "list account",
       titlePage: "Edit account",
       account: account,
       roles: roles

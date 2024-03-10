@@ -7,6 +7,7 @@ const index = async (req, res) => {
   }
   const roles = await Role.find(find)
   res.render('admin/pages/roles/index', {
+    siderTitle: "roles",
     titlePage: 'Rights group',
     roles: roles
   })
@@ -15,6 +16,7 @@ const index = async (req, res) => {
 // [GET] /admin/roles/create
 const create = (req, res) => {
   res.render('admin/pages/roles/create', {
+    siderTitle: "roles",
     titlePage: 'Add new permission group'
   })
 }
@@ -40,8 +42,9 @@ const edit = async (req, res) => {
     }
     const role = await Role.findOne(find)
     res.render("admin/pages/roles/edit", {
+      siderTitle: "roles",
       titlePage: 'Edit permission groups',
-      role: role
+      roles: role
     })
   } catch (error) {
     req.flash('error', "The permission group does not exist")
@@ -86,8 +89,8 @@ const detail = async (req, res) => {
       deleted: false
     }
     const role = await Role.findOne(find);
-    console.log(role)
     res.render("admin/pages/roles/detail", {
+      siderTitle: "roles",
       titlePage: role.title,
       role: role
     })
@@ -106,6 +109,7 @@ const permissions = async (req, res) => {
     const roles = await Role.find(find)
     res.render("admin/pages/roles/permissions",
       {
+        siderTitle: "Permissions",
         titlePage: "Decentralization",
         roles: roles
       })

@@ -45,6 +45,7 @@ const index = async (req, res) => {
       .skip(objectPagination.skip)
     const newCategorys = createTreeHelper.tree(categorys)
     res.render("admin/pages/product-category/index", {
+      siderTitle: "Category",
       titlePage: "Product portfolio",
       categorys: newCategorys,
       filterStatus: filterStatus,
@@ -66,6 +67,7 @@ const create = async (req, res) => {
     const newCategorys = createTreeHelper.tree(categorys)
 
     res.render('admin/pages/product-category/create', {
+      siderTitle: "Category",
       titlePage: 'Create product catalog',
       categorys: newCategorys
     })
@@ -133,6 +135,7 @@ const detail = async (req, res) => {
   try {
     const category = await ProductCategory.findOne({ _id: id })
     res.render('admin/pages/product-category/detail', {
+      siderTitle: "Category",
       titlePage: category.title,
       category: category
     })
@@ -157,6 +160,7 @@ const edit = async (req, res) => {
     const newCategorys = createTreeHelper.tree(categorys)
 
     res.render('admin/pages/product-category/edit', {
+      siderTitle: "Category",
       titlePage: category.title,
       category: category,
       categorys: newCategorys

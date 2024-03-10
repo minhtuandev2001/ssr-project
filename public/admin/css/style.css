@@ -42,8 +42,9 @@ p {
   margin: 0px;
 }
 .header {
-  background-color: #333;
+  background-color: #261456;
   padding: 15px;
+  padding-left: 0px;
   position: sticky;
   top: 0px;
   z-index: 999;
@@ -52,17 +53,20 @@ p {
   font-weight: 500;
   color: #fff;
   font-size: 2.4rem;
+  font-weight: 900px;
+  text-decoration: none;
 }
 .sider {
   max-width: 200px;
   width: 100%;
   height: calc(100vh - 53px);
-  background-color: #333;
+  background-color: #261456;
   position: fixed;
   top: 53px;
   left: 0;
   color: white;
   z-index: 999;
+  padding-top: 20px;
 }
 .main {
   width: calc(100vw - 230px);
@@ -70,15 +74,26 @@ p {
   left: 200px;
   margin: 15px;
 }
+.sider--menu li {
+  padding: 0px 15px;
+  margin-bottom: 10px;
+}
 .sider--menu li a {
   color: #fff;
   font-size: 1.6rem;
   display: block;
-  padding: 10px 15px;
-  border-bottom: 1px solid #515151;
+  padding: 15px 10px;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: 0.25s;
+}
+.sider--menu .active {
+  background-color: rgba(193, 193, 193, 0.215);
+}
+.sider--menu li a:hover {
+  background-color: rgba(156, 156, 156, 0.215);
 }
 .product--item td {
-  /* text-align: center; */
   vertical-align: middle;
   padding: 10px 0px;
 }
@@ -126,3 +141,40 @@ p {
 .image-preview[src=""] ~ .button-clear-preview {
   display: none;
 }
+
+/* form */
+.container-form-admin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 450px;
+}
+.container-form-admin h1 {
+  font-size: 34px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+.container-form-admin label {
+  font-weight: 600;
+  color: rgb(138, 138, 138);
+}
+.container-form-admin input {
+  height: 38px;
+  padding: 10px 10px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  outline: none;
+}
+.container-form-admin input:focus {
+  border: 1px solid #7749f8;
+}
+.container-form-admin button {
+  height: 38px;
+  color: #fff;
+  background-color: #7749f8;
+  font-size: 16px;
+  font-weight: 700;
+}
+/* end form */

@@ -2,22 +2,35 @@
   div(class="sider--menu")
     ul
       li
-        a(href=`${prefixAdmin}/dashboard`) Tổng quan 
+        a(href=`${prefixAdmin}/dashboard`
+        class=`${siderTitle == "Dashboard" ? "active": ""}`
+        ) Dashboard
       if (role.permissions.includes('products_view'))
         li
-          a(href=`${prefixAdmin}/products`) Danh sách sản phẩm
+          a(href=`${prefixAdmin}/products`
+          class=`${siderTitle == "Products" ? "active": ""}`
+          ) Danh sách sản phẩm
       if (role.permissions.includes('products-category_view'))
         li
-          a(href=`${prefixAdmin}/products-category`) Danh mục sản phẩm
+          a(href=`${prefixAdmin}/products-category`
+          class=`${siderTitle == "Category" ? "active": ""}`
+          ) Product category
       if (role.permissions.includes('roles_view'))
         li
-          a(href=`${prefixAdmin}/roles`) Nhóm quyền
+          a(href=`${prefixAdmin}/roles`
+          class=`${siderTitle == "roles" ? "active": ""}`
+          ) Permission group
       if (role.permissions.includes('roles_permission'))
         li
-          a(href=`${prefixAdmin}/roles/permissions`) Phân quyền
+          a(href=`${prefixAdmin}/roles/permissions`
+          class=`${siderTitle == "Permissions" ? "active": ""}`
+          ) Permissions
       if (role.permissions.includes('account_view'))
         li
-          a(href=`${prefixAdmin}/accounts`) Danh sách tài khoản
-      //- if (role.permissions.includes('account_view'))
+          a(href=`${prefixAdmin}/accounts`
+          class=`${siderTitle == "list account" ? "active": ""}`
+          ) List of accounts
       li
-        a(href=`${prefixAdmin}/settings/general`) Cài đặt chung
+        a(href=`${prefixAdmin}/settings/general`
+        class=`${siderTitle == "setting" ? "active": ""}`
+        ) Setting

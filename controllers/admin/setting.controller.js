@@ -4,6 +4,7 @@ const SettingGenneral = require("../../models/settings-general.model")
 const general = async (req, res) => {
   const settingGeneral = await SettingGenneral.findOne({})
   res.render(`admin/pages/settings/general`, {
+    siderTitle: "setting",
     titlePage: "General settings",
     settingGeneral: settingGeneral
   })

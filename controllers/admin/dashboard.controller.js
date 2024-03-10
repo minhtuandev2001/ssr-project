@@ -44,7 +44,8 @@ const dashboard = async (req, res) => {
     statistics.user.active = await User.countDocuments({ deleted: false, status: "active" })
     statistics.user.inactive = await User.countDocuments({ deleted: false, status: "inactive" })
     res.render("admin/pages/dashboard/index", {
-      titlePage: "admin dashboard",
+      siderTitle: "Dashboard",
+      titlePage: "Dashboard",
       statistics: statistics
     })
   } catch (error) {
