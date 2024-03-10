@@ -15,7 +15,7 @@ block main
                 li
                   a(href='/') Home
                 li.active Shopping Cart
-            .cart_info
+            .cart_info.table-responsive
               table(
                 class="table table-hover table-sm table--product"
                 checkbox-multi
@@ -23,11 +23,11 @@ block main
                 thead
                   tr.cart_menu
                     td.image Item
-                    td.description
+                    td.description Name
                     td.price Price
                     td.quantity Quantity
                     td.total Total
-                    td.total
+                    td
                 tbody
                   if (cartDetail.products.length >0)
                     each item,index in cartDetail.products
@@ -48,10 +48,10 @@ block main
                             style="width: 60px"
                           )
                         td.cart_total #{item.totalPrice}
-                        td.cart_delete
+                        td
                           a(
                             href=`/cart/delete/${item.product_id}`
-                            class="btn btn-lg btn-outline-light text-warning"
+                            class="btn-cart-delete"
                             ) Delete
                   else 
                     p No products

@@ -29,7 +29,7 @@ const index = async (req, res) => {
     const data = await Product.find({
       status: "active",
       deleted: false
-    }).sort(sort).limit(objectPagination.limit).skip(objectPagination.skip)
+    }).limit(objectPagination.limit).skip(objectPagination.skip).sort(sort)
 
     const newProduct = priceNewDiscountHelper.priceNewDiscountProducts(data)
 

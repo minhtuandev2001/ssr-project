@@ -1,23 +1,10 @@
 mixin product-item-overlay(item)
-  //- a(class="product-link" href=`/products/detail/${item.slug}`)
-  //-   div(class="product--item")
-  //-     div(class="product--item__image")
-  //-       img(src=item.thumbnail alt=item.title)
-  //-     span(class="inner__discount") -#{item.discountPercentage}%
-  //-     div(class="product--item__content")
-  //-       if (item.featuread === "1")
-  //-         div(class="inner-featuread") <i class="bi bi-check2-circle"></i> nổi bật
-  //-       h3(class="content__title") #{item.title}
-  //-       .content__price 
-  //-         p(class="content__price--new") #{item.priceNew}$
-  //-         p(class="content__price--old") #{item.price}$
-  //-       .content__detail
-  //-         p Xem chi tiết > 
   .product-image-wrapper
     .single-products
       .productinfo.text-center
         img(src=item.thumbnail alt=item.title)
-        h2 #{item.priceNew}$
+        h2(style="margin-top: 0px") #{item.priceNew}$
+        h2(style="margin-top: 0px; text-decoration: line-through") #{item.price}$
         p #{item.title}
         a.btn.btn-default.add-to-cart(href='#')
           i.fa.fa-shopping-cart
@@ -25,7 +12,8 @@ mixin product-item-overlay(item)
       a(href=`/products/detail/${item.slug}`)
         .product-overlay
           .overlay-content
-            h2 #{item.priceNew}$
+            h2(style="margin-top: 0px") #{item.priceNew}$
+            h2(style="margin-top: 0px; text-decoration: line-through") #{item.price}$
             p #{item.title}
             form(
               action=`/cart/add/${item._id}`
@@ -46,7 +34,8 @@ mixin product-item(item)
   a(href=`/products/detail/${item.slug}`)
     .productinfo.text-center
       img(src=item.thumbnail alt=item.title)
-      h2 #{item.priceNew}$
+      h2(style="margin-top: 10px") #{item.priceNew}$
+      h2(style="margin-top: 0px; text-decoration: line-through") #{item.price}$
       p #{item.title}
       form(
         action=`/cart/add/${item._id}`
