@@ -34,7 +34,7 @@ const index = async (req, res) => {
     const newProduct = priceNewDiscountHelper.priceNewDiscountProducts(data)
 
     res.render('client/pages/products/index', {
-      titlePage: "List of products",
+      titlePage: "Products",
       products: newProduct,
       pagination: objectPagination
     })
@@ -52,6 +52,7 @@ const category = async (req, res) => {
     } else {
       sort.position = "desc"
     }
+
     const find = {
       deleted: false,
       slug: req.params.slugCategory
@@ -61,18 +62,32 @@ const category = async (req, res) => {
     const listSubCategory = await productCategoryHelper.getSubCategory(category.id)
     const listSubCategoryId = listSubCategory.map(item => item.id)
 
+    // pagination
+    const countDocuments = await Product.find({
+      deleted: false,
+      status: "active",
+      product_category_id: { $in: [category.id, ...listSubCategoryId] }
+    })
+    const objectPagination = paginationHelper({
+      limit: 9,
+      currentPage: 1
+    }, req.query, countDocuments, 8)
+    // end pagination
+
     const products = await Product.find({
       deleted: false,
       status: "active",
       product_category_id: { $in: [category.id, ...listSubCategoryId] }
-    }).sort(sort)
+    }).sort(sort).limit(objectPagination.limit).skip(objectPagination.skip)
 
     const newProducts = priceNewDiscountHelper.priceNewDiscountProducts(products)
 
     res.render('client/pages/products/index', {
       titlePage: category.title,
-      products: newProducts
+      products: newProducts,
+      pagination: objectPagination
     })
+
   } catch (error) {
     console.log(error)
     res.redirect("back")

@@ -3,7 +3,7 @@ mixin product-item-overlay(item)
     .single-products
       .productinfo.text-center
         img(src=item.thumbnail alt=item.title)
-        h2(style="margin-top: 0px") #{item.priceNew}$
+        h2(style="margin-top: 10px") #{item.priceNew}$
         h2(style="margin-top: 0px; text-decoration: line-through") #{item.price}$
         p #{item.title}
         a.btn.btn-default.add-to-cart(href='#')

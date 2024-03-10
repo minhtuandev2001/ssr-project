@@ -55,7 +55,7 @@ const index = async (req, res) => {
     cart.totalPrice = cart.products.reduce((sum, item) => sum + item.totalPrice, 0).toFixed(2)
 
     res.render("client/pages/cart/index", {
-      titlePage: "Cart page",
+      titlePage: "Cart",
       cartDetail: cart
     })
   } catch (error) {

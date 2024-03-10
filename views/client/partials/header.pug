@@ -12,7 +12,7 @@ header#header
               li
                 a(href='#')
                   i.bi.bi-telephone-fill
-                  |  +2 95 01 88 821
+                  |  +840123456789
               li
                 a(href='#')
                   i.bi.bi-envelope-fill
@@ -44,11 +44,11 @@ header#header
                     i.bi.bi-person-fill
                     | #{user.fullName}
               li
-                a(href='#')
+                a(href='#' class=`${titlePage === "Wishlist" ? "active" : ""}`)
                   i.bi.bi-heart-fill
                   |  Wishlist
               li
-                a(href='/cart')
+                a(href='/cart' class=`${titlePage === "Cart" ? "active" : ""}`)
                   i.bi.bi-cart-dash-fill
                   |  Cart (#{miniCart ? miniCart.totalQuantity : 0})
               if (user)
@@ -58,11 +58,11 @@ header#header
                     |  Logout
               else
                 li
-                  a(href='/user/login')
+                  a(href='/user/login' class=`${titlePage === "Login" ? "active" : ""}`)
                     i.bi.bi-lock-fill
                     |  Login
                 li
-                  a(href='/user/register')
+                  a(href='/user/register' class=`${titlePage === "Register" ? "active" : ""}` )
                     i.bi.bi-clipboard-check
                     |  Register
   // /header-middle
@@ -80,22 +80,22 @@ header#header
           .mainmenu.pull-left
             ul.navbar-nav.collapse.navbar-collapse
               li
-                a.active(href='/') Home
+                a(href='/' class=`${titlePage === "Home" ? "active" : ""}`) Home
               li.response-web.sub-menu-custom
                 -const pathProduct = "/products";
-                a(href='/products') Products
+                a(href='/products' class=`${titlePage === "Products" ? "active" : ""}`) Products
                 if (layoutProductsCategory)
                   +menu(layoutProductsCategory, pathProduct)
               li.response-mobile
-                a(href="#") Products 
+                a(href="#" class=`${titlePage === "Products" ? "active" : ""}`) Products 
                 ul 
                   each item in layoutProductsCategory
                     li 
                       a(href=`${pathProduct}/${item.slug}`) #{item.title}
               li
-                a(href='404.html') 404
+                a(href='#' class=`${titlePage === "Blog" ? "active" : ""}`) Blog
               li
-                a(href='contact-us.html') Contact
+                a(href='#' class=`${titlePage === "Contact" ? "active" : ""}`) Contact
         .col-sm-3
           form(
             action=`/search` method="GET")
