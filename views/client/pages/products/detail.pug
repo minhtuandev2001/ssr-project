@@ -5,48 +5,49 @@ include ../../mixin/alert.pug
 block main 
   +alertSuccess(4000)
   +alertError(4000)
-  .container.my-3 
+  .container
     .row  
-      .col-6
+      .col-md-6.col-sm-6
         if (product.thumbnail)
           img(
             class="image-preview mb-3"
             src=product.thumbnail
             )
-      .col-6
+      .col-md-6.col-sm-6
         if (product.title)
           h1(
             style="font-size: 35px"
             class="mb-3" 
           ) #{product.title}
         if (product.category)
-          p(class="mb-3" ) Danh mục: 
+          p(class="mb-3" ) Category : 
             span(class="text-primary") #{product.category.title}
         if (product.price)
-          p(class="mb-3") Giá: <b>#{product.price}$</b>
+          p(class="mb-3") Price: <b>#{product.price}$</b>
         if (product.priceNew)
-          p(class="mb-3") Giá mới: <b>#{product.priceNew}$</b>
+          p(class="mb-3") Price new: <b>#{product.priceNew}$</b>
         if (product.discountPercentage)
-          p(class="mb-3") Giảm giá: <b>#{product.discountPercentage}%</b>
+          p(class="mb-3") Discount: <b>#{product.discountPercentage}%</b>
         if (product.stock)
-          p(class="mb-3") Còn lại: <b>#{product.stock}</b> sản phẩm
-        form(
-          action=`/cart/add/${product.id}`
-          method="POST"
-        )
-          input(
-            type="number"
-            class="form-control mb-2"
-            name="quantity"
-            value="1"
-            min="1"
-            max=product.stock
+          p(class="mb-3") Availability : <b>#{product.stock}</b> product
+        .container-form(style="margin-left: 0px")
+          form(
+            action=`/cart/add/${product.id}`
+            method="POST"
           )
-          button(
-            type="submit"
-            class="btn btn-success btn-block"
-          ) Thêm vào giỏ hàng
-  +box-head("Mô tả sản phẩm")
+            input(
+              type="number"
+              class="form-control mb-2"
+              name="quantity"
+              value="1"
+              min="1"
+              max=product.stock
+            )
+            button(
+              type="submit"
+              class="btn btn-warning btn-block"
+            ) Add to cart
+  +box-head("Description product")
   .container
     if (product.description)
       p(class="mb-3") !{product.description}
