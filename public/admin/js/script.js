@@ -34,6 +34,7 @@ if (formSearch) {
   })
 }
 // end search products
+
 // pagination
 const buttonPagination = document.querySelectorAll("[button-pagination]")
 if (buttonPagination) {
@@ -47,3 +48,22 @@ if (buttonPagination) {
   })
 }
 // end pagination
+
+// menu icon responsive mobile 
+const siderIcon = document.querySelector('[sider-icon]');
+if (siderIcon) {
+  const menuSider = document.querySelector('.sider')
+  siderIcon.addEventListener('click', () => {
+    const visible = siderIcon.getAttribute("visible")
+    console.log(visible)
+    if (visible === "0") {
+      // hiển thị menu
+      menuSider.style.left = "0px"
+      siderIcon.setAttribute("visible", "1")
+    } else {
+      menuSider.style.left = "-200px"
+      siderIcon.setAttribute("visible", "0")
+    }
+  })
+}
+// end menu icon responsive mobile 

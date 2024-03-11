@@ -1,11 +1,25 @@
 mixin pagination(pagination)
-  ul(class="pagination justify-content-end")
+  ul(class="pagination justify-content-end pagination-mobile pb-4")
     if pagination.currentPage > 1
       li(class="page-item")
-        button(type="button" class="page-link" button-pagination=`${pagination.currentPage-1}`) Trang trước
-    - for (let i = 1 ; i <= pagination.totalPage ; i++)
-      li(class=`page-item ${pagination.currentPage == i ? "active": ""}`)
-        button(type="button" class="page-link" button-pagination=`${i}`) #{i}
+        button(type="button" class="page-link" button-pagination=`${pagination.currentPage-1}`) prev
+    if pagination.totalPage > 7 
+      - for ( let i = 1 ; i <= 3 ; i++)
+        li(class=`page-item ${pagination.currentPage == i ? "active": ""}`)
+          button(type="button" class="page-link" button-pagination=`${i}`) #{i}
+      if pagination.currentPage > 3 && pagination.currentPage < pagination.totalPage
+        .pagination-dot 
+          | ...
+        li(class=`page-item active`)
+          button(type="button" class="page-link" button-pagination=`${pagination.currentPage}`) #{pagination.currentPage}
+        .pagination-dot 
+          | ...
+      li(class=`page-item ${pagination.currentPage == pagination.totalPage ? "active": ""}`)
+        button(type="button" class="page-link" button-pagination=`${pagination.totalPage}`) #{pagination.totalPage}
+    else 
+      - for ( let i = 1 ; i <= pagination.totalPage ; i++)
+        li(class=`page-item ${pagination.currentPage == i ? "active": ""}`)
+          button(type="button" class="page-link" button-pagination=`${i}`) #{i}
     if pagination.currentPage < pagination.totalPage
       li(class="page-item")
-        button(type="button" class="page-link" button-pagination=`${pagination.currentPage+1}`) kế tiếp
+        button(type="button" class="page-link" button-pagination=`${pagination.currentPage+1}`) next

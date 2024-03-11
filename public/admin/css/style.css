@@ -65,14 +65,34 @@ p {
   top: 53px;
   left: 0;
   color: white;
-  z-index: 999;
+  z-index: 99;
   padding-top: 20px;
+  transition: 0.25s;
 }
+.sider-active {
+  left: 200px;
+}
+.sider-icon {
+  display: none;
+  position: fixed;
+  top: 60px;
+  left: 10px;
+  background-color: #dedede;
+  width: 40px;
+  height: 40px;
+  border-radius: 100rem;
+  color: #261456;
+  font-size: 20px;
+  z-index: 999;
+  padding: 10px;
+}
+
 .main {
-  width: calc(100vw - 230px);
+  width: calc(100vw - 240px);
   position: relative;
   left: 200px;
   margin: 15px;
+  transition: 0.25s;
 }
 .sider--menu li {
   padding: 0px 15px;
@@ -101,6 +121,21 @@ p {
   display: flex;
   gap: 10px;
 }
+@media screen and (max-width: 1023.98px) {
+  .sider {
+    left: -200px;
+    height: 100%;
+  }
+  .sider-icon {
+    display: block;
+  }
+  .main {
+    top: 40px;
+    left: 0px;
+    width: 95vw;
+  }
+}
+
 /* // alert */
 [show-alert] {
   position: fixed;
@@ -178,3 +213,45 @@ p {
   font-weight: 700;
 }
 /* end form */
+
+.table--product {
+  width: 100%;
+  font-size: 16px;
+}
+.table--product tr th {
+  font-weight: 700;
+  text-align: center;
+}
+.table--product tr td {
+  text-align: center;
+}
+.table--product tr td img {
+  width: 100px;
+  height: 100px;
+  object-fit: scale-down;
+  margin-left: auto;
+  margin-right: auto;
+}
+.table--product tr td button {
+  width: 60px;
+}
+.pagination-dot {
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #261456;
+}
+.pagination-mobile .page-link {
+  color: #261456;
+}
+.pagination-mobile .page-item.active .page-link {
+  background: #261456;
+  border: none;
+}
+
+@media screen and (max-width: 767.98px) {
+  .pagination-mobile {
+    justify-content: center !important;
+  }
+}
