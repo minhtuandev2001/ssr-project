@@ -3,7 +3,7 @@ include ../../mixin/alert.pug
 include ../../mixin/notAccess.pug
 
 block main 
-  h1(class="mb-4") Cập nhật thông tin tài khoản
+  h1(class="mb-4") Update information account
   +alertSuccess(4000)
   +alertError(4000)
   form(
@@ -13,7 +13,7 @@ block main
     enctype="multipart/form-data"
   )
     div(class="form-group")
-      label(for="fullName") Họ tên
+      label(for="fullName") Full Name
       input(
         type="text"
         class="form-control"
@@ -31,7 +31,7 @@ block main
         value=user.email
       )
     div(class="form-group")
-      label(for="password") Mật khẩu
+      label(for="password") Password
       input(
         type="password"
         class="form-control"
@@ -39,7 +39,7 @@ block main
         name="password"
       )
     div(class="form-group")
-      label(for="phone") Số điện thoại
+      label(for="phone") Phone
       input(
         type="text"
         class="form-control"
@@ -58,7 +58,7 @@ block main
     div(
       upload-image
       class="form-group")
-      label(for="avatar") Ảnh
+      label(for="avatar") Thumbnail
       input(
         type="file"
         class="form-control-file"
@@ -97,5 +97,5 @@ block main
       button(
         type="submit"
         class="btn btn-primary"
-      ) Cập nhật
+      ) Update
   script(src="/admin/js/products.js") 

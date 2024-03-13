@@ -10,7 +10,7 @@ mixin tableTree(categorys, level = 1)
         )
       td #{item.index}
       td
-        img(src=item.thumbnail alt=item.title style="width: 100px; height: 60px; border-radius: 5px")
+        img(src=item.thumbnail alt=item.title)
       td #{prefix} #{item.title}
       td 
         input(
@@ -29,7 +29,7 @@ mixin tableTree(categorys, level = 1)
             data-id=item.id
             button-change-status
             id=item.id
-            ) Hoạt động
+            ) active
         else 
           a(
           href="javascript:;"
@@ -38,21 +38,20 @@ mixin tableTree(categorys, level = 1)
           data-id=item.id
           button-change-status
           id=item.id
-          ) Không Hoạt động
+          ) inactive
       td
         a(href=`${prefixAdmin}/products-category/detail/${item.id}`
-        class="btn btn-success btn-lg" 
-        style="margin-right: 10px") Chi tiết
+        class="btn btn-success btn-lg" style="margin: 5px; width: 60px;") detail
         if (role.permissions.includes('products-category_edit'))
           a(href=`${prefixAdmin}/products-category/edit/${item.id}`
-          class="btn btn-warning btn-lg" 
-          style="margin-right: 10px") Sửa
+          class="btn btn-warning btn-lg" style="margin: 5px; width: 60px;") edit
         if (role.permissions.includes('products-category_delete'))
           button(
             type="button" 
             class="btn btn-danger btn-lg"
             button-delete
             data-id=item.id
-            ) Xóa
+            style="margin: 5px;"
+            ) delete
       if (item.children && item.children.length > 0)
         +tableTree(item.children, level+1)

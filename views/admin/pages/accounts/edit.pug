@@ -4,11 +4,11 @@ include ../../mixin/notAccess.pug
 
 block main 
   if (role.permissions.includes('account_edit'))
-    h1(class="mb-4") Chỉnh tài khoản
+    h1(class="mb-4") Edit account
     +alertSuccess(4000)
     +alertError(4000)
     if (!roles)
-      p Bạn chưa có nhóm quyền nào, hãy tạo nhóm quyền trước
+      p You don't have any permission groups yet, create one first
       a(
         href=`${prefixAdmin}/roles/create`
         class="btn btn-primary"
@@ -21,7 +21,7 @@ block main
         enctype="multipart/form-data"
       )
         div(class="form-group")
-          label(for="fullName") Họ tên
+          label(for="fullName") Full Name
           input(
             type="text"
             class="form-control"
@@ -39,7 +39,7 @@ block main
             value=account.email
           )
         div(class="form-group")
-          label(for="password") Mật khẩu
+          label(for="password") Password
           input(
             type="password"
             class="form-control"
@@ -47,7 +47,7 @@ block main
             name="password"
           )
         div(class="form-group")
-          label(for="phone") Số điện thoại
+          label(for="phone") Phone
           input(
             type="text"
             class="form-control"
@@ -56,7 +56,7 @@ block main
             value=account.phone
           )
         div(class="form-group")
-          label(for="role_id") Phân quyền
+          label(for="role_id") Permission
           select(
             class="form-control mb-3"
             name="role_id"
@@ -66,7 +66,7 @@ block main
         div(
           upload-image
           class="form-group")
-          label(for="avatar") Ảnh
+          label(for="avatar") Thumbnail
           input(
             type="file"
             class="form-control-file"
@@ -90,7 +90,7 @@ block main
             value="active"
             checked= account.status === "active"
           )
-          label(for="statusActive" class="form-check-label") Hoạt động
+          label(for="statusActive" class="form-check-label") active
         div(class="form-group form-check form-check-inline")
           input(
             type="radio"
@@ -100,12 +100,12 @@ block main
             value="inactive"
             checked= account.status === "inactive"
           )
-          label(for="statusInActive" class="form-check-label") Dừng Hoạt động
+          label(for="statusInActive" class="form-check-label") inactive
         div(class="form-group")
           button(
             type="submit"
             class="btn btn-primary"
-          ) Cập nhật
+          ) update
     script(src="/admin/js/products.js") 
   else 
     +notAccess()

@@ -5,7 +5,7 @@ include ../../mixin/notAccess.pug
 
 block main 
   if (role.permissions.includes('products-category_create'))
-    h1 Tạo danh mục sản phẩm
+    h1 Create category
     +alertSuccess(4000)
     +alertError(4000)
     form(
@@ -15,7 +15,7 @@ block main
       enctype="multipart/form-data"
     )
       div(class="form-group")
-        label(for="title") Tiêu đề
+        label(for="title") Title
         input(
           type="text"
           class="form-control"
@@ -23,16 +23,16 @@ block main
           name="title"
         )
       div(class="form-group")
-        label(for="parent_id") Danh mục cha
+        label(for="parent_id") Category parent
         select(
           class="form-control mb-3"
           name="parent_id"
           categorys-select)
-          option(value="" selected ) --Không--
+          option(value="" selected ) -- no --
           if (categorys)
             +selectTree(categorys)
       div(class="form-group")
-        label(for="desc") Mô tả
+        label(for="desc") Description
         textarea(
           class="form-control textarea-tinyMCE"
           id="desc"
@@ -42,7 +42,7 @@ block main
       div(
         upload-image
         class="form-group")
-        label(for="thumbnail") Ảnh
+        label(for="thumbnail") Thumbnail
         input(
           type="file"
           class="form-control-file"
@@ -58,7 +58,7 @@ block main
           )
         button(type="button" button-clear-preview class="button-clear-preview") x
       div(class="form-group")
-        label(for="position") Vị trí
+        label(for="position") Position
         input(
           type="number"
           class="form-control"
@@ -76,7 +76,7 @@ block main
           value="active"
           checked
         )
-        label(for="statusActive" class="form-check-label") Hoạt động
+        label(for="statusActive" class="form-check-label") active
       div(class="form-group form-check form-check-inline")
         input(
           type="radio"
@@ -86,12 +86,12 @@ block main
           value="inactive"
           checked
         )
-        label(for="statusInActive" class="form-check-label") Dừng Hoạt động
+        label(for="statusInActive" class="form-check-label") inactive
       div(class="form-group")
         button(
           type="submit"
-          class="btn btn-primary"
-        ) Tạo mới
+          class="btn btn-primary my-3 btn-lg"
+        ) create new
     script(src="/admin/js/products.js") 
   else 
     +notAccess()

@@ -4,11 +4,11 @@ block main
   if (product.title)
     h1(class="mb-5") #{product.title}
   if (product.price)
-    p(class="mb-5") Giá: <b>#{product.price}$</b>
+    p(class="mb-5") price: <b>#{product.price}$</b>
   if (product.discountPercentage)
-    p(class="mb-5") Giảm giá: <b>#{product.discountPercentage}%</b>
+    p(class="mb-5") discount: <b>#{product.discountPercentage}%</b>
   if (product.stock)
-    p(class="mb-5") Số lượng: <b>#{product.stock}</b>
+    p(class="mb-5") stock: <b>#{product.stock}</b>
   if (product.thumbnail)
     img(
       class="image-preview mb-5"
@@ -16,22 +16,23 @@ block main
       )
   if (product.status) 
     div(class="mb-4")
-      span Trạng Thái 
+      span status : 
       if (product.status === "active")
         span(
-          class="badge badge-success badge-lg") Hoạt động
+          class="badge badge-success badge-lg") active
       else if (product.status === "inactive")
         span(
-          class="badge badge-danger badge-lg") Dừng hoạt động
+          class="badge badge-danger badge-lg") inactive
   if (product.position)
-    p(class="mb-5") Vị trí: <b>#{product.position}</b>
+    p(class="mb-5") position: <b>#{product.position}</b>
   if (product.description)
-    p(class="mb-5") !{product.description}
+    span description : 
+    p(class="mb-5") <b>!{product.description}</b>
 
   if (product)
     a(
       href=`${prefixAdmin}/products/edit/${product.id}`
       class="btn btn-warning btn-lg mt-5" 
-      style="margin-right: 10px") Chỉnh sửa
+      style="margin-right: 10px") edit
 
   script(src="/admin/js/products.js") 

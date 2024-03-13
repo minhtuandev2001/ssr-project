@@ -5,7 +5,7 @@ include ../../mixin/notAccess.pug
 
 block main 
   if (role.permissions.includes('roles_view'))
-    h1 Thêm mới nhóm quyền
+    h1 Create permission
     +alertSuccess(4000)
     +alertError(4000)
     form(
@@ -13,7 +13,7 @@ block main
       method="POST"
     )
       div(class="form-group")
-        label(for="title") Tiêu đề
+        label(for="title") Title
         input(
           type="text"
           class="form-control"
@@ -21,7 +21,7 @@ block main
           name="title"
         )
       div(class="form-group")
-        label(for="desc") Mô tả
+        label(for="desc") Description
         textarea(
           class="form-control textarea-tinyMCE"
           id="desc"
@@ -32,7 +32,7 @@ block main
         button(
           type="submit"
           class="btn btn-primary"
-        ) Tạo mới
+        ) create new
     script(src="/admin/js/products.js") 
   else 
     +notAccess()

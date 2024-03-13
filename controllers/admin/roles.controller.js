@@ -1,15 +1,35 @@
 const Role = require("../../models/role.model")
 const systemConfig = require("../../config/system")
+const searchHelper = require("../../utils/search")
+const paginationHelper = require("../../utils/pagination")
+
 // [GET] /admin/roles
 const index = async (req, res) => {
   let find = {
     deleted: false
   }
+  // Tìm kiếm
+  const objectSearch = searchHelper(req.query)
+  if (objectSearch.regex) {
+    find.title = objectSearch.regex
+  }
+  // phân trang
+  const countRoles = await Role.countDocuments(find)
+  const objectPagination = paginationHelper(
+    {
+      currentPage: 1,
+      limit: 4
+    },
+    req.query,
+    countRoles,
+  )
   const roles = await Role.find(find)
   res.render('admin/pages/roles/index', {
     siderTitle: "roles",
     titlePage: 'Rights group',
-    roles: roles
+    roles: roles,
+    pagination: objectPagination,
+    keyword: objectSearch.keyword
   })
 }
 

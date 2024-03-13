@@ -9,7 +9,7 @@
         li
           a(href=`${prefixAdmin}/products`
           class=`${siderTitle == "Products" ? "active": ""}`
-          ) Danh sách sản phẩm
+          ) Product list
       if (role.permissions.includes('products-category_view'))
         li
           a(href=`${prefixAdmin}/products-category`
@@ -19,7 +19,7 @@
         li
           a(href=`${prefixAdmin}/roles`
           class=`${siderTitle == "roles" ? "active": ""}`
-          ) Permission group
+          ) Rights group
       if (role.permissions.includes('roles_permission'))
         li
           a(href=`${prefixAdmin}/roles/permissions`

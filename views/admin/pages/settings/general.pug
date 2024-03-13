@@ -8,14 +8,14 @@ block main
   .container
     .row 
       .col-12 
-        h1 Cài đặt chung
+        h1 Setting
     form(
       action=`${prefixAdmin}/settings/general?_method=PATCH`
       method="POST"
       enctype="multipart/form-data"
     )
       div(class="form-group")
-        label(for="websiteName") Tên Website
+        label(for="websiteName") Name website
         input(
           type="text",
           class="form-control"
@@ -34,6 +34,7 @@ block main
           name="logo"
           accept="image/*"
           upload-image-input
+          style="border: none"
         )
         img(
           class="image-preview"
@@ -42,7 +43,7 @@ block main
           )
         button(type="button" button-clear-preview class="button-clear-preview") x
       div(class="form-group")
-        label(for="phone") Số điện thoại
+        label(for="phone") Phone
         input(
           type="text",
           class="form-control"
@@ -60,7 +61,7 @@ block main
           value=(settingGeneral.email ? settingGeneral.email : "")
         )
       div(class="form-group")
-        label(for="address") Địa chỉ
+        label(for="address") Address
         input(
           type="text",
           class="form-control"
@@ -87,9 +88,9 @@ block main
           value=(settingGeneral.map ? settingGeneral.map : "")
         )
       if (settingGeneral.map)
-        div !{settingGeneral.map}
+        div(style="width: 85vw; overflow: hidden") !{settingGeneral.map}
       button(
-        class="btn btn-primary mt-3"
+        class="btn btn-primary my-3"
         type="submit"
-      ) Cập nhật
+      ) update
   script(src="/admin/js/products.js")

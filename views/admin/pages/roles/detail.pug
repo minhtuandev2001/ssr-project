@@ -4,9 +4,10 @@ block main
   if (role.title)
     h1(class="mb-5") #{role.title}
   if (role.description)
-    p(class="mb-5") !{role.description}
+    span Description : 
+    p(class="mb-4") !{role.description}
   if (role.permissions)
-    p(class="mb-3 mt-3") Có thể thực hiện các hành động sau 
+    p(class="mb-3 mt-3") The following actions are possible
     div(class="mb-2")
       each item in role.permissions
         p(class="mb-2") 
@@ -15,6 +16,6 @@ block main
     a(
       href=`${prefixAdmin}/roles/edit/${role.id}`
       class="btn btn-warning btn-lg mt-5" 
-      style="margin-right: 10px") Chỉnh sửa
+      style="margin-right: 10px") edit
 
   script(src="/admin/js/products.js") 

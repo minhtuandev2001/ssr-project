@@ -4,7 +4,7 @@ block main
   .row.mt-4
     .col-12
       .card.mb-4 
-        .card-header Thông tin tài khoản
+        .card-header Account information
         .card-body
           if (user.avatar)
             img(
@@ -15,34 +15,34 @@ block main
           if (user.email)
             p(class="mt-3") Email : <b> #{user.email}</b>
           if (user.phone)
-            p(class="mt-3") Số điện thoại : <b> #{user.phone}</b>
+            p(class="mt-3") Phone : <b> #{user.phone}</b>
           if (role)
-            p(class="mt-3") Phân quyền : <b> #{role.title}</b>
+            p(class="mt-3") Decentralization : <b> #{role.title}</b>
     .col-6
       .card.mb-4 
-        .card-header Danh mục sản phẩm
+        .card-header Product category
         .card-body
-          p(class="mt-3") Số lượng : <b> #{statistics.category.total}</b>
-          p(class="mt-3") Hoạt động : <b> #{statistics.category.active}</b>
-          p(class="mt-3") Dừng hoạt động : <b> #{statistics.category.inactive}</b>
+          p(class="mt-3") quatity : <b> #{statistics.category.total}</b>
+          p(class="mt-3") active : <b> #{statistics.category.active}</b>
+          p(class="mt-3") inactive : <b> #{statistics.category.inactive}</b>
     .col-6
       .card.mb-4 
-        .card-header Sản phẩm
+        .card-header Product
         .card-body
-          p(class="mt-3") Số lượng : <b> #{statistics.product.total}</b>
-          p(class="mt-3") Hoạt động : <b> #{statistics.product.active}</b>
-          p(class="mt-3") Dừng hoạt động : <b> #{statistics.product.inactive}</b>
+          p(class="mt-3") quantity : <b> #{statistics.product.total}</b>
+          p(class="mt-3") active : <b> #{statistics.product.active}</b>
+          p(class="mt-3") inactive : <b> #{statistics.product.inactive}</b>
     .col-6
       .card.mb-4 
-        .card-header Tài khoản admin
+        .card-header account admin
         .card-body
-          p(class="mt-3") Số lượng : <b> #{statistics.account.total}</b>
-          p(class="mt-3") Hoạt động : <b> #{statistics.account.active}</b>
-          p(class="mt-3") Dừng hoạt động : <b> #{statistics.account.inactive}</b>
+          p(class="mt-3") quantity : <b> #{statistics.account.total}</b>
+          p(class="mt-3") active : <b> #{statistics.account.active}</b>
+          p(class="mt-3") inactive : <b> #{statistics.account.inactive}</b>
     .col-6
       .card.mb-4 
-        .card-header Tài khoản client
+        .card-header account client
         .card-body
-          p(class="mt-3") Số lượng : <b> #{statistics.user.total}</b>
-          p(class="mt-3") Hoạt động : <b> #{statistics.user.active}</b>
-          p(class="mt-3") Dừng hoạt động : <b> #{statistics.user.inactive}</b>
+          p(class="mt-3") quantity : <b> #{statistics.user.total}</b>
+          p(class="mt-3") active : <b> #{statistics.user.active}</b>
+          p(class="mt-3") inactive : <b> #{statistics.user.inactive}</b>

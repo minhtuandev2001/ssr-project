@@ -4,7 +4,7 @@ include ../../mixin/select.pug
 include ../../mixin/notAccess.pug
 block main 
   if (role.permissions.includes('products_create'))
-    h1(class="mb-4") Thêm mới sản phẩm
+    h1(class="mb-4") Create product
     +alertError(4000)
     form(
       action=`${prefixAdmin}/products/create`
@@ -13,7 +13,7 @@ block main
       enctype="multipart/form-data"
     )
       div(class="form-group")
-        label(for="title") Tiêu đề
+        label(for="title") Title
         input(
           type="text"
           class="form-control"
@@ -21,16 +21,16 @@ block main
           name="title"
         )
       div(class="form-group")
-        label(for="product_category_id") Danh mục
+        label(for="product_category_id") Category
         select(
           class="form-control mb-3"
           name="product_category_id"
           categorys-select)
-          option(value="") -- Không chọn -- 
+          option(value="") -- no -- 
           if (categorys)
             +selectTree(categorys)
       div(class="form-group")
-        label(for="desc") Mô tả
+        label(for="desc") Description
         textarea(
           class="form-control textarea-tinyMCE"
           id="desc"
@@ -38,7 +38,7 @@ block main
           rows="5"
           ) 
       div(class="form-group")
-        label(for="price") Gía
+        label(for="price") Price
         input(
           type="number"
           class="form-control"
@@ -48,7 +48,7 @@ block main
           min="0"
         )
       div(class="form-group")
-        label(for="discount") % Giảm giá
+        label(for="discount") % Discount
         input(
           type="number"
           class="form-control"
@@ -58,7 +58,7 @@ block main
           min="0"
         )
       div(class="form-group")
-        label(for="stock") Số lượng
+        label(for="stock") Quantity
         input(
           type="number"
           class="form-control"
@@ -70,7 +70,7 @@ block main
       div(
         upload-image
         class="form-group")
-        label(for="thumbnail") Ảnh
+        label(for="thumbnail") Thumbnail
         input(
           type="file"
           class="form-control-file"
@@ -86,7 +86,7 @@ block main
           )
         button(type="button" button-clear-preview class="button-clear-preview") x
       div(class="form-group")
-        label(for="position") Vị trí
+        label(for="position") Position
         input(
           type="number"
           class="form-control"
@@ -95,7 +95,7 @@ block main
           placeholder="Tự động tăng"
           min="1"
         )
-      p.mb-3 Trạng thái
+      p.mb-3 Status
       div(class="form-group form-check form-check-inline")
         input(
           type="radio"
@@ -105,7 +105,7 @@ block main
           value="active"
           checked
         )
-        label(for="statusActive" class="form-check-label") Hoạt động
+        label(for="statusActive" class="form-check-label") active
       div(class="form-group form-check form-check-inline")
         input(
           type="radio"
@@ -115,8 +115,8 @@ block main
           value="inactive"
           checked
         )
-        label(for="statusInActive" class="form-check-label") Dừng Hoạt động
-      p.mb-3 Sản phẩm nổi bật
+        label(for="statusInActive" class="form-check-label") inactive
+      p.mb-3 Outstanding product
       div(class="form-group form-check form-check-inline")
         input(
           type="radio"
@@ -125,7 +125,7 @@ block main
           name="featuread"
           value="1"
         )
-        label(for="featuread1" class="form-check-label") Có
+        label(for="featuread1" class="form-check-label") yes
       div(class="form-group form-check form-check-inline")
         input(
           type="radio"
@@ -135,12 +135,12 @@ block main
           value="0"
           checked
         )
-        label(for="featuread0" class="form-check-label") Không
+        label(for="featuread0" class="form-check-label") no
       div(class="form-group")
         button(
           type="submit"
-          class="btn btn-primary"
-        ) Tạo mới
+          class="btn btn-primary btn-lg my-3"
+        ) create new
     script(src="/admin/js/products.js")
   else 
     +notAccess()

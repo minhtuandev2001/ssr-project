@@ -1,14 +1,23 @@
 extends ../../layouts/default.pug 
 include ../../mixin/alert.pug
 include ../../mixin/notAccess.pug
+include ../../mixin/search.pug
+include ../../mixin/pagination.pug
 
 block main 
   if (role.permissions.includes('account_view'))
-    h1(class="mb-4") Danh sách tài khoản
+    h1(class="mb-4") Account list
     +alertSuccess(4000)
     +alertError(4000)
+    .card.mb-3
+      .card-header Filters and Search
+      .card-body
+        .row
+          .col-6
+          .col-6
+            +search("keyword",keyword)
     .card.mb-3 
-      .card-header Danh sách
+      .card-header List
       .card-body 
         .row.mb-3
           .col-8 
@@ -16,35 +25,35 @@ block main
             if (role.permissions.includes('account_create'))
               a(
                 href=`${prefixAdmin}/accounts/create`
-                class="btn btn-outline-success"
-              ) + Thêm mới
+                class="btn btn-outline-success btn-lg"
+              ) create
         table(
-          class="table table-hover table-sm table--product"
+          class="table table-hover  table-bordered table--product table-responsive-md"
           checkbox-multi
           )
           thead 
             tr
-              th  
-                input(type="checkbox" name="checkall")
-              th STT
+              //- th  
+              //-   input(type="checkbox" name="checkall")
+              th index
               th avatar
-              th Họ tên
-              th Phân quyền
-              th Email
-              th Trạng thái
-              th Hành động
+              th name
+              th permission
+              th email
+              th status
+              th action
           tbody
             each item,index in accounts
               tr(class="product--item")
-                td 
-                  input(
-                    type="checkbox"
-                    name="id"
-                    value=item.id
-                  )
+                //- td 
+                //-   input(
+                //-     type="checkbox"
+                //-     name="id"
+                //-     value=item.id
+                //-   )
                 td #{(index+1)}
                 td
-                  img(src=item.avatar alt=item.title style="width: 100px; height: 60px; border-radius: 5px")
+                  img(src=item.avatar alt=item.title)
                 td #{item.fullName}
                 td #{item.role_name}
                 td #{item.email}
@@ -58,7 +67,7 @@ block main
                         data-id=item.id
                         button-change-status
                         id=item.id
-                        ) Hoạt động
+                        ) active
                     else 
                       a(
                       href="javascript:;"
@@ -67,22 +76,22 @@ block main
                       data-id=item.id
                       button-change-status
                       id=item.id
-                      ) Không Hoạt động
+                      ) inactive
                 td
                   a(href=`${prefixAdmin}/accounts/detail/${item.id}`
-                  class="btn btn-success btn-lg" 
-                  style="margin-right: 10px") Chi tiết
+                  class="btn btn-success btn-lg" style="margin: 5px; width: 60px;") detail
                   if (role.permissions.includes('account_edit'))
                     a(href=`${prefixAdmin}/accounts/edit/${item.id}`
-                    class="btn btn-warning btn-lg" 
-                    style="margin-right: 10px") Sửa
+                    class="btn btn-warning btn-lg" style="margin: 5px; width: 60px;") edit
                   if (role.permissions.includes('account_delete'))
                     button(
                       type="button" 
                       class="btn btn-danger btn-lg"
                       button-delete
                       data-id=item.id
-                      ) Xóa
+                      style="margin: 5px;"
+                      ) delete
+    +pagination(pagination)
     form(
       action=""
       method="POST"

@@ -1,14 +1,23 @@
 extends ../../layouts/default.pug 
 include ../../mixin/alert.pug
 include ../../mixin/notAccess.pug
+include ../../mixin/search.pug
+include ../../mixin/pagination.pug
 
 block main 
   if (role.permissions.includes('roles_view'))
-    h1(class="mb-4") Nhóm quyền
+    h1(class="mb-4") Rights group
     +alertSuccess(4000)
     +alertError(4000)
+    .card.mb-3
+      .card-header Filters and Search
+      .card-body
+        .row
+          .col-6
+          .col-6
+            +search("keyword",keyword)
     .card.mb-3 
-      .card-header Danh sách
+      .card-header List
       .card-body 
         .row.mb-3
           .col-8 
@@ -16,47 +25,47 @@ block main
             if (role.permissions.includes('roles_create'))
               a(
                 href=`${prefixAdmin}/roles/create`
-                class="btn btn-outline-success"
-              ) + Thêm mới
+                class="btn btn-outline-success btn-lg"
+              ) create
         table(
-          class="table table-hover table-sm table--product"
+          class="table table-hover table-bordered table--product table-responsive-md"
           checkbox-multi
           )
           thead 
             tr
-              th  
-                input(type="checkbox" name="checkall")
-              th STT
-              th Nhóm quyền
-              th Mô tả ngắn
-              th Hành Động
+              //- th  
+              //-   input(type="checkbox" name="checkall")
+              th index
+              th title
+              th description
+              th action
           tbody
             each item,index in roles
               tr(class="product--item")
-                td 
-                  input(
-                    type="checkbox"
-                    name="id"
-                    value=item.id
-                  )
-                td #{(index+1)}
+                //- td 
+                //-   input(
+                //-     type="checkbox"
+                //-     name="id"
+                //-     value=item.id
+                //-   )
+                td #{pagination.limit*(pagination.currentPage -1)+ (index+1)}
                 td #{item.title}
                 td !{item.description}
                 td
                   a(href=`${prefixAdmin}/roles/detail/${item.id}`
-                  class="btn btn-success btn-lg" 
-                  style="margin-right: 10px") Chi tiết
+                  class="btn btn-success btn-lg" style="margin: 5px; width: 60px;") detail
                   if (role.permissions.includes('roles_edit'))
                     a(href=`${prefixAdmin}/roles/edit/${item.id}`
-                    class="btn btn-warning btn-lg" 
-                    style="margin-right: 10px") Sửa
+                    class="btn btn-warning btn-lg" style="margin: 5px; width: 60px;") edit
                   if (role.permissions.includes('roles_delete'))
                     button(
                       type="button" 
                       class="btn btn-danger btn-lg"
                       button-delete
                       data-id=item.id
-                      ) Xóa
+                      style="margin: 5px;"
+                      ) delete
+    +pagination(pagination)
     form(
       action=""
       method="POST"

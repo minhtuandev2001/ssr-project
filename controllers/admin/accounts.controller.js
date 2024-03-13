@@ -3,12 +3,31 @@ const Account = require("../../models/account.model")
 const Role = require("../../models/role.model")
 
 const systemConfig = require("../../config/system")
+
+const searchHelper = require("../../utils/search")
+const paginationHelper = require("../../utils/pagination")
+
 // [GET] /admin/accounts
 const index = async (req, res) => {
   try {
     const find = {
       deleted: false
     }
+    // Tìm kiếm
+    const objectSearch = searchHelper(req.query)
+    if (objectSearch.regex) {
+      find.fullName = objectSearch.regex
+    }
+    // Phân trang 
+    const countAccounts = await Account.countDocuments(find).select("-password -token")
+    const objectPagination = paginationHelper(
+      {
+        currentPage: 1,
+        limit: 4
+      },
+      req.query,
+      countAccounts,
+    )
     const accounts = await Account.find(find).select("-password -token")
     for (const account of accounts) {
       const role = await Role.findOne({
@@ -20,7 +39,9 @@ const index = async (req, res) => {
     res.render("admin/pages/accounts/index", {
       siderTitle: "list account",
       titlePage: "List of accounts",
-      accounts: accounts
+      accounts: accounts,
+      keyword: objectSearch.keyword,
+      pagination: objectPagination
     })
   } catch (error) {
     res.status(500)

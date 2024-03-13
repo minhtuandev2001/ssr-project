@@ -10,11 +10,11 @@ include ../../mixin/notAccess.pug
 
 block main 
   if (role.permissions.includes('products-category_view'))
-    h1 Danh mục sản phẩm
+    h1 Product category
     +alertSuccess(4000)
     +alertError(4000)
     .card.mb-3
-      .card-header Bộ lọc và Tìm kiếm
+      .card-header Filters and Search
       .card-body
         .row
           .col-6
@@ -24,32 +24,32 @@ block main
             +search("keyword",keyword)
     +sortCategory()
     .card.mb-3 
-      .card-header Danh sách
+      .card-header List
         .card-body 
           .row.mb-3
             .col-8 
               if (role.permissions.includes('products-category_edit'))
                 +form-change-multi(`${prefixAdmin}/products-category/change-multi?_method=PATCH`)
-            .col-4  
+            .col-4.text-right 
               if (role.permissions.includes('products-category_create'))
                 a(
                   href=`${prefixAdmin}/products-category/create`
-                  class="btn btn-outline-success"
-                ) + Thêm mới 
+                  class="btn btn-outline-success btn-lg"
+                ) create
           table(
-            class="table table-hover table-sm table--product"
+            class="table table-hover table-bordered table--product table--product table-responsive-md"
             checkbox-multi
             )
             thead 
               tr
                 th  
                   input(type="checkbox" name="checkall")
-                th STT
-                th Hình Ảnh
-                th Tiêu Đề
-                th Vị trí
-                th Trạng Thái
-                th Hành Động
+                th index
+                th thumbnail
+                th title
+                th position
+                th status
+                th action
             tbody
               +tableTree(categorys)
     +pagination(pagination)
