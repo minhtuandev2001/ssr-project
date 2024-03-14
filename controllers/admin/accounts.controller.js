@@ -6,12 +6,22 @@ const systemConfig = require("../../config/system")
 
 const searchHelper = require("../../utils/search")
 const paginationHelper = require("../../utils/pagination")
+const filterStatusHelper = require("../../utils/filterStatus")
 
 // [GET] /admin/accounts
 const index = async (req, res) => {
+  // Bộ lọc 
+  let filterStatus = filterStatusHelper(req.query)
   try {
     const find = {
       deleted: false
+    }
+    if (req.query.status) {
+      find.status = req.query.status
+    }
+    const sort = {}
+    if (req.query.sortKey && req.query.sortValue) {
+      sort[req.query.sortKey] = req.query.sortValue;
     }
     // Tìm kiếm
     const objectSearch = searchHelper(req.query)
@@ -23,12 +33,12 @@ const index = async (req, res) => {
     const objectPagination = paginationHelper(
       {
         currentPage: 1,
-        limit: 4
+        limit: 10
       },
       req.query,
-      countAccounts,
+      countAccounts, 10
     )
-    const accounts = await Account.find(find).select("-password -token")
+    const accounts = await Account.find(find).sort(sort).select("-password -token")
     for (const account of accounts) {
       const role = await Role.findOne({
         _id: account.role_id,
@@ -41,7 +51,8 @@ const index = async (req, res) => {
       titlePage: "List of accounts",
       accounts: accounts,
       keyword: objectSearch.keyword,
-      pagination: objectPagination
+      pagination: objectPagination,
+      filterStatus: filterStatus,
     })
   } catch (error) {
     res.status(500)
@@ -130,10 +141,79 @@ const editPatch = async (req, res) => {
   res.redirect("back")
 }
 
+// [PATCH] /admin/acounts/change-status/:status/:id
+const changeStatus = async (req, res) => {
+  try {
+    const status = req.params.status;
+    const id = req.params.id;
+    const userId = res.locals.user.id;
+    if (id === userId) {
+      req.flash("error", "Cannot change permissions for yourself");
+      res.redirect("back")
+      return;
+    }
+    await Account.updateOne({ _id: id }, { status: status })
+    req.flash("success", "Updated user status successfully")
+  } catch (error) {
+    req.flash("error", "Updating user status failed");
+  }
+  res.redirect("back")
+}
+
+// [DELETE] /admin/delete/:id
+const deleteAccount = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const userId = res.locals.user.id;
+    if (id === userId) {
+      req.flash("error", "Do not delete your own account");
+      res.redirect("back");
+      return;
+    }
+    const accountExist = await Account.findOne({ _id: id, deleted: false })
+    if (!accountExist) {
+      req.flash("error", "This account does not exist");
+      res.redirect("back");
+      return;
+    }
+    await Account.updateOne({ _id: id }, { deleted: true });
+    req.flash("success", "Account deleted successfully");
+  } catch (error) {
+    req.flash("error", "Account deletion failed")
+  }
+  res.redirect("back")
+}
+
+// [GET] /admin/detail/:id
+const detail = async (req, res) => {
+  try {
+    const id = req.params.id;
+    console.log("check id", id)
+    const account = await Account.findOne({ _id: id, deleted: false })
+    if (!account) {
+      req.flash("error", "User account does not exist")
+      res.redirect("back")
+      return;
+    }
+    const role = await Role.findOne({ _id: account.role_id })
+    account.role_title = role.title
+    res.render("admin/pages/accounts/detail.pug", {
+      siderTitle: "list account",
+      titlePage: "Detail account",
+      account: account
+    })
+  } catch (error) {
+    req.flash("error", "Error")
+    res.redirect("back")
+  }
+}
 module.exports = {
   index,
   create,
   createPost,
   edit,
-  editPatch
+  editPatch,
+  changeStatus,
+  deleteAccount,
+  detail
 }

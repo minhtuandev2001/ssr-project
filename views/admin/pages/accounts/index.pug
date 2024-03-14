@@ -3,6 +3,8 @@ include ../../mixin/alert.pug
 include ../../mixin/notAccess.pug
 include ../../mixin/search.pug
 include ../../mixin/pagination.pug
+include ../../mixin/sort.pug
+include ../../mixin/filterStatus.pug
 
 block main 
   if (role.permissions.includes('account_view'))
@@ -14,8 +16,11 @@ block main
       .card-body
         .row
           .col-6
+            div(class="filter__actions")
+              +filterStatus(filterStatus)
           .col-6
             +search("keyword",keyword)
+    +sortAccount()
     .card.mb-3 
       .card-header List
       .card-body 
@@ -29,7 +34,6 @@ block main
               ) create
         table(
           class="table table-hover  table-bordered table--product table-responsive-md"
-          checkbox-multi
           )
           thead 
             tr
@@ -77,6 +81,12 @@ block main
                       button-change-status
                       id=item.id
                       ) inactive
+                    form(
+                      action=""
+                      method="POST"
+                      id="form-change-status"
+                      data-path=`${prefixAdmin}/accounts/change-status`
+                    )
                 td
                   a(href=`${prefixAdmin}/accounts/detail/${item.id}`
                   class="btn btn-success btn-lg" style="margin: 5px; width: 60px;") detail

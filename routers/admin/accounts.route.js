@@ -22,5 +22,7 @@ router.patch(
   uploadCloudMiddleware.uploadCloud,
   accountsValidate.editPath,
   accountsController.editPatch)
-
+router.patch("/change-status/:status/:id", accountsController.changeStatus)
+router.delete("/delete/:id", accountsController.deleteAccount)
+router.get("/detail/:id", accountsController.detail)
 module.exports = router

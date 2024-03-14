@@ -26,10 +26,10 @@ const index = async (req, res) => {
   const countCategory = await ProductCategory.countDocuments(find)
   const objectPagination = paginationHelper({
     currentPage: 1,
-    limit: 4
+    limit: 6
   },
     req.query,
-    countCategory
+    countCategory, 6
   )
   // sort 
   const sort = {}

@@ -95,6 +95,12 @@ block main
                       button-change-status
                       id=item.id
                       ) inactive
+                    form(
+                      action=""
+                      method="POST"
+                      id="form-change-status"
+                      data-path=`${prefixAdmin}/products/change-status`
+                    )
                 td
                   if (item.accountFullName)
                     p #{item.accountFullName}
@@ -124,14 +130,8 @@ block main
     form(
       action=""
       method="POST"
-      id="form-change-status"
-      data-path=`${prefixAdmin}/products/change-status`
-    )
-    form(
-      action=""
-      method="POST"
       id="form-delete-product"
-      data-path=`${prefixAdmin}/products/delete`
+      data-path=`${prefixAdmin}/accounts/delete`
     )
     script(src="/admin/js/products.js") 
   else 

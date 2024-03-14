@@ -1,0 +1,21 @@
+extends ../../layouts/default.pug
+
+block main 
+  if (account.fullName)
+    h1.mb-5 <b>#{account.fullName} </b>
+  if (account.avatar)
+    img(src=account.avatar, alt="" style="width: 200px; height: 200px; object-fit: cover; margin-bottom: 20px")
+  if (account.email)
+    p.mb-5 Email <b>#{account.email} </b>
+  if (account.phone)
+    p.mb-5 Phone : <b>#{account.phone} </b>
+  if (account.role_title)
+    p.mb-5 Permission : <b>#{account.role_title} </b>
+  if (account.status)
+    span Status : 
+    if (account.status === 'active')
+      span(
+        class="badge badge-success badge-lg") active
+    else if(account.status === 'inactive')
+      span(
+        class="badge badge-danger badge-lg") inactive

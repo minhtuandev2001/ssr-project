@@ -41,3 +41,21 @@ mixin sortCategory()
               class="btn btn-danger"
               sort-clear
               ) clear
+mixin sortAccount()
+  .card(class="mb-3")
+    .card-header sort
+    .card-body 
+      .row  
+        .col-5 
+          div(sort)
+            select(
+              class="form-control mb-3"
+              name="sort"
+              sort-select
+            )
+              option(value="fullName-asc") Name A - Z
+              option(value="fullName-desc") Name Z - A
+            button(
+              class="btn btn-danger btn-lg"
+              sort-clear
+              ) clear
